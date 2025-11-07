@@ -14,7 +14,9 @@ import { visit } from "unist-util-visit";
 import { remarkContainers } from "../plugins/remark-containers.js";
 import { remarkCodeGroups } from "../plugins/remark-code-groups.js";
 import { remarkCodeMeta } from "../plugins/remark-code-meta.js";
+import { remarkBadge } from "../plugins/remark-badge.js";
 import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
+import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
 import matter from "gray-matter";
 import { generateSearchIndex } from "./search.js";
 
@@ -95,6 +97,7 @@ async function generatePageHTML(
 	const processor = unified()
 		.use(remarkParse)
 		.use(remarkGfm)
+		.use(remarkBadge) // Process badges in markdown text
 		.use(remarkCodeGroups) // Must run before remarkContainers
 		.use(remarkContainers)
 		.use(remarkCodeMeta)
@@ -103,6 +106,7 @@ async function generatePageHTML(
 		.use(rehypeSlug)
 		.use(rehypeHighlight)
 		.use(rehypeLineHighlight)
+		.use(rehypeExternalLinks) // Add external link icons
 		.use(rehypeStringify, { allowDangerousHtml: true });
 
 	const vfile = await processor.process(markdownContent);

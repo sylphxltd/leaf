@@ -13,7 +13,9 @@ import { visit } from "unist-util-visit";
 import { remarkContainers } from "./remark-containers.js";
 import { remarkCodeGroups } from "./remark-code-groups.js";
 import { remarkCodeMeta } from "./remark-code-meta.js";
+import { remarkBadge } from "./remark-badge.js";
 import { rehypeLineHighlight } from "./rehype-line-highlight.js";
+import { rehypeExternalLinks } from "./rehype-external-links.js";
 
 interface TocItem {
 	text: string;
@@ -68,6 +70,7 @@ export function markdownPlugin(config: ReactPressConfig): Plugin {
 			const processor = unified()
 				.use(remarkParse)
 				.use(remarkGfm)
+				.use(remarkBadge) // Process badges in markdown text
 				.use(remarkCodeGroups) // Must run before remarkContainers
 				.use(remarkContainers)
 				.use(remarkCodeMeta)
@@ -77,6 +80,7 @@ export function markdownPlugin(config: ReactPressConfig): Plugin {
 				.use(rehypeSlug)
 				.use(rehypeHighlight)
 				.use(rehypeLineHighlight)
+				.use(rehypeExternalLinks) // Add external link icons
 				.use(...(config.markdown?.rehypePlugins || []))
 				.use(rehypeStringify, { allowDangerousHtml: true });
 
