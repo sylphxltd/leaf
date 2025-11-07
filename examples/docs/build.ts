@@ -17,6 +17,7 @@ console.log("Building client bundle...");
 // Build the client-side bundle
 await viteBuild({
 	root,
+	mode: "production",
 	plugins: [routesPlugin(resolve(root, "docs")), ...createReactPressPlugin(config)],
 	build: {
 		outDir,

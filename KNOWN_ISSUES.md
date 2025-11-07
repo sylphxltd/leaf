@@ -30,24 +30,46 @@ Replaced `@mdx-js/rollup` with custom markdown processor using `unified` + `rema
 
 ---
 
-## Minor Issue: Production Bundle Runtime
+## Production Bundle Hydration Issue
 
 ### Symptom
-Production bundle includes React's development runtime instead of production runtime.
+Production bundle contains both `jsx()` and `jsxDEV()` calls, causing hydration failure.
 
-**Impact**: Low - builds work, but bundle may be slightly larger and include dev-only code.
+**Impact**: Medium - SSR/SSG works (HTML pre-rendered correctly), but client-side hydration fails.
 
 **Error** (when running built site):
 ```
 TypeError: De.jsxDEV is not a function
 ```
 
-**Status**: Low priority - does not block production builds or SSG.
+**Status**: Under investigation - does NOT block SSG/SSR, HTML content is fully rendered.
 
-**Investigation needed**:
-- Check why `@vitejs/plugin-react` uses dev runtime in production mode
-- Possibly related to React 19 beta compatibility
-- May need explicit jsx configuration or React version downgrade
+**What works**:
+- ✅ Production builds complete successfully
+- ✅ SSG generates HTML with pre-rendered markdown content
+- ✅ Static HTML files contain full content (headings, code blocks, syntax highlighting)
+- ✅ SEO-friendly content is accessible
+
+**What doesn't work**:
+- ❌ Client-side React hydration fails
+- ❌ Interactive features don't work
+
+**Attempted solutions** (all unsuccessful):
+1. Explicit `jsxDev: false` in esbuild config
+2. `process.env.NODE_ENV` definition
+3. `resolve.conditions` for production
+4. `optimizeDeps.esbuildOptions` configuration
+5. `jsxImportSource` explicit configuration
+6. Disabling `fastRefresh`
+
+**Root cause**: `@vitejs/plugin-react` v4.3.3 appears to transform some components with jsxDEV even when building for production. This is a known issue with Vite 6 + React plugin combination.
+
+**Workaround**: Static sites work perfectly for content consumption. Interactive features can be added later or built separately.
+
+**Next steps**:
+- Monitor `@vitejs/plugin-react` updates
+- Consider alternative: Build without React plugin for production (esbuild only)
+- Or: Disable client-side hydration entirely for pure SSG mode
 
 ---
 

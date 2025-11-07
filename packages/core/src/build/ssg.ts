@@ -1,5 +1,13 @@
+import { readFile } from "node:fs/promises";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import rehypeHighlight from "rehype-highlight";
+import rehypeSlug from "rehype-slug";
+import rehypeStringify from "rehype-stringify";
+import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { unified } from "unified";
 import { type Route, generateRoutes } from "../utils/routes.js";
 
 export interface SSGOptions {
@@ -33,9 +41,27 @@ async function generatePageHTML(
 	// Convert route path to file path
 	const htmlPath = routeToHtmlPath(route.path, outDir);
 
-	// For now, use the template as-is
-	// In the future, we can add server-side rendering here
-	const html = template;
+	// Read and process the markdown file
+	const markdownContent = await readFile(route.component, "utf-8");
+
+	// Process markdown with unified (same pipeline as the Vite plugin)
+	const processor = unified()
+		.use(remarkParse)
+		.use(remarkGfm)
+		.use(remarkRehype, { allowDangerousHtml: true })
+		.use(rehypeSlug)
+		.use(rehypeHighlight)
+		.use(rehypeStringify, { allowDangerousHtml: true });
+
+	const vfile = await processor.process(markdownContent);
+	const contentHtml = String(vfile);
+
+	// Inject the rendered content into the template
+	// Replace <div id="root"></div> with pre-rendered content
+	const html = template.replace(
+		'<div id="root"></div>',
+		`<div id="root"><div class="markdown-content">${contentHtml}</div></div>`,
+	);
 
 	// Ensure directory exists
 	await mkdir(dirname(htmlPath), { recursive: true });
