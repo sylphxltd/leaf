@@ -17,6 +17,7 @@
 - ✅ Code groups with tabs (multi-language examples)
 - ✅ One-click code copy buttons
 - ✅ Math equations with KaTeX (LaTeX syntax)
+- ✅ Mermaid diagrams (flowcharts, sequence, gantt)
 
 ### 🎨 **UI & Navigation**
 - ✅ Beautiful default theme with dark mode
@@ -146,7 +147,7 @@ export default defineConfig({
 | **Last Updated** | ✅ Git-based | ✅ Git-based | 🟢 **Parity** |
 | **SSG Build** | ✅ Full pre-render | ✅ Full pre-render | 🟢 **Parity** |
 | **Math Equations** | ✅ KaTeX | ✅ KaTeX | 🟢 **Parity** |
-| **Mermaid Diagrams** | ⏳ Coming soon | ✅ Native | 🟡 **Planned** |
+| **Mermaid Diagrams** | ✅ v11 (CDN) | ✅ Native | 🟢 **Parity** |
 
 ### Tech Stack
 
@@ -262,26 +263,28 @@ All core features completed:
 
 Build stats:
 - 📦 Bundle: 237KB (gzip: 73KB)
-- 🔍 Search index: 58 documents (11KB)
+- 🔍 Search index: 59 documents (11KB)
 - ⚡ Build time: ~400ms
 - 🏗️ 8 static pages generated
 - 🧮 Math: KaTeX rendering
+- 📊 Diagrams: Mermaid v11 (CDN)
 
 ## 🎯 Roadmap
 
-### Phase 1: Core (✅ Complete)
+### Phase 1: Core (✅ Complete - All VitePress Core Features!)
 - ✅ Markdown processing
 - ✅ Code highlighting
 - ✅ Custom containers
 - ✅ Search functionality
 - ✅ SSG build
 - ✅ Math equations (KaTeX)
+- ✅ Mermaid diagrams
 
 ### Phase 2: Enhanced Features (🚧 In Progress)
-- [ ] Mermaid diagrams
-- [ ] Edit link integration
-- [ ] Prev/Next auto-generation from sidebar
+- [ ] Edit link integration (component exists)
+- [ ] Prev/Next auto-generation from sidebar (component exists)
 - [ ] Image lazy loading & optimization
+- [ ] RSS feed generation
 
 ### Phase 3: Developer Experience
 - [ ] I18n support
