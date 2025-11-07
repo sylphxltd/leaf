@@ -19,6 +19,7 @@ import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
 import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
 import matter from "gray-matter";
 import { generateSearchIndex } from "./search.js";
+import { getLastModifiedTime, formatLastModified } from "../utils/git.js";
 
 interface TocItem {
 	text: string;
@@ -65,6 +66,12 @@ async function generatePageHTML(
 
 	// Strip frontmatter before processing
 	const { content: markdownContent } = matter(fileContent);
+
+	// Get last modified time from git
+	const lastModified = await getLastModifiedTime(route.component);
+	const lastModifiedText = lastModified
+		? formatLastModified(lastModified)
+		: null;
 
 	// Extract TOC
 	const toc: TocItem[] = [];
@@ -329,6 +336,36 @@ async function generatePageHTML(
 		</script>
 	`;
 
+	// Last updated script
+	const lastUpdatedScript =
+		lastModifiedText
+			? `
+		<script>
+		(function() {
+			if (typeof window === "undefined") return;
+			const timeElement = document.getElementById("last-updated-time");
+			if (timeElement) {
+				timeElement.textContent = "${lastModifiedText}";
+			}
+		})();
+		</script>
+	`
+			: "";
+
+	// Generate DocFooter HTML with last updated
+	const docFooterHtml = lastModifiedText
+		? `
+		<footer class="doc-footer">
+			<div class="doc-footer-meta">
+				<div class="last-updated">
+					<span class="last-updated-text">Last updated: </span>
+					<time id="last-updated-time">${lastModifiedText}</time>
+				</div>
+			</div>
+		</footer>
+	`
+		: "";
+
 	// Inject the rendered content, TOC, and scripts into the template
 	// Replace <div id="root"></div> with pre-rendered content
 	const html = template.replace(
@@ -338,6 +375,7 @@ async function generatePageHTML(
 				<main class="main-content">
 					<div class="doc-content">
 						<div class="markdown-content">${contentHtml}</div>
+						${docFooterHtml}
 					</div>
 				</main>
 				${tocHtml}
