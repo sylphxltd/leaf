@@ -30,7 +30,7 @@
 
 ### 🔍 **Search & Discovery**
 - ✅ Local fuzzy search with MiniSearch (Cmd/Ctrl+K)
-- ✅ 57 searchable documents indexed
+- ✅ 366 searchable documents indexed
 
 ### ⚡ **Performance**
 - ✅ Static Site Generation (SSG)
@@ -56,6 +56,11 @@ packages/
 
 examples/
   └── docs/           - Example docs site (Sylphx products documentation)
+
+docs/                 - ReactPress official documentation (self-hosted)
+  ├── docs/           - 14 comprehensive documentation pages
+  ├── build.ts        - Static site generation
+  └── dist/           - Built documentation site
 ```
 
 ## Tech Stack
@@ -194,14 +199,39 @@ Default theme featuring:
 - ✅ Last updated timestamps
 - ✅ Beautiful typography and spacing
 
-## Example Site
+## Documentation & Examples
 
-The `examples/docs` directory contains a complete documentation site showcasing:
+### Official Documentation
+
+The `docs/` directory contains **comprehensive ReactPress documentation** built with ReactPress itself:
+
+- **14 pages** of complete documentation
+- **Introduction**: What is ReactPress, Why ReactPress, Getting Started
+- **Guide**: Installation, Configuration, Markdown, Theming
+- **Features**: Code Highlighting, Math Equations, Mermaid Diagrams, Search
+- **API Reference**: Config API, Markdown Plugins API, Theming API
+
+**Build & View:**
+```bash
+cd docs
+bun install
+bun run build        # Generates 14 static pages
+bun run dev          # Development server
+```
+
+**Stats:**
+- 📄 14 static HTML pages
+- 🔍 366 searchable documents
+- 📦 563KB JavaScript (118KB gzipped)
+- ⏱️ ~500ms build time
+
+### Example Site
+
+The `examples/docs` directory contains a demo site showcasing Sylphx products:
 - Zen - State management library
 - Craft - Immutable data manipulation
 - Silk - CSS-in-TypeScript framework
 
-Run the example:
 ```bash
 cd examples/docs
 bun dev
@@ -259,15 +289,17 @@ All core features completed:
 - ✅ Mobile responsive design
 - ✅ Dark mode
 - ✅ Git-based timestamps
+- ✅ **Comprehensive documentation site** (14 pages, self-hosted)
 - ✅ Example documentation site
 
-Build stats:
-- 📦 Bundle: 237KB (gzip: 73KB)
-- 🔍 Search index: 59 documents (11KB)
-- ⚡ Build time: ~400ms
-- 🏗️ 8 static pages generated
+Build stats (official docs):
+- 📦 Bundle: 563KB (gzip: 118KB)
+- 🔍 Search index: 366 documents (94KB)
+- ⚡ Build time: ~500ms
+- 🏗️ 14 static pages generated
 - 🧮 Math: KaTeX rendering
 - 📊 Diagrams: Mermaid v11 (CDN)
+- 📝 Comprehensive documentation for all features
 
 ## 🎯 Roadmap
 
