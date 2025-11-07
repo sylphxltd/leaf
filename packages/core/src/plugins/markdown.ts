@@ -18,6 +18,7 @@ import { remarkCodeMeta } from "./remark-code-meta.js";
 import { remarkBadge } from "./remark-badge.js";
 import { rehypeLineHighlight } from "./rehype-line-highlight.js";
 import { rehypeExternalLinks } from "./rehype-external-links.js";
+import { rehypeMermaid } from "./rehype-mermaid.js";
 
 interface TocItem {
 	text: string;
@@ -82,6 +83,7 @@ export function markdownPlugin(config: ReactPressConfig): Plugin {
 				.use(remarkRehype, { allowDangerousHtml: true })
 				.use(rehypeSlug)
 				.use(rehypeKatex) // Render math equations with KaTeX
+				.use(rehypeMermaid) // Mark mermaid diagrams before highlighting
 				.use(rehypeHighlight)
 				.use(rehypeLineHighlight)
 				.use(rehypeExternalLinks) // Add external link icons

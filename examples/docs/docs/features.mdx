@@ -153,6 +153,48 @@ $$
 \end{aligned}
 $$
 
+## Mermaid Diagrams <Badge type="tip" text="NEW" />
+
+Create beautiful diagrams using Mermaid syntax:
+
+**Flowchart**:
+
+```mermaid
+graph TD
+    A[Start] --> B{Is it working?}
+    B -->|Yes| C[Great!]
+    B -->|No| D[Debug]
+    D --> B
+    C --> E[End]
+```
+
+**Sequence Diagram**:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+    User->>Browser: Click button
+    Browser->>Server: HTTP Request
+    Server-->>Browser: JSON Response
+    Browser-->>User: Display data
+```
+
+**Gantt Chart**:
+
+```mermaid
+gantt
+    title Project Timeline
+    dateFormat  YYYY-MM-DD
+    section Planning
+    Research           :a1, 2024-01-01, 30d
+    Design             :a2, after a1, 20d
+    section Development
+    Implementation     :a3, after a2, 40d
+    Testing            :a4, after a3, 15d
+```
+
 ## What's Next?
 
 Check out the [Getting Started Guide](/guide/) to learn how to use these features in your own documentation.

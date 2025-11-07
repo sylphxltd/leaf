@@ -19,6 +19,7 @@ import { remarkCodeMeta } from "../plugins/remark-code-meta.js";
 import { remarkBadge } from "../plugins/remark-badge.js";
 import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
 import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
+import { rehypeMermaid } from "../plugins/rehype-mermaid.js";
 import matter from "gray-matter";
 import { generateSearchIndex } from "./search.js";
 import { getLastModifiedTime, formatLastModified } from "../utils/git.js";
@@ -115,6 +116,7 @@ async function generatePageHTML(
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeSlug)
 		.use(rehypeKatex) // Render math equations with KaTeX
+		.use(rehypeMermaid) // Mark mermaid diagrams before highlighting
 		.use(rehypeHighlight)
 		.use(rehypeLineHighlight)
 		.use(rehypeExternalLinks) // Add external link icons
@@ -356,6 +358,20 @@ async function generatePageHTML(
 	`
 			: "";
 
+	// Mermaid script - only add if there are mermaid diagrams
+	const hasMermaid = contentHtml.includes('class="mermaid"');
+	const mermaidScript = hasMermaid
+		? `
+		<script type="module">
+		import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+		mermaid.initialize({
+			startOnLoad: true,
+			theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+		});
+		</script>
+	`
+		: "";
+
 	// Generate DocFooter HTML with last updated
 	const docFooterHtml = lastModifiedText
 		? `
@@ -384,7 +400,7 @@ async function generatePageHTML(
 				</main>
 				${tocHtml}
 			</div>
-		</div>${tocScript}${codeCopyScript}${codeGroupsScript}`,
+		</div>${tocScript}${codeCopyScript}${codeGroupsScript}${mermaidScript}`,
 	);
 
 	// Ensure directory exists
