@@ -1,5 +1,5 @@
 {
-	"buildCommand": "bun install && (cd packages/core && bun run build) && (cd packages/theme-default && bun run build) && (cd packages/cli && bun run build) && (cd docs && bun run build.ts)",
+	"buildCommand": "bash build-vercel.sh",
 	"outputDirectory": "docs/dist",
 	"installCommand": "bun install",
 	"framework": null
