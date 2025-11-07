@@ -1,0 +1,90 @@
+# Zen
+
+High-performance state management for modern applications.
+
+## Installation
+
+```bash
+bun add @sylphx/zen
+```
+
+## Features
+
+- 🚀 **1.7-7.3x faster** than Zustand
+- 📦 Only **1.45 kB gzipped**
+- 🔄 Framework agnostic (React, Vue, Solid, Svelte)
+- 💪 Full TypeScript support
+
+## Basic Usage
+
+```typescript
+import { zen } from '@sylphx/zen';
+
+// Create a store
+const count = zen(0);
+
+// Read value
+console.log(count.get()); // 0
+
+// Update value
+count.set(1);
+
+// Subscribe to changes
+count.subscribe((value) => {
+  console.log('Count:', value);
+});
+```
+
+## React Integration
+
+```typescript
+import { zen } from '@sylphx/zen';
+import { useStore } from './hooks/useStore';
+
+const countStore = zen(0);
+
+function Counter() {
+  const count = useStore(countStore);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => countStore.set(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
+
+## Advanced Features
+
+### Computed Values
+
+```typescript
+import { zen, computed } from '@sylphx/zen';
+
+const firstName = zen('John');
+const lastName = zen('Doe');
+
+const fullName = computed([firstName, lastName], (first, last) => {
+  return `${first} ${last}`;
+});
+```
+
+### Nested State
+
+```typescript
+import { deepMap } from '@sylphx/zen';
+
+const state = deepMap({
+  user: {
+    profile: {
+      name: 'Alice'
+    }
+  }
+});
+
+// Path-based updates
+state.setPath(['user', 'profile', 'name'], 'Bob');
+```

@@ -1,0 +1,87 @@
+# Craft
+
+Immutable data manipulation made simple.
+
+## Installation
+
+```bash
+bun add @sylphx/craft
+```
+
+## Features
+
+- 🎯 Simple mutable-like API
+- 🔒 Immutable results
+- 📦 Lightweight
+- 💪 Full TypeScript support
+
+## Basic Usage
+
+```typescript
+import { produce } from '@sylphx/craft';
+
+const original = {
+  name: 'John',
+  age: 30
+};
+
+const updated = produce(original, (draft) => {
+  draft.age = 31;
+});
+
+console.log(original.age); // 30
+console.log(updated.age);  // 31
+```
+
+## React Integration
+
+```typescript
+import { useState } from 'react';
+import { produce } from '@sylphx/craft';
+
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+
+  const toggleTodo = (id) => {
+    setTodos(produce(todos, (draft) => {
+      const todo = draft.find(t => t.id === id);
+      if (todo) {
+        todo.done = !todo.done;
+      }
+    }));
+  };
+
+  return <ul>{/* ... */}</ul>;
+}
+```
+
+## Advanced Features
+
+### Nested Updates
+
+```typescript
+const state = {
+  users: {
+    john: {
+      profile: {
+        theme: 'light'
+      }
+    }
+  }
+};
+
+const newState = produce(state, (draft) => {
+  draft.users.john.profile.theme = 'dark';
+});
+```
+
+### Curried Producers
+
+```typescript
+const incrementAge = produce((draft: User) => {
+  draft.age += 1;
+});
+
+const user = { name: 'Alice', age: 25 };
+const olderUser = incrementAge(user);
+```
