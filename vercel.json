@@ -1,5 +1,5 @@
 {
-	"buildCommand": "pwd && ls -la && bash ./build-vercel.sh",
+	"buildCommand": "cd $(git rev-parse --show-toplevel) && bash ./build-vercel.sh",
 	"outputDirectory": "docs/dist",
 	"installCommand": "bun install",
 	"framework": null
