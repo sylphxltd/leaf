@@ -7,17 +7,6 @@ import type { Plugin } from "vite";
 import type { ReactPressConfig } from "../types.js";
 
 export function createReactPressPlugin(config: ReactPressConfig): Plugin[] {
-	const mdxPlugin = mdx({
-		remarkPlugins: [remarkGfm, ...(config.markdown?.remarkPlugins || [])],
-		rehypePlugins: [
-			rehypeSlug,
-			rehypeHighlight,
-			...(config.markdown?.rehypePlugins || []),
-		],
-		// Use markdown format to avoid strict ESM checks
-		format: 'md',
-	});
-
 	return [
 		{
 			name: "reactpress:config",
@@ -31,8 +20,15 @@ export function createReactPressPlugin(config: ReactPressConfig): Plugin[] {
 		},
 		{
 			enforce: "pre",
-			...(mdxPlugin as any),
+			...mdx({
+				remarkPlugins: [remarkGfm, ...(config.markdown?.remarkPlugins || [])],
+				rehypePlugins: [
+					rehypeSlug,
+					rehypeHighlight,
+					...(config.markdown?.rehypePlugins || []),
+				],
+			}) as any,
 		} as Plugin,
-		...(react() as Plugin[]),
+		...react({ include: /\.(jsx|js|tsx|ts)$/ }),
 	];
 }
