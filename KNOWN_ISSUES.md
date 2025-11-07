@@ -30,6 +30,14 @@ All attempts failed to resolve the issue:
    - Disabling syntax highlighting plugins
    - Result: All configurations still fail
 
+### Critical Finding
+Even Vite builds with `mode: 'development'` trigger the strict ESM validation. The `development: true` MDX option does NOT bypass this check. This means:
+- ❌ `vite build` (production mode) - fails
+- ❌ `vite build --mode development` - also fails
+- ✅ `vite dev` (dev server) - works
+
+**Conclusion**: The issue is triggered by Vite's build process itself, not the build mode.
+
 ### Workaround
 Use the development server for now:
 ```bash
