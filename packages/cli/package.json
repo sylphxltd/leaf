@@ -5,6 +5,11 @@
 	"bin": {
 		"reactpress": "./dist/cli.js"
 	},
+	"exports": {
+		"./commands/build.js": "./dist/commands/build.js",
+		"./commands/dev.js": "./dist/commands/dev.js",
+		"./commands/preview.js": "./dist/commands/preview.js"
+	},
 	"files": ["dist"],
 	"scripts": {
 		"build": "tsc && chmod +x dist/cli.js",

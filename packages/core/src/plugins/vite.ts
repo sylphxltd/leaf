@@ -14,6 +14,8 @@ export function createReactPressPlugin(config: ReactPressConfig): Plugin[] {
 			rehypeHighlight,
 			...(config.markdown?.rehypePlugins || []),
 		],
+		// Use markdown format to avoid strict ESM checks
+		format: 'md',
 	});
 
 	return [
