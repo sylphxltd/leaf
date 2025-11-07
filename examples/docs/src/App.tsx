@@ -1,5 +1,5 @@
-import { Layout } from "@sylphx/reactpress-theme-default";
-import type { TocItem } from "@sylphx/reactpress-theme-default";
+import { Layout } from "@sylphx/leaf-theme-default";
+import type { TocItem } from "@sylphx/leaf-theme-default";
 import { useState, useEffect } from "react";
 import { Route, Routes, useOutletContext } from "react-router-dom";
 import { routes } from "virtual:reactpress/routes";

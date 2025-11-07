@@ -1,9 +1,9 @@
 {
-	"name": "@sylphx/reactpress-cli",
+	"name": "@sylphx/leaf-cli",
 	"version": "0.1.0",
 	"type": "module",
 	"bin": {
-		"reactpress": "./dist/cli.js"
+		"leaf": "./dist/cli.js"
 	},
 	"exports": {
 		"./commands/build.js": "./dist/commands/build.js",
@@ -16,7 +16,7 @@
 		"dev": "bunup 'src/**/*.ts' --watch"
 	},
 	"dependencies": {
-		"@sylphx/reactpress": "workspace:*",
+		"@sylphx/leaf": "workspace:*",
 		"cac": "^6.7.14",
 		"vite": "^6.0.1"
 	},

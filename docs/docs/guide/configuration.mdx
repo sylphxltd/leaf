@@ -1,18 +1,18 @@
 ---
 title: Configuration
-description: How to configure ReactPress for your documentation site
+description: How to configure Leaf for your documentation site
 ---
 
 # Configuration
 
-ReactPress is configured through a `reactpress.config.ts` file in your project root.
+Leaf is configured through a `leaf.config.ts` file in your project root.
 
 ## Config File
 
-Create a `reactpress.config.ts` file:
+Create a `leaf.config.ts` file:
 
 ```typescript
-import { defineConfig } from "@sylphx/reactpress";
+import { defineConfig } from "@sylphx/leaf";
 
 export default defineConfig({
   title: "My Site",
@@ -30,7 +30,7 @@ export default defineConfig({
 ### title
 
 - **Type:** `string`
-- **Default:** `"ReactPress"`
+- **Default:** `"Leaf"`
 
 The title of your site. This appears in the browser tab and site header.
 
@@ -157,10 +157,10 @@ export default defineConfig({
 
 **Auto-Generated Sidebar:**
 
-ReactPress can automatically generate sidebar from your file structure:
+Leaf can automatically generate sidebar from your file structure:
 
 ```typescript
-import { defineConfig, generateSidebar } from "@sylphx/reactpress";
+import { defineConfig, generateSidebar } from "@sylphx/leaf";
 
 const sidebar = await generateSidebar("./docs");
 
@@ -261,10 +261,10 @@ export default defineConfig({
 Here's a complete configuration example:
 
 ```typescript
-import { defineConfig } from "@sylphx/reactpress";
+import { defineConfig } from "@sylphx/leaf";
 
 export default defineConfig({
-  title: "ReactPress",
+  title: "Leaf",
   description: "Modern React documentation framework",
   base: "/",
 
@@ -288,7 +288,7 @@ export default defineConfig({
       {
         text: "Introduction",
         items: [
-          { text: "What is ReactPress?", link: "/" },
+          { text: "What is Leaf?", link: "/" },
           { text: "Getting Started", link: "/getting-started" }
         ]
       },
@@ -316,12 +316,12 @@ export default defineConfig({
 
 ## TypeScript Support
 
-ReactPress provides full TypeScript support with type checking and IntelliSense:
+Leaf provides full TypeScript support with type checking and IntelliSense:
 
 ```typescript
-import { defineConfig, type ReactPressConfig } from "@sylphx/reactpress";
+import { defineConfig, type LeafConfig } from "@sylphx/leaf";
 
-const config: ReactPressConfig = {
+const config: LeafConfig = {
   title: "My Site",
   // TypeScript will provide autocomplete and type checking
 };

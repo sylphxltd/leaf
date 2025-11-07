@@ -5,7 +5,7 @@ order: 2
 
 # Getting Started
 
-Get up and running with ReactPress in minutes.
+Get up and running with Leaf in minutes.
 
 ## Prerequisites
 
@@ -22,8 +22,8 @@ curl -fsSL https://bun.sh/install | bash
 
 ```bash
 # Clone the repo
-git clone https://github.com/sylphxltd/reactpress.git
-cd reactpress
+git clone https://github.com/sylphxltd/leaf.git
+cd leaf
 
 # Install dependencies
 bun install
@@ -36,15 +36,15 @@ bun dev
 ### Option 2: Create New Project (Coming Soon)
 
 ```bash
-# Using create-reactpress CLI
-bunx create-reactpress my-docs
+# Using create-leaf CLI
+bunx create-leaf my-docs
 cd my-docs
 bun dev
 ```
 
 ## Project Structure
 
-A typical ReactPress project looks like this:
+A typical Leaf project looks like this:
 
 ```
 my-docs/
@@ -53,18 +53,18 @@ my-docs/
 │   ├── getting-started.mdx
 │   └── guide/
 │       └── installation.mdx
-├── reactpress.config.ts    # Configuration
+├── leaf.config.ts    # Configuration
 └── package.json
 ```
 
 ## Configuration
 
-Create a `reactpress.config.ts` file:
+Create a `leaf.config.ts` file:
 
 ::: code-group
 
-```ts [reactpress.config.ts]
-import { defineConfig } from '@sylphx/reactpress';
+```ts [leaf.config.ts]
+import { defineConfig } from '@sylphx/leaf';
 
 export default defineConfig({
   title: 'My Documentation',
@@ -87,7 +87,7 @@ export default defineConfig({
 });
 ```
 
-```js [reactpress.config.js]
+```js [leaf.config.js]
 export default {
   title: 'My Documentation',
   description: 'My awesome documentation site',
@@ -187,5 +187,5 @@ bun run build
 ## Getting Help
 
 - 📖 [Documentation](/)
-- 🐛 [Report Issues](https://github.com/sylphxltd/reactpress/issues)
-- 💬 [GitHub Discussions](https://github.com/sylphxltd/reactpress/discussions)
+- 🐛 [Report Issues](https://github.com/sylphxltd/leaf/issues)
+- 💬 [GitHub Discussions](https://github.com/sylphxltd/leaf/discussions)

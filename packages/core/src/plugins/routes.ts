@@ -77,7 +77,7 @@ ${routesList}
 	}
 
 	return {
-		name: "reactpress:routes",
+		name: "leaf:routes",
 		resolveId(id) {
 			if (id === VIRTUAL_MODULE_ID) {
 				return RESOLVED_VIRTUAL_MODULE_ID;

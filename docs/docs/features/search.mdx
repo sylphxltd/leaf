@@ -1,11 +1,11 @@
 ---
 title: Search
-description: Full-text search functionality in ReactPress
+description: Full-text search functionality in Leaf
 ---
 
 # Search
 
-ReactPress includes a powerful, fast, and lightweight full-text search system built into every documentation site.
+Leaf includes a powerful, fast, and lightweight full-text search system built into every documentation site.
 
 ## Features
 
@@ -41,7 +41,7 @@ Simply start typing your query. Results appear instantly:
 
 ## How It Works
 
-ReactPress generates a search index during the build process:
+Leaf generates a search index during the build process:
 
 1. **Indexing** - All markdown content is processed
 2. **Tokenization** - Content is split into searchable terms
@@ -65,7 +65,7 @@ The search index is automatically generated from your content:
     {
       "id": "/guide/installation",
       "title": "Installation",
-      "description": "How to install ReactPress",
+      "description": "How to install Leaf",
       "content": "Full page content...",
       "headings": ["Prerequisites", "Quick Install", ...]
     },
@@ -110,7 +110,7 @@ For a typical documentation site with 100 pages:
 Search is enabled by default. To customize:
 
 ```typescript
-import { defineConfig } from "@sylphx/reactpress";
+import { defineConfig } from "@sylphx/leaf";
 
 export default defineConfig({
   search: {
@@ -182,7 +182,7 @@ Glob patterns for pages to exclude from search.
 
 Search handles typos and close matches:
 
-- `reactpres` → finds "ReactPress"
+- `reactpres` → finds "Leaf"
 - `instalation` → finds "installation"
 - `confguration` → finds "configuration"
 
@@ -205,7 +205,7 @@ Use quotes for exact phrases:
 Search finds words starting with your query:
 
 - `conf` → finds "config", "configuration", "configure"
-- `react` → finds "ReactPress", "React", "reactive"
+- `react` → finds "Leaf", "React", "reactive"
 
 ## Search Tips
 
@@ -238,7 +238,7 @@ Within search dialog:
 You can customize the search interface:
 
 ```typescript
-import { Search } from "@sylphx/reactpress-theme-default";
+import { Search } from "@sylphx/leaf-theme-default";
 
 // Custom search component
 export function CustomSearch() {
@@ -353,9 +353,9 @@ export default defineConfig({
 
 ## Comparison
 
-ReactPress search vs alternatives:
+Leaf search vs alternatives:
 
-| Feature | ReactPress | Algolia | Typesense |
+| Feature | Leaf | Algolia | Typesense |
 |---------|-----------|---------|-----------|
 | **Cost** | Free | $1/month | $0.03/hr |
 | **Setup** | Zero config | API keys | Server setup |

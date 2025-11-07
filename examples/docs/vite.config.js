@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
-import { createReactPressPlugin, routesPlugin } from "@sylphx/reactpress";
+import { createLeafPlugin, routesPlugin } from "@sylphx/leaf";
 import { resolve } from "node:path";
 
 const docsDir = resolve(process.cwd(), "docs");
 
 export default defineConfig({
-	plugins: [routesPlugin(docsDir), ...createReactPressPlugin({
+	plugins: [routesPlugin(docsDir), ...createLeafPlugin({
 		title: "Sylphx Documentation",
 		description: "Documentation for Sylphx tools",
 		base: "/",

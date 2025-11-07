@@ -12,16 +12,16 @@
       },
     },
     "docs": {
-      "name": "reactpress-docs",
+      "name": "leaf-docs",
       "version": "1.0.0",
       "dependencies": {
-        "@sylphx/reactpress-theme-default": "workspace:*",
+        "@sylphx/leaf-theme-default": "workspace:*",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
         "react-router-dom": "^7.0.1",
       },
       "devDependencies": {
-        "@sylphx/reactpress": "workspace:*",
+        "@sylphx/leaf": "workspace:*",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
         "@vitejs/plugin-react": "^4.3.3",
@@ -33,7 +33,7 @@
       "name": "docs-example",
       "version": "0.1.0",
       "dependencies": {
-        "@sylphx/reactpress-theme-default": "workspace:*",
+        "@sylphx/leaf-theme-default": "workspace:*",
         "@sylphx/silk": "^1.1.0",
         "@sylphx/zen": "^1.2.1",
         "react": "^18.3.1",
@@ -42,7 +42,7 @@
       },
       "devDependencies": {
         "@mdx-js/rollup": "^3.1.0",
-        "@sylphx/reactpress": "workspace:*",
+        "@sylphx/leaf": "workspace:*",
         "@types/react": "^18.3.12",
         "@types/react-dom": "^18.3.1",
         "@vitejs/plugin-react": "^4.3.3",
@@ -54,13 +54,13 @@
       },
     },
     "packages/cli": {
-      "name": "@sylphx/reactpress-cli",
+      "name": "@sylphx/leaf-cli",
       "version": "0.1.0",
       "bin": {
-        "reactpress": "./dist/cli.js",
+        "leaf": "./dist/cli.js",
       },
       "dependencies": {
-        "@sylphx/reactpress": "workspace:*",
+        "@sylphx/leaf": "workspace:*",
         "cac": "^6.7.14",
         "vite": "^6.0.1",
       },
@@ -71,7 +71,7 @@
       },
     },
     "packages/core": {
-      "name": "@sylphx/reactpress",
+      "name": "@sylphx/leaf",
       "version": "0.1.0",
       "dependencies": {
         "@vitejs/plugin-react": "^4.3.3",
@@ -105,11 +105,12 @@
       },
     },
     "packages/theme-default": {
-      "name": "@sylphx/reactpress-theme-default",
+      "name": "@sylphx/leaf-theme-default",
       "version": "0.1.0",
       "dependencies": {
         "@sylphx/silk": "^1.1.0",
         "@sylphx/zen": "^1.2.1",
+        "katex": "^0.16.11",
         "minisearch": "^7.2.0",
         "react-router-dom": "^7.0.1",
       },
@@ -438,11 +439,11 @@
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.52.5", "", { "os": "win32", "cpu": "x64" }, "sha512-TAcgQh2sSkykPRWLrdyy2AiceMckNf5loITqXxFI5VuQjS5tSuw3WlwdN8qv8vzjLAUTvYaH/mVjSFpbkFbpTg=="],
 
-    "@sylphx/reactpress": ["@sylphx/reactpress@workspace:packages/core"],
+    "@sylphx/leaf": ["@sylphx/leaf@workspace:packages/core"],
 
-    "@sylphx/reactpress-cli": ["@sylphx/reactpress-cli@workspace:packages/cli"],
+    "@sylphx/leaf-cli": ["@sylphx/leaf-cli@workspace:packages/cli"],
 
-    "@sylphx/reactpress-theme-default": ["@sylphx/reactpress-theme-default@workspace:packages/theme-default"],
+    "@sylphx/leaf-theme-default": ["@sylphx/leaf-theme-default@workspace:packages/theme-default"],
 
     "@sylphx/silk": ["@sylphx/silk@1.1.0", "", {}, "sha512-t0orj5aC5NVa7W2Ld5YxaZbHDIgFjLNWwE+efzhM15LxNIHfBSDmL3kxrtwyn1zYhxyHcfBZ2D+IZIAKBDCiYA=="],
 
@@ -876,6 +877,8 @@
 
     "layout-base": ["layout-base@1.0.2", "", {}, "sha512-8h2oVEZNktL4BH2JCOI90iD1yXwL6iNW7KcCKT2QZgQJR2vbqDsldCTPRU9NifTCqHZci57XvQQ15YTu+sTYPg=="],
 
+    "leaf-docs": ["leaf-docs@workspace:docs"],
+
     "lightningcss": ["lightningcss@1.30.2", "", { "dependencies": { "detect-libc": "^2.0.3" }, "optionalDependencies": { "lightningcss-android-arm64": "1.30.2", "lightningcss-darwin-arm64": "1.30.2", "lightningcss-darwin-x64": "1.30.2", "lightningcss-freebsd-x64": "1.30.2", "lightningcss-linux-arm-gnueabihf": "1.30.2", "lightningcss-linux-arm64-gnu": "1.30.2", "lightningcss-linux-arm64-musl": "1.30.2", "lightningcss-linux-x64-gnu": "1.30.2", "lightningcss-linux-x64-musl": "1.30.2", "lightningcss-win32-arm64-msvc": "1.30.2", "lightningcss-win32-x64-msvc": "1.30.2" } }, "sha512-utfs7Pr5uJyyvDETitgsaqSyjCb2qNRAtuqUeWIAKztsOYdcACf2KtARYXg2pSvhkt+9NfoaNY7fxjl6nuMjIQ=="],
 
     "lightningcss-android-arm64": ["lightningcss-android-arm64@1.30.2", "", { "os": "android", "cpu": "arm64" }, "sha512-BH9sEdOCahSgmkVhBLeU7Hc9DWeZ1Eb6wNS6Da8igvUwAe0sqROHddIlvU06q3WyXVEOYDZ6ykBZQnjTbmo4+A=="],
@@ -1091,8 +1094,6 @@
     "react-router": ["react-router@7.9.5", "", { "dependencies": { "cookie": "^1.0.1", "set-cookie-parser": "^2.6.0" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" }, "optionalPeers": ["react-dom"] }, "sha512-JmxqrnBZ6E9hWmf02jzNn9Jm3UqyeimyiwzD69NjxGySG6lIz/1LVPsoTCwN7NBX2XjCEa1LIX5EMz1j2b6u6A=="],
 
     "react-router-dom": ["react-router-dom@7.9.5", "", { "dependencies": { "react-router": "7.9.5" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-mkEmq/K8tKN63Ae2M7Xgz3c9l9YNbY+NHH6NNeUmLA3kDkhKXRsNb/ZpxaEunvGo2/3YXdk5EJU3Hxp3ocaBPw=="],
-
-    "reactpress-docs": ["reactpress-docs@workspace:docs"],
 
     "readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
 

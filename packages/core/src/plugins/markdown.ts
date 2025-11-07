@@ -9,7 +9,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import type { Plugin } from "vite";
-import type { ReactPressConfig } from "../types.js";
+import type { LeafConfig } from "../types.js";
 import type { Root } from "mdast";
 import { visit } from "unist-util-visit";
 import { remarkContainers } from "./remark-containers.js";
@@ -26,9 +26,9 @@ interface TocItem {
 	level: number;
 }
 
-export function markdownPlugin(config: ReactPressConfig): Plugin {
+export function markdownPlugin(config: LeafConfig): Plugin {
 	return {
-		name: "reactpress:markdown",
+		name: "leaf:markdown",
 		enforce: "pre",
 
 		async load(id: string) {

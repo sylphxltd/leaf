@@ -1,18 +1,18 @@
 ---
 title: Config API
-description: Complete API reference for ReactPress configuration
+description: Complete API reference for Leaf configuration
 ---
 
 # Config API
 
-Complete reference for ReactPress configuration options.
+Complete reference for Leaf configuration options.
 
 ## defineConfig
 
 Helper function for type-safe configuration:
 
 ```typescript
-import { defineConfig } from "@sylphx/reactpress";
+import { defineConfig } from "@sylphx/leaf";
 
 export default defineConfig({
   // Your config here
@@ -22,15 +22,15 @@ export default defineConfig({
 **Type Signature:**
 
 ```typescript
-function defineConfig(config: ReactPressConfig): ReactPressConfig;
+function defineConfig(config: LeafConfig): LeafConfig;
 ```
 
-## ReactPressConfig
+## LeafConfig
 
 Main configuration interface:
 
 ```typescript
-interface ReactPressConfig {
+interface LeafConfig {
   // Site metadata
   title?: string;
   description?: string;
@@ -60,7 +60,7 @@ interface ReactPressConfig {
 ### title
 
 - **Type:** `string`
-- **Default:** `"ReactPress"`
+- **Default:** `"Leaf"`
 
 Site title used in page titles and metadata.
 
@@ -471,7 +471,7 @@ Glob patterns for pages to exclude from search.
 Load and resolve configuration:
 
 ```typescript
-import { loadConfig } from "@sylphx/reactpress";
+import { loadConfig } from "@sylphx/leaf";
 
 const config = await loadConfig(process.cwd());
 ```
@@ -479,7 +479,7 @@ const config = await loadConfig(process.cwd());
 **Type Signature:**
 
 ```typescript
-function loadConfig(root: string): Promise<ReactPressConfig>;
+function loadConfig(root: string): Promise<LeafConfig>;
 ```
 
 ### generateSidebar
@@ -487,7 +487,7 @@ function loadConfig(root: string): Promise<ReactPressConfig>;
 Auto-generate sidebar from file structure:
 
 ```typescript
-import { generateSidebar } from "@sylphx/reactpress";
+import { generateSidebar } from "@sylphx/leaf";
 
 const sidebar = await generateSidebar("./docs");
 ```
@@ -503,7 +503,7 @@ function generateSidebar(docsDir: string): Promise<SidebarItem[]>;
 Type-safe config with custom theme:
 
 ```typescript
-import { defineConfigWithTheme } from "@sylphx/reactpress";
+import { defineConfigWithTheme } from "@sylphx/leaf";
 
 interface CustomTheme {
   accentColor?: string;
@@ -524,7 +524,7 @@ Create custom plugins:
 ```typescript
 interface Plugin {
   name: string;
-  setup?: (config: ReactPressConfig) => void;
+  setup?: (config: LeafConfig) => void;
   transform?: (code: string, id: string) => string | null;
 }
 ```
@@ -572,7 +572,7 @@ export default defineConfig({
 Full TypeScript support with types:
 
 ```typescript
-import type { ReactPressConfig, ThemeConfig } from "@sylphx/reactpress";
+import type { LeafConfig, ThemeConfig } from "@sylphx/leaf";
 
 const themeConfig: ThemeConfig = {
   nav: [
@@ -580,7 +580,7 @@ const themeConfig: ThemeConfig = {
   ]
 };
 
-const config: ReactPressConfig = {
+const config: LeafConfig = {
   title: "My Site",
   theme: themeConfig
 };

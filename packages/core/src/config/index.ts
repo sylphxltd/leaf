@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
-import type { ReactPressConfig } from "../types.js";
+import type { LeafConfig } from "../types.js";
 
-export async function loadConfig(root: string): Promise<ReactPressConfig> {
+export async function loadConfig(root: string): Promise<LeafConfig> {
 	const configPath = resolve(root, "reactpress.config.ts");
 
 	try {
@@ -17,6 +17,6 @@ export async function loadConfig(root: string): Promise<ReactPressConfig> {
 	}
 }
 
-export function defineConfig(config: ReactPressConfig): ReactPressConfig {
+export function defineConfig(config: LeafConfig): LeafConfig {
 	return config;
 }

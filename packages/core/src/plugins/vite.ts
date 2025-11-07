@@ -1,17 +1,17 @@
 import react from "@vitejs/plugin-react";
 import type { Plugin } from "vite";
 import { markdownPlugin } from "./markdown.js";
-import type { ReactPressConfig } from "../types.js";
+import type { LeafConfig } from "../types.js";
 
-export function createReactPressPlugin(config: ReactPressConfig): Plugin[] {
+export function createLeafPlugin(config: LeafConfig): Plugin[] {
 	return [
 		{
-			name: "reactpress:config",
+			name: "leaf:config",
 			config(_, { mode }) {
 				const isProduction = mode === "production";
 				return {
 					define: {
-						__REACTPRESS_CONFIG__: JSON.stringify(config),
+						__LEAF_CONFIG__: JSON.stringify(config),
 						"process.env.NODE_ENV": JSON.stringify(mode),
 					},
 					esbuild: {

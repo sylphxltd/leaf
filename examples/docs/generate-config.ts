@@ -1,4 +1,4 @@
-import { generateSidebar } from "@sylphx/reactpress";
+import { generateSidebar } from "@sylphx/leaf";
 import { writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 

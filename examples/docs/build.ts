@@ -1,9 +1,9 @@
 import {
-	createReactPressPlugin,
+	createLeafPlugin,
 	generateStaticSite,
 	loadConfig,
 	routesPlugin,
-} from "@sylphx/reactpress";
+} from "@sylphx/leaf";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { build as viteBuild } from "vite";
@@ -18,7 +18,7 @@ console.log("Building client bundle...");
 await viteBuild({
 	root,
 	mode: "production",
-	plugins: [routesPlugin(resolve(root, "docs")), ...createReactPressPlugin(config)],
+	plugins: [routesPlugin(resolve(root, "docs")), ...createLeafPlugin(config)],
 	build: {
 		outDir,
 		emptyOutDir: true,

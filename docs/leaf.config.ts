@@ -1,7 +1,7 @@
-import { defineConfig } from "@sylphx/reactpress";
+import { defineConfig } from "@sylphx/leaf";
 
 export default defineConfig({
-	title: "ReactPress",
+	title: "Leaf",
 	description:
 		"A modern React-based documentation framework with VitePress parity",
 	theme: {
@@ -11,15 +11,15 @@ export default defineConfig({
 			{ text: "Examples", link: "/examples" },
 			{
 				text: "GitHub",
-				link: "https://github.com/sylphxltd/reactpress",
+				link: "https://github.com/sylphxltd/leaf",
 			},
 		],
 		sidebar: [
 			{
 				text: "Introduction",
 				items: [
-					{ text: "What is ReactPress?", link: "/" },
-					{ text: "Why ReactPress?", link: "/why" },
+					{ text: "What is Leaf?", link: "/" },
+					{ text: "Why Leaf?", link: "/why" },
 					{ text: "Getting Started", link: "/getting-started" },
 				],
 			},

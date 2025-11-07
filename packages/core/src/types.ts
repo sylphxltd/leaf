@@ -1,4 +1,4 @@
-export interface ReactPressConfig {
+export interface LeafConfig {
 	/** Site title */
 	title?: string;
 	/** Site description */

@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { createReactPressPlugin, loadConfig } from "@sylphx/reactpress";
+import { createReactPressPlugin, loadConfig } from "@sylphx/leaf";
 import { createServer } from "vite";
 
 export async function dev(root: string = process.cwd()) {

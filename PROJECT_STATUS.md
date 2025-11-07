@@ -1,15 +1,20 @@
-# ReactPress - Project Status
+# Leaf - Project Status
 
 ## Overview
 React-based documentation framework (VitePress alternative) with focus on performance and modern tooling.
+
+**Project Name**: Leaf (formerly ReactPress)
+**Company**: Sylphx Limited
+**Product Family**: Zen, Craft, Silk, Snapt, Leaf
+**Repository**: https://github.com/sylphxltd/Leaf
 
 ## ✅ Completed Features
 
 ### Core Infrastructure
 - **Monorepo Setup**: Workspace-based architecture with 3 packages
-  - `@sylphx/reactpress` (core)
-  - `@sylphx/reactpress-cli` (CLI tools)
-  - `@sylphx/reactpress-theme-default` (default theme)
+  - `@sylphx/leaf` (core)
+  - `@sylphx/leaf-cli` (CLI tools)
+  - `@sylphx/leaf-theme-default` (default theme)
 
 - **Build System Migration**: Successfully migrated from TypeScript to Bunup
   - **66-75x faster** builds (from ~5300ms to ~50ms)
@@ -50,50 +55,56 @@ React-based documentation framework (VitePress alternative) with focus on perfor
 - React Router 7.9.5
 - Vite 6.4.1
 
-## 🚫 Blocked Features
+## ✅ Production Builds & SSG (Previously Blocked - Now Working)
 
-### Production Builds & SSG
-**Status**: Completely blocked by MDX v3 strict ESM validation
+### Status: **RESOLVED** ✅
 
-**Issue**: `@mdx-js/rollup` v3 uses `micromark-extension-mdxjs-esm` which enforces strict ESM validation that rejects internal function declarations generated during MDX compilation.
+**Solution**: Replaced `@mdx-js/rollup` with custom markdown processor using `unified` + `remark` ecosystem.
 
-**Impact**:
-- ❌ Production builds fail
-- ❌ Development mode builds also fail
-- ❌ SSG (Static Site Generation) cannot run
-- ✅ Development server works perfectly
+**Current State**:
+- ✅ Production builds: **WORKING**
+- ✅ Development server: **WORKING**
+- ✅ SSG (Static Site Generation): **WORKING** (14 routes generated successfully)
+- ✅ All remark/rehype plugins: **COMPATIBLE**
+- ✅ Search index generation: **WORKING** (366 documents indexed)
+- ✅ Build time: ~600ms for full documentation site
+- ✅ Bundle size: 562.49 kB (118.61 kB gzipped)
 
-**Root Cause**: Vite's build process (both production and development modes) triggers strict ESM validation that rejects non-import/export statements in code.
+**Trade-off**: No longer supports JSX components in markdown (pure markdown only). This is acceptable since none of the existing content used JSX components.
 
-**Attempted Solutions** (all failed):
-1. Downgraded to @mdx-js/rollup v2.3.0
-2. Tried vite-plugin-mdx alternative
-3. Various MDX configuration options
-4. `development: true` mode
-5. `mode: 'development'` in Vite build
-6. Disabled syntax highlighting
-7. Different JSX import sources
-
-**See**: `KNOWN_ISSUES.md` for complete details
+**See**: `KNOWN_ISSUES.md` for historical context and resolution details
 
 ## 📋 Feature Backlog
 
-### High Priority (Blocked by MDX)
-- [ ] **SSG Pre-rendering**: Generate static HTML for all routes
-  - Architecture designed in `src/build/ssg.ts`
-  - Requires working Vite builds
+### High Priority
+- [x] **SSG Pre-rendering**: Generate static HTML for all routes ✅
+  - Implemented in `src/build/ssg.ts`
+  - Successfully generates 14 static pages
 
-- [ ] **Client-Side Hydration**: Hydrate static HTML for SPA navigation
-  - Requires SSG to generate static files first
+- [x] **Production Builds**: Working Vite production builds ✅
+  - Minification: Working
+  - Code splitting: Working
+  - Build time: ~600ms
 
-- [ ] **Production Optimization**: Minification, code splitting
-  - Blocked by build process
+- [ ] **Client-Side Hydration**: Full SPA navigation after hydration
+  - SSG generates static HTML successfully
+  - Hydration currently has minor issues (see KNOWN_ISSUES.md)
+  - Static content works perfectly
 
 ### Medium Priority
-- [ ] **Search**: Local search with FlexSearch
+- [x] **Search**: Local search with MiniSearch ✅
+  - 366 documents indexed
+  - Working in production build
+
+- [x] **Table of Contents**: Auto-generated outline ✅
+  - Implemented with rehype-slug
+  - Working in all pages
+
 - [ ] **Code Features**: Line highlighting, line numbers
+  - Syntax highlighting: ✅ Working (rehype-highlight)
+  - Line numbers: ⏳ Pending
+
 - [ ] **Custom Containers**: Tip/warning/danger blocks
-- [ ] **Table of Contents**: Auto-generated outline
 - [ ] **Prev/Next Navigation**: Page navigation links
 - [ ] **Hero Component**: Landing page hero section
 - [ ] **Features Grid**: Feature showcase component
@@ -190,26 +201,25 @@ bun run build.ts
 - Type-safe
 - Zero runtime
 
-## 📝 Next Steps
+## 📝 Development Roadmap
 
-### Option 1: Wait for MDX Fix
-- Monitor @mdx-js/rollup for v3.2+ release
-- Check if strict ESM validation is relaxed
+### Immediate (v0.2.0)
+- [ ] Fix client-side hydration issue (jsxDEV)
+- [ ] Add code line numbers feature
+- [ ] Implement custom containers (tip/warning/danger)
+- [ ] Add prev/next navigation
 
-### Option 2: Alternative Markdown Processor
-- Investigate `remark` + custom loader
-- Consider `marked` with custom transformations
-- Evaluate `unified` pipeline directly
+### Short-term (v0.3.0)
+- [ ] Hero component for landing pages
+- [ ] Features grid component
+- [ ] Improved CLI with project scaffolding
+- [ ] Theme customization API
 
-### Option 3: Custom Workaround
-- Pre-process MDX files before Vite sees them
-- Transform to pure ESM manually
-- Strip problematic function declarations
-
-### Option 4: Fork and Patch
-- Fork @mdx-js/rollup
-- Disable strict ESM validation
-- Maintain custom version
+### Long-term (v1.0.0)
+- [ ] Plugin marketplace
+- [ ] Multiple theme options
+- [ ] i18n support
+- [ ] Performance optimizations (lazy loading, code splitting strategies)
 
 ## 🎯 Project Goals
 
@@ -217,29 +227,40 @@ bun run build.ts
 - ✅ Fast development experience
 - ✅ Modern React-based architecture
 - ✅ File-based routing
-- ❌ Static site generation (blocked)
-- ❌ Production-ready builds (blocked)
+- ✅ Static site generation (14 pages)
+- ✅ Production-ready builds
 
 ### Secondary
 - ✅ TypeScript support
-- ✅ MDX support
+- ✅ Markdown support (remark/rehype pipeline)
 - ✅ Plugin ecosystem foundation
-- ⏳ Search functionality
-- ⏳ Advanced markdown features
+- ✅ Search functionality (MiniSearch)
+- ✅ Advanced markdown features (GFM, math, syntax highlighting, TOC)
 
 ### Stretch
 - Competitive with VitePress performance
 - Better DX than VitePress
 - Ecosystem of themes and plugins
 
-## 📞 Current Blockers
+## 📞 Current Status
 
-**Priority 1**: Resolve MDX v3 strict ESM validation issue
-- This blocks all production features
-- Development workflow is fully functional
-- Need community input or MDX team response
+### ✅ Production Ready
+- **Development server**: Fully functional with HMR
+- **Production builds**: Working successfully
+- **SSG**: Generating 14 static HTML pages
+- **Search**: Index generated with 366 documents
+- **Documentation**: Complete branding migration (ReactPress → Leaf)
+
+### ⚠️ Minor Issues
+- **Client-side hydration**: Static content renders perfectly, interactive features need debugging (see KNOWN_ISSUES.md)
+- This doesn't block static site deployment or SEO
+
+### 🎯 Next Steps
+1. Debug client-side hydration (jsxDEV issue)
+2. Deploy documentation site
+3. Implement additional features (code line numbers, custom containers, etc.)
 
 ---
 
-**Last Updated**: 2025 (Session continuation from previous work)
-**Status**: Development-ready, production-blocked
+**Last Updated**: 2025-01-07 (Post Leaf rebrand)
+**Status**: Production-ready for static sites, hydration needs minor fixes

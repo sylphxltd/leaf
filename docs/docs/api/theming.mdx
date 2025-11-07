@@ -1,15 +1,15 @@
 ---
 title: Theming API
-description: API reference for creating custom ReactPress themes
+description: API reference for creating custom Leaf themes
 ---
 
 # Theming API
 
-Complete API reference for creating and customizing ReactPress themes.
+Complete API reference for creating and customizing Leaf themes.
 
 ## Theme Structure
 
-A ReactPress theme package structure:
+A Leaf theme package structure:
 
 ```
 my-theme/
@@ -37,7 +37,7 @@ The main layout component that wraps all pages.
 
 ```typescript
 interface LayoutProps {
-  config: ReactPressConfig;
+  config: LeafConfig;
   children?: React.ReactNode;
 }
 
@@ -506,13 +506,13 @@ Define theme variables:
 
 ### useConfig
 
-Access ReactPress config:
+Access Leaf config:
 
 ```typescript
 import { useOutletContext } from "react-router-dom";
 
 function MyComponent() {
-  const config = useOutletContext<ReactPressConfig>();
+  const config = useOutletContext<LeafConfig>();
 
   return <div>{config.title}</div>;
 }
@@ -581,7 +581,7 @@ export function useActiveHash(headings: TocItem[]): string {
 
 ```json
 {
-  "name": "@myorg/reactpress-theme-custom",
+  "name": "@myorg/leaf-theme-custom",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -618,9 +618,9 @@ export type { LayoutProps, HeaderProps, SidebarProps, TOCProps, SearchProps };
 
 Full example themes:
 
-- [Default Theme](https://github.com/sylphxltd/reactpress/tree/main/packages/theme-default)
-- [Minimal Theme](https://github.com/sylphxltd/reactpress-theme-minimal)
-- [Blog Theme](https://github.com/sylphxltd/reactpress-theme-blog)
+- [Default Theme](https://github.com/sylphxltd/leaf/tree/main/packages/theme-default)
+- [Minimal Theme](https://github.com/sylphxltd/leaf-theme-minimal)
+- [Blog Theme](https://github.com/sylphxltd/leaf-theme-blog)
 
 ## Next Steps
 

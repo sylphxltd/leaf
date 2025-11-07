@@ -1,8 +1,8 @@
-# ReactPress
+# Leaf
 
 > A React-based documentation framework. VitePress parity achieved! ✨
 
-**ReactPress** is a fast, modern documentation framework built with React that achieves **100% feature parity with VitePress**. Zero-config, blazingly fast, and beautifully designed.
+**Leaf** is a fast, modern documentation framework built with React that achieves **100% feature parity with VitePress**. Zero-config, blazingly fast, and beautifully designed.
 
 ## ✨ Features
 
@@ -52,12 +52,12 @@ packages/
   ├── core/           - Core framework logic
   ├── cli/            - CLI tools
   ├── theme-default/  - Default theme
-  └── create-reactpress/ - Scaffolding tool
+  └── create-leaf/ - Scaffolding tool
 
 examples/
   └── docs/           - Example docs site (Sylphx products documentation)
 
-docs/                 - ReactPress official documentation (self-hosted)
+docs/                 - Leaf official documentation (self-hosted)
   ├── docs/           - 14 comprehensive documentation pages
   ├── build.ts        - Static site generation
   └── dist/           - Built documentation site
@@ -92,28 +92,28 @@ bun run build
 bun run lint:fix
 ```
 
-### Using ReactPress
+### Using Leaf
 
 ```bash
 # Install CLI
-bun add -D @sylphx/reactpress-cli
+bun add -D @sylphx/leaf-cli
 
 # Start development server
-bunx reactpress dev
+bunx leaf dev
 
 # Build for production
-bunx reactpress build
+bunx leaf build
 
 # Preview build
-bunx reactpress preview
+bunx leaf preview
 ```
 
 ## Configuration
 
-Create `reactpress.config.ts`:
+Create `leaf.config.ts`:
 
 ```typescript
-import { defineConfig } from '@sylphx/reactpress';
+import { defineConfig } from '@sylphx/leaf';
 
 export default defineConfig({
   title: 'My Docs',
@@ -135,7 +135,7 @@ export default defineConfig({
 
 ### Core Features
 
-| Feature | ReactPress | VitePress | Status |
+| Feature | Leaf | VitePress | Status |
 |---------|-----------|-----------|--------|
 | **Markdown Processing** | ✅ Remark + Rehype | ✅ Markdown-it | 🟢 **Parity** |
 | **Code Highlighting** | ✅ Highlight.js | ✅ Shiki | 🟢 **Parity** |
@@ -156,7 +156,7 @@ export default defineConfig({
 
 ### Tech Stack
 
-| Aspect | ReactPress | VitePress |
+| Aspect | Leaf | VitePress |
 |--------|-----------|-----------|
 | **Framework** | React 18 | Vue 3 |
 | **Runtime** | Bun | Node.js |
@@ -169,7 +169,7 @@ export default defineConfig({
 
 ## Core Packages
 
-### @sylphx/reactpress
+### @sylphx/leaf
 
 Core framework providing:
 - Configuration management
@@ -177,14 +177,14 @@ Core framework providing:
 - Vite plugin integration
 - Type definitions
 
-### @sylphx/reactpress-cli
+### @sylphx/leaf-cli
 
 Command-line interface:
-- `reactpress dev` - Start development server
-- `reactpress build` - Build for production
-- `reactpress preview` - Preview production build
+- `leaf dev` - Start development server
+- `leaf build` - Build for production
+- `leaf preview` - Preview production build
 
-### @sylphx/reactpress-theme-default
+### @sylphx/leaf-theme-default
 
 Default theme featuring:
 - ✅ Responsive layout with mobile hamburger menu
@@ -203,10 +203,10 @@ Default theme featuring:
 
 ### Official Documentation
 
-The `docs/` directory contains **comprehensive ReactPress documentation** built with ReactPress itself:
+The `docs/` directory contains **comprehensive Leaf documentation** built with Leaf itself:
 
 - **14 pages** of complete documentation
-- **Introduction**: What is ReactPress, Why ReactPress, Getting Started
+- **Introduction**: What is Leaf, Why Leaf, Getting Started
 - **Guide**: Installation, Configuration, Markdown, Theming
 - **Features**: Code Highlighting, Math Equations, Mermaid Diagrams, Search
 - **API Reference**: Config API, Markdown Plugins API, Theming API
@@ -330,7 +330,7 @@ Build stats (official docs):
 - [ ] Migration guide from VitePress
 - [ ] Performance benchmarks
 
-## Why ReactPress over VitePress?
+## Why Leaf over VitePress?
 
 1. **React Ecosystem**: Access to the entire React ecosystem and component libraries
 2. **Modern Runtime**: Bun offers faster installs and execution
@@ -358,6 +358,6 @@ MIT
 
 ## Getting Help
 
-- GitHub Issues: [Report bugs or request features](https://github.com/sylphxltd/reactpress/issues)
+- GitHub Issues: [Report bugs or request features](https://github.com/sylphxltd/leaf/issues)
 - GitHub Org: [@sylphxltd](https://github.com/sylphxltd)
 - npm Org: [@sylphx](https://www.npmjs.com/org/sylphx)

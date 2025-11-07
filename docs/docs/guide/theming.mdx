@@ -1,18 +1,18 @@
 ---
 title: Theming
-description: Customize the look and feel of your ReactPress site
+description: Customize the look and feel of your Leaf site
 ---
 
 # Theming
 
-ReactPress provides a flexible theming system with built-in dark mode support and full customization capabilities.
+Leaf provides a flexible theming system with built-in dark mode support and full customization capabilities.
 
 ## Default Theme
 
-ReactPress comes with a beautiful default theme that works out of the box:
+Leaf comes with a beautiful default theme that works out of the box:
 
 ```typescript
-import "@sylphx/reactpress-theme-default/style.css";
+import "@sylphx/leaf-theme-default/style.css";
 ```
 
 The default theme includes:
@@ -144,7 +144,7 @@ Create a custom CSS file and override variables:
 Import it after the theme CSS:
 
 ```typescript
-import "@sylphx/reactpress-theme-default/style.css";
+import "@sylphx/leaf-theme-default/style.css";
 import "./custom.css";
 ```
 
@@ -154,7 +154,7 @@ Target specific components with CSS:
 
 ```css
 /* Customize the header */
-.reactpress-header {
+.leaf-header {
   border-bottom: 2px solid var(--color-primary);
 }
 
@@ -374,4 +374,4 @@ Create component variants using CSS:
 ## Next Steps
 
 - [API Reference](/api/theming)
-- [View Example Themes](https://github.com/sylphxltd/reactpress/tree/main/examples/themes)
+- [View Example Themes](https://github.com/sylphxltd/leaf/tree/main/examples/themes)
