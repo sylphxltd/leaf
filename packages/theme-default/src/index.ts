@@ -4,5 +4,8 @@ export { Sidebar } from "./components/Sidebar";
 export { ThemeToggle } from "./components/ThemeToggle";
 export { TableOfContents } from "./components/TableOfContents";
 export type { TocItem } from "./components/TableOfContents";
+export { SidebarToggle } from "./components/SidebarToggle";
+export { DocFooter } from "./components/DocFooter";
+export type { DocFooterProps } from "./components/DocFooter";
 export { useStore } from "./hooks/useStore";
 export { themeStore, toggleTheme } from "./store/theme";

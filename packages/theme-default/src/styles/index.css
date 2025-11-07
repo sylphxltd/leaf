@@ -164,6 +164,106 @@ code {
 	font-weight: 500;
 }
 
+/* Sidebar Groups */
+.sidebar-group {
+	margin-bottom: 0.5rem;
+}
+
+.sidebar-group-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.sidebar-group-header .sidebar-link {
+	flex: 1;
+}
+
+.sidebar-group-toggle {
+	background: none;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	color: var(--color-text);
+	opacity: 0.7;
+	transition: opacity 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.sidebar-group-toggle:hover {
+	opacity: 1;
+}
+
+.sidebar-group-label {
+	width: 100%;
+	background: none;
+	border: none;
+	text-align: left;
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.375rem;
+	transition: all 0.2s;
+	font-size: 0.9375rem;
+	color: var(--color-text);
+	cursor: pointer;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+.sidebar-group-label:hover {
+	background-color: var(--color-border);
+}
+
+.sidebar-group-items {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	margin-top: 0.25rem;
+}
+
+/* Mobile Sidebar */
+.sidebar-backdrop {
+	display: none;
+	position: fixed;
+	top: 73px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 200;
+}
+
+.sidebar-toggle {
+	display: none;
+	background: none;
+	border: none;
+	padding: 0.5rem;
+	cursor: pointer;
+	color: var(--color-text);
+}
+
+.sidebar-toggle-icon {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 20px;
+}
+
+.sidebar-toggle-icon .line {
+	width: 100%;
+	height: 2px;
+	background-color: currentColor;
+	transition: all 0.3s;
+}
+
+.header-mobile-menu {
+	display: none;
+}
+
 /* Documentation content styles */
 .doc-content {
 	max-width: 800px;
@@ -487,12 +587,148 @@ html {
 	margin-bottom: 0 !important;
 }
 
+/* Doc Footer */
+.doc-footer {
+	margin-top: 4rem;
+	padding-top: 2rem;
+	border-top: 1px solid var(--color-border);
+}
+
+.doc-footer-meta {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 2rem;
+	font-size: 0.875rem;
+	color: var(--color-text);
+	opacity: 0.8;
+	flex-wrap: wrap;
+}
+
+.edit-link a {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--color-text);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.edit-link a:hover {
+	color: var(--color-accent);
+}
+
+.last-updated {
+	font-size: 0.875rem;
+}
+
+.doc-footer-nav {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+}
+
+.doc-footer-nav .prev,
+.doc-footer-nav .next {
+	display: flex;
+}
+
+.doc-footer-nav .next {
+	justify-content: flex-end;
+}
+
+.pager-link {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1rem;
+	border: 1px solid var(--color-border);
+	border-radius: 0.5rem;
+	text-decoration: none;
+	color: var(--color-text);
+	transition: all 0.2s;
+	max-width: 300px;
+}
+
+.pager-link:hover {
+	border-color: var(--color-accent);
+	background-color: rgba(0, 112, 243, 0.05);
+}
+
+:root[data-theme="dark"] .pager-link:hover {
+	background-color: rgba(50, 145, 255, 0.1);
+}
+
+.pager-link .desc {
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--color-text);
+	opacity: 0.6;
+}
+
+.pager-link .title {
+	font-size: 0.9375rem;
+	font-weight: 500;
+	color: var(--color-accent);
+}
+
+.prev-link .title::before {
+	content: "← ";
+}
+
+.next-link .title::after {
+	content: " →";
+}
+
 @media (max-width: 768px) {
 	.sidebar {
-		display: none;
+		position: fixed;
+		top: 73px;
+		left: 0;
+		bottom: 0;
+		width: 280px;
+		background-color: var(--color-bg);
+		z-index: 300;
+		transform: translateX(-100%);
+		transition: transform 0.3s;
+		border-right: 1px solid var(--color-border);
+		height: calc(100vh - 73px);
+	}
+
+	.sidebar.open {
+		transform: translateX(0);
+	}
+
+	.sidebar.open + .main-content {
+		pointer-events: none;
+	}
+
+	.sidebar-backdrop {
+		display: block;
+	}
+
+	.sidebar-toggle {
+		display: block;
+	}
+
+	.header-mobile-menu {
+		display: flex;
+		align-items: center;
+		margin-right: 1rem;
 	}
 
 	.main-content {
 		max-width: 100%;
+	}
+
+	.doc-footer-nav {
+		grid-template-columns: 1fr;
+	}
+
+	.doc-footer-nav .next {
+		justify-content: flex-start;
 	}
 }
