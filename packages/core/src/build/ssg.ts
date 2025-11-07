@@ -12,6 +12,7 @@ import { type Route, generateRoutes } from "../utils/routes.js";
 import type { Root } from "mdast";
 import { visit } from "unist-util-visit";
 import { remarkContainers } from "../plugins/remark-containers.js";
+import matter from "gray-matter";
 
 interface TocItem {
 	text: string;
@@ -51,7 +52,10 @@ async function generatePageHTML(
 	const htmlPath = routeToHtmlPath(route.path, outDir);
 
 	// Read and process the markdown file
-	const markdownContent = await readFile(route.component, "utf-8");
+	const fileContent = await readFile(route.component, "utf-8");
+
+	// Strip frontmatter before processing
+	const { content: markdownContent } = matter(fileContent);
 
 	// Extract TOC
 	const toc: TocItem[] = [];

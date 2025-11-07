@@ -161,7 +161,7 @@ code {
 .sidebar-link.active {
 	background-color: var(--color-accent);
 	color: white;
-	fontweight: 500;
+	font-weight: 500;
 }
 
 /* Documentation content styles */
