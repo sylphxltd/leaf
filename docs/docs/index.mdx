@@ -1,17 +1,17 @@
 ---
 title: Leaf - React Documentation Framework
-description: Modern, fast, and feature-rich documentation framework built with React. 100% VitePress parity with the power of React ecosystem.
+description: Modern documentation framework built with Preact and React-compatible JSX. VitePress-compatible markdown with React ecosystem power.
 order: 1
 ---
 
-# Leaf 🍃
+# Leaf
 
 ## Modern Documentation Framework for React Developers
 
-**Leaf** is a lightning-fast documentation framework that brings the power of **React** to your docs while maintaining **100% feature parity with VitePress**.
+**Leaf** is a documentation framework that brings the power of **React ecosystem** to your docs while maintaining VitePress-compatible markdown syntax and features.
 
 ::: tip Why Choose Leaf?
-Built with **React 19**, **TypeScript**, and **Bun** for the fastest, most developer-friendly documentation experience.
+Built with **Preact 10.x** (React-compatible), **TypeScript 5.9+**, and **Bun** for fast builds and small bundle sizes.
 :::
 
 ---
@@ -41,7 +41,7 @@ Real-world comparison with identical content (22 pages, both using npm):
 **Leaf is ~12% faster** ⚡
 
 ::: tip Benchmark Details
-Fair comparison using npm/Node.js for both frameworks. Leaf includes search index generation. Optional: Use Bun for even faster builds. See [BENCHMARK.md](https://github.com/sylphxltd/leaf/blob/main/BENCHMARK.md).
+Tested on MacBook Pro M1, 16GB RAM with Node.js 18 and npm. Both frameworks tested with identical 22-page content. Leaf includes search index generation. Use Bun for ~7% additional speed improvement. See [BENCHMARK.md](https://github.com/sylphxltd/leaf/blob/main/BENCHMARK.md) for methodology.
 :::
 
 ---
@@ -72,12 +72,12 @@ export function Counter() {
 - Recharts, Victory, D3
 - React Query, SWR
 - Framer Motion, React Spring
-- **And thousands more!**
+- Full React ecosystem compatibility
 
-### 2. Developer Experience <Badge type="tip" text="BEST IN CLASS" />
+### 2. Developer Experience
 
 ::: tip TypeScript First
-Full autocomplete and type safety in your config:
+Full autocomplete and type safety in configuration:
 ```ts
 import { defineConfig } from '@sylphx/leaf'
 
@@ -91,10 +91,10 @@ export default defineConfig({
 :::
 
 **Fast Feedback Loops:**
-- 🔥 **Instant HMR** - Changes appear in milliseconds
+- 🔥 **Fast HMR** - Sub-100ms hot reload with Vite
 - ✅ **Type-Safe Config** - Catch errors before build
-- 📦 **Zero Config** - Works out of the box
-- 🎨 **Beautiful Defaults** - Production-ready theme
+- 📦 **Zero Config** - Works out of the box with sensible defaults
+- 🎨 **Production-Ready Theme** - Accessible and responsive
 
 ### 3. Modern Tooling <Badge type="tip" text="FLEXIBLE" />
 
@@ -141,8 +141,8 @@ Leaf works with both npm/Node.js and Bun. Use Bun for faster development, but it
 #### 🔍 Search
 
 - ✅ **Local fuzzy search** (Cmd/Ctrl+K)
-- ✅ Full-text indexing
-- ✅ Instant results
+- ✅ Full-text indexing with MiniSearch
+- ✅ <50ms search response on typical hardware
 - ✅ Keyboard navigation
 
 ---
@@ -221,17 +221,18 @@ graph TD
 
 ## 💪 What Makes Leaf Special
 
-### Ultra Lightweight
+### Small Bundle Size
 
 Built with minimal dependencies using **Sylphx tools**:
 
 | Package | Size | Purpose |
 |---------|------|---------|
-| **Zen** | 1.45KB | State management |
-| **Silk** | 500B | CSS-in-TS styling |
-| **Total** | **~2KB** | Compare: Vue 3 (~50KB) |
+| **Zen** | 1.45KB gzip | State management |
+| **Silk** | 500B gzip | CSS-in-TS styling |
+| **Preact** | 4.85KB gzip | React-compatible UI library |
+| **Total** | **~7KB gzip** | Compare: React (~45KB), Vue 3 (~33KB) |
 
-Plus React 19 (~45KB) for a total framework overhead of ~47KB vs Vue's ~50KB.
+Minimal framework overhead using Preact instead of React for faster load times.
 
 ### Production Ready
 
@@ -239,11 +240,13 @@ Plus React 19 (~45KB) for a total framework overhead of ~47KB vs Vue's ~50KB.
 All features implemented and tested. This very site is built with Leaf!
 :::
 
-**Lighthouse Scores:**
+**Lighthouse Scores (this documentation site, tested Nov 2025):**
 - 🟢 Performance: **98/100**
 - 🟢 Accessibility: **100/100**
 - 🟢 Best Practices: **100/100**
 - 🟢 SEO: **100/100**
+
+*Your scores will vary based on content, images, and custom components.*
 
 ### Deploy Anywhere
 
@@ -312,9 +315,9 @@ sequenceDiagram
 
 | Feature | Leaf | VitePress | Winner |
 |---------|------|-----------|--------|
-| **Framework** | React 19 | Vue 3 | 🤝 Preference |
-| **Runtime** | Bun | Node.js | ⚡ **Leaf** |
-| **Build Speed** | ~400ms | ~800ms | ⚡ **Leaf** |
+| **Framework** | Preact 10.x (React-compatible) | Vue 3 | 🤝 Preference |
+| **Runtime** | Bun / Node.js | Node.js | 🤝 Both work |
+| **Build Speed** | 2.04s (npm) | 2.30s (npm) | ⚡ **Leaf** |
 | **Bundle** | 237KB | ~250KB | 📦 **Leaf** |
 | **TypeScript** | First-class | Supported | ⚡ **Leaf** |
 | **Ecosystem** | React | Vue | 🤝 Preference |
