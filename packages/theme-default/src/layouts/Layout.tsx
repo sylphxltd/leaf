@@ -53,9 +53,9 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 				/>
 
 				<div className="flex flex-1 flex-col lg:ml-72">
-					<div className="container mx-auto flex flex-1 gap-8 px-4 sm:px-6 md:px-8 lg:gap-12 xl:gap-16">
+					<div className="flex flex-1 gap-8 px-4 sm:px-6 md:px-8 lg:gap-12 xl:gap-16">
 						<main className="flex-1 min-w-0 py-8 md:py-12 lg:py-16">
-							<article className="mx-auto w-full max-w-3xl">
+							<article className="mx-auto w-full max-w-4xl">
 								<div className="prose">
 									<Outlet />
 								</div>
