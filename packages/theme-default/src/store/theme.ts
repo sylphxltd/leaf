@@ -8,9 +8,9 @@ const set = ZenModule.set as <T>(store: Zen<T>, value: T) => void;
 
 type Theme = "light" | "dark";
 
-export const themeStore = zen<Theme>("light");
+export const themeStore: Zen<Theme> = zen<Theme>("light");
 
-export const toggleTheme = () => {
+export const toggleTheme = (): void => {
 	const current = get(themeStore);
 	const newTheme = current === "light" ? "dark" : "light";
 	set(themeStore, newTheme);

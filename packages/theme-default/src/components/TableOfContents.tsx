@@ -10,7 +10,7 @@ interface TableOfContentsProps {
 	items: TocItem[];
 }
 
-export function TableOfContents({ items }: TableOfContentsProps) {
+export function TableOfContents({ items }: TableOfContentsProps): JSX.Element | null {
 	const [activeId, setActiveId] = useState<string>("");
 
 	useEffect(() => {

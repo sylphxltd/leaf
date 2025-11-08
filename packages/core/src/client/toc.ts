@@ -41,7 +41,7 @@ export function initTableOfContents() {
 	});
 
 	// Handle cleanup
-	return () => observer.disconnect();
+	return (): void => observer.disconnect();
 }
 
 // Auto-initialize when DOM is ready

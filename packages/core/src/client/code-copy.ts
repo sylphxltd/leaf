@@ -1,5 +1,5 @@
 // Code copy button functionality (pure JS, no React hydration needed)
-export function initCodeCopy() {
+export function initCodeCopy(): void {
 	if (typeof window === "undefined") return;
 
 	// Add copy button to all code blocks

@@ -1,7 +1,7 @@
 import { useStore } from "../hooks/useStore";
 import { themeStore, toggleTheme } from "../store/theme";
 
-export function ThemeToggle() {
+export function ThemeToggle(): JSX.Element {
 	const theme = useStore(themeStore);
 
 	return (
