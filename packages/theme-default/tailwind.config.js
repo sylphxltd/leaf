@@ -1,8 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: [
+		"./src/**/*.{ts,tsx,js,jsx}",
 		"./content/**/*.md",
-		"./node_modules/@sylphx/leaf-theme-default/dist/**/*.js",
 	],
 	darkMode: ["class", '[data-theme="dark"]'],
 	theme: {
