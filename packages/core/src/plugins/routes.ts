@@ -13,7 +13,7 @@ export interface RouteData {
 }
 
 export function routesPlugin(docsDir: string): Plugin {
-	const VIRTUAL_MODULE_ID = "virtual:reactpress/routes";
+	const VIRTUAL_MODULE_ID = "virtual:leaf/routes";
 	const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`;
 
 	async function generateRoutesModule(): Promise<string> {
