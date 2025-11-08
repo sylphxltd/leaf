@@ -16,17 +16,13 @@
       "version": "1.0.0",
       "dependencies": {
         "@sylphx/leaf-theme-default": "workspace:*",
-        "react": "latest",
-        "react-dom": "latest",
-        "react-router-dom": "latest",
+        "react": "^19.2.0",
+        "react-dom": "^19.2.0",
+        "react-router-dom": "^7.9.5",
       },
       "devDependencies": {
         "@sylphx/leaf": "workspace:*",
-        "@types/react": "latest",
-        "@types/react-dom": "latest",
-        "@vitejs/plugin-react": "latest",
-        "typescript": "latest",
-        "vite": "latest",
+        "@sylphx/leaf-cli": "workspace:*",
       },
     },
     "examples/docs": {
