@@ -249,35 +249,35 @@
 		@apply font-semibold mb-3 flex items-center gap-2;
 	}
 
-	.custom-block.tip {
+	.custom-block-tip {
 		@apply border-success bg-success/10;
 	}
 
-	.custom-block.tip .custom-block-title {
+	.custom-block-tip .custom-block-title {
 		@apply text-success;
 	}
 
-	.custom-block.warning {
+	.custom-block-warning {
 		@apply border-warning bg-warning/10;
 	}
 
-	.custom-block.warning .custom-block-title {
+	.custom-block-warning .custom-block-title {
 		@apply text-warning;
 	}
 
-	.custom-block.danger {
+	.custom-block-danger {
 		@apply border-destructive bg-destructive/10;
 	}
 
-	.custom-block.danger .custom-block-title {
+	.custom-block-danger .custom-block-title {
 		@apply text-destructive;
 	}
 
-	.custom-block.details {
+	.custom-block-details {
 		@apply border-border bg-muted/50;
 	}
 
-	.custom-block.details .custom-block-title {
+	.custom-block-details .custom-block-title {
 		@apply text-foreground cursor-pointer;
 	}
 
@@ -356,10 +356,11 @@
 	/* External Links */
 	.external-link {
 		@apply inline-flex items-center gap-1;
+		white-space: nowrap;
 	}
 
 	.external-link-icon {
-		@apply w-4 h-4 opacity-50 transition-opacity;
+		@apply w-4 h-4 opacity-50 transition-opacity flex-shrink-0;
 	}
 
 	.external-link:hover .external-link-icon {
