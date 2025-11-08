@@ -1,34 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
-import rehypeHighlight from "rehype-highlight";
-import rehypeKatex from "rehype-katex";
-import rehypeSlug from "rehype-slug";
-import rehypeStringify from "rehype-stringify";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
 import { type Route, generateRoutes } from "../utils/routes.js";
-import type { Root } from "mdast";
-import { visit } from "unist-util-visit";
-import { remarkContainers } from "../plugins/remark-containers.js";
-import { remarkCodeGroups } from "../plugins/remark-code-groups.js";
-import { remarkCodeMeta } from "../plugins/remark-code-meta.js";
-import { remarkBadge } from "../plugins/remark-badge.js";
-import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
-import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
-import { rehypeMermaid } from "../plugins/rehype-mermaid.js";
 import matter from "gray-matter";
 import { generateSearchIndex } from "./search.js";
 import { getLastModifiedTime, formatLastModified } from "../utils/git.js";
-
-interface TocItem {
-	text: string;
-	id: string;
-	level: number;
-}
+import { createMarkdownProcessor } from "../markdown/processor.js";
 
 export interface SSGOptions {
 	root: string;
@@ -81,54 +58,15 @@ async function generatePageHTML(
 		? formatLastModified(lastModified)
 		: null;
 
-	// Extract TOC
-	const toc: TocItem[] = [];
-
-	function extractToc() {
-		return (tree: Root) => {
-			visit(tree, "heading", (node) => {
-				if (node.depth >= 2 && node.depth <= 3) {
-					const text = node.children
-						.filter((child) => child.type === "text")
-						.map((child: any) => child.value)
-						.join("");
-
-					const id = text
-						.toLowerCase()
-						.replace(/\s+/g, "-")
-						.replace(/[^\w-]/g, "");
-
-					toc.push({
-						text,
-						id,
-						level: node.depth,
-					});
-				}
-			});
-		};
-	}
-
-	// Process markdown with unified (same pipeline as the Vite plugin)
-	const processor = unified()
-		.use(remarkParse)
-		.use(remarkGfm)
-		.use(remarkMath)
-		.use(remarkBadge)
-		.use(remarkCodeGroups)
-		.use(remarkContainers)
-		.use(remarkCodeMeta)
-		.use(extractToc)
-		.use(remarkRehype, { allowDangerousHtml: true })
-		.use(rehypeSlug)
-		.use(rehypeKatex)
-		.use(rehypeMermaid)
-		.use(rehypeHighlight)
-		.use(rehypeLineHighlight)
-		.use(rehypeExternalLinks)
-		.use(rehypeStringify, { allowDangerousHtml: true });
+	// Create unified processor with TOC extraction
+	const { processor, getToc } = createMarkdownProcessor({
+		config,
+		extractToc: true,
+	});
 
 	const vfile = await processor.process(markdownContent);
 	const contentHtml = String(vfile);
+	const toc = getToc();
 
 	// SEO Meta Tags
 	const pageTitle = frontmatter.title || config.title || "Leaf";

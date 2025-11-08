@@ -1,3 +1,5 @@
+import type { UserConfig as ViteUserConfig } from "vite";
+
 export interface LeafConfig {
 	/** Site title */
 	title?: string;
@@ -10,7 +12,7 @@ export interface LeafConfig {
 	/** Markdown configuration */
 	markdown?: MarkdownConfig;
 	/** Vite configuration */
-	vite?: any;
+	vite?: ViteUserConfig;
 }
 
 export interface ThemeConfig {
@@ -47,10 +49,15 @@ export interface MarkdownConfig {
 	/** Enable line numbers in code blocks */
 	lineNumbers?: boolean;
 	/** Custom rehype plugins */
-	rehypePlugins?: any[];
+	rehypePlugins?: RemarkRehypePlugin[];
 	/** Custom remark plugins */
-	remarkPlugins?: any[];
+	remarkPlugins?: RemarkRehypePlugin[];
 }
+
+// Type-safe plugin definition
+export type RemarkRehypePlugin =
+	| [any, ...any[]]
+	| any;
 
 export interface PageData {
 	/** Page title from frontmatter */
