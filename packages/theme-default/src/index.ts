@@ -8,5 +8,8 @@ export { SidebarToggle } from "./components/SidebarToggle";
 export { DocFooter } from "./components/DocFooter";
 export type { DocFooterProps } from "./components/DocFooter";
 export { Search } from "./components/Search";
+export { CopyPage } from "./components/CopyPage";
+export { MobileTocToggle } from "./components/MobileTocToggle";
 export { useStore } from "./hooks/useStore";
 export { themeStore, toggleTheme } from "./store/theme";
+export { initCopyCode } from "./lib/copy-code";

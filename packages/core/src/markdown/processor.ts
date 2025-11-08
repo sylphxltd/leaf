@@ -18,6 +18,8 @@ import { remarkBadge } from "../plugins/remark-badge.js";
 import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
 import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
 import { rehypeMermaid } from "../plugins/rehype-mermaid.js";
+import { rehypeCopyCode } from "../plugins/rehype-copy-code.js";
+import { rehypeHeaderAnchors } from "../plugins/rehype-header-anchors.js";
 
 export interface TocItem {
 	text: string;
@@ -86,10 +88,12 @@ export function createMarkdownProcessor(
 		.use(...(config.markdown?.remarkPlugins || []))
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeSlug)
+		.use(rehypeHeaderAnchors)
 		.use(rehypeKatex)
 		.use(rehypeMermaid)
 		.use(rehypeHighlight)
 		.use(rehypeLineHighlight)
+		.use(rehypeCopyCode)
 		.use(rehypeExternalLinks)
 		// Add custom rehype plugins from config
 		.use(...(config.markdown?.rehypePlugins || []))

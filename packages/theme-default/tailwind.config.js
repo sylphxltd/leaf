@@ -4,6 +4,11 @@ export default {
 		"./src/**/*.{ts,tsx,js,jsx}",
 		"./content/**/*.md",
 	],
+	safelist: [
+		// Classes added dynamically by markdown plugins
+		"external-link",
+		"external-link-icon",
+	],
 	darkMode: ["class", '[data-theme="dark"]'],
 	theme: {
 		extend: {

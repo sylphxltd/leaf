@@ -28,7 +28,7 @@ export const rehypeExternalLinks: Plugin<[], Root> = () => {
 				node.properties.target = "_blank";
 				node.properties.rel = "noopener noreferrer";
 
-				// Wrap icon in span with nowrap to prevent wrapping
+				// Wrap icon in nowrap span to prevent it from wrapping separately from text
 				node.children.push({
 					type: "element",
 					tagName: "span",
@@ -55,6 +55,7 @@ export const rehypeExternalLinks: Plugin<[], Root> = () => {
 								strokeWidth: "2",
 								strokeLinecap: "round",
 								strokeLinejoin: "round",
+								style: "display: inline; vertical-align: middle;",
 							},
 							children: [
 								{

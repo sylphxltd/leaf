@@ -5,7 +5,10 @@ import { Sidebar } from "../components/Sidebar";
 import { TableOfContents, type TocItem } from "../components/TableOfContents";
 import { DocFooter, type DocFooterProps } from "../components/DocFooter";
 import { Search } from "../components/Search";
+import { CopyPage } from "../components/CopyPage";
+import { MobileTocToggle } from "../components/MobileTocToggle";
 import { cn } from "../lib/utils";
+import { initCopyCode } from "../lib/copy-code";
 
 interface LayoutProps {
 	config?: any;
@@ -42,6 +45,11 @@ export function Layout({ config, currentRoute, children }: LayoutProps): JSX.Ele
 		return () => window.removeEventListener("resize", handleResize);
 	}, [sidebarOpen]);
 
+	// Initialize copy code functionality
+	useEffect(() => {
+		initCopyCode();
+	}, []);
+
 	return (
 		<div className="min-h-screen bg-background">
 			<Header
@@ -59,36 +67,30 @@ export function Layout({ config, currentRoute, children }: LayoutProps): JSX.Ele
 					onClose={() => setSidebarOpen(false)}
 				/>
 
-				{/* VitePress-style layout: responsive centering */}
 				<div className={cn("lg:pl-64", !hasSidebar && "lg:pl-0")}>
-					<div className="px-6 py-8">
-						<div className={cn(
-							"flex gap-8 xl:gap-12",
-							!hasSidebar && !hasToc && "justify-center"
-						)}>
-							{/* Main content - centered when TOC is missing */}
-							<main className={cn(
-								"flex-1 min-w-0",
-								!hasToc && "mx-auto"
-							)} style={{ maxWidth: hasToc ? 'calc(100% - 16rem)' : '48rem' }}>
-								<article className={cn(
-									"mx-auto",
-									!hasSidebar && !hasToc && "max-w-4xl"
-								)} style={{ maxWidth: hasToc ? '48rem' : undefined }}>
-									<div className="prose prose-slate dark:prose-invert max-w-none">
-										{children}
+					<div className={cn(
+						"px-4 py-6 md:px-6 md:py-8 lg:px-8 lg:py-10",
+						!hasSidebar && !hasToc && "lg:max-w-5xl lg:mx-auto"
+					)}>
+						<div className="flex gap-8 xl:gap-12">
+							<main className="flex-1 min-w-0">
+								{/* Copy page button */}
+								<div className="mb-6 flex justify-end">
+									<CopyPage title={config?.title} />
+								</div>
+
+								<div className="prose prose-slate dark:prose-invert max-w-none lg:max-w-4xl">
+									{children}
+								</div>
+								{docFooter && (
+									<div className="mt-16 pt-8 border-t border-border/40">
+										<DocFooter {...docFooter} />
 									</div>
-									{docFooter && (
-										<div className="mt-16 pt-8 border-t border-border/40">
-											<DocFooter {...docFooter} />
-										</div>
-									)}
-								</article>
+								)}
 							</main>
 
-							{/* TOC - only render when items exist, hidden on mobile/tablet */}
 							{hasToc && (
-								<aside className="hidden lg:block flex-shrink-0" style={{ width: '14rem' }}>
+								<aside className="hidden lg:block flex-shrink-0 w-56">
 									<TableOfContents items={toc} />
 								</aside>
 							)}
@@ -96,6 +98,9 @@ export function Layout({ config, currentRoute, children }: LayoutProps): JSX.Ele
 					</div>
 				</div>
 			</div>
+
+			{/* Mobile TOC toggle - only shown on mobile when TOC exists */}
+			<MobileTocToggle toc={toc} />
 		</div>
 	);
 }
