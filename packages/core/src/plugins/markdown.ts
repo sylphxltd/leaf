@@ -100,6 +100,27 @@ import React from 'react';
 
 export const toc = ${JSON.stringify(toc)};
 
+// Try to read preloaded data from SSG
+let preloadedToc = [];
+let preloadedLastModified = null;
+
+if (typeof window !== 'undefined') {
+  const preloadScript = document.getElementById('__LEAF_PRELOAD__');
+  if (preloadScript) {
+    try {
+      const preloadData = JSON.parse(preloadScript.textContent || '{}');
+      preloadedToc = preloadData.toc || [];
+      preloadedLastModified = preloadData.lastModified;
+    } catch (e) {
+      // Ignore preload errors
+    }
+  }
+}
+
+export const docFooter = preloadedLastModified ? {
+  lastUpdated: preloadedLastModified
+} : undefined;
+
 export default function MarkdownContent() {
   return React.createElement('div', {
     className: 'markdown-content',

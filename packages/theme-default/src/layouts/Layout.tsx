@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet, useMatches, useLocation } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { TableOfContents, type TocItem } from "../components/TableOfContents";
@@ -11,14 +11,16 @@ interface LayoutProps {
 	config?: any;
 }
 
-interface OutletContext {
-	toc?: TocItem[];
-	docFooter?: DocFooterProps;
-}
-
 export function Layout({ config }: LayoutProps): JSX.Element {
-	const context = useOutletContext<OutletContext>();
+	const matches = useMatches();
+	const location = useLocation();
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+
+	// Get TOC and docFooter from route handle
+	const currentMatch = matches[matches.length - 1];
+	const handle = (currentMatch?.handle as any) || {};
+	const toc = handle.toc || [];
+	const docFooter = handle.docFooter;
 
 	React.useEffect(() => {
 		const handleResize = () => {
@@ -33,7 +35,7 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 
 	React.useEffect(() => {
 		setSidebarOpen(false);
-	}, [context]);
+	}, [location.pathname]);
 
 	return (
 		<div className="layout">
@@ -50,12 +52,12 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 				<main className="main-content">
 					<div className="doc-content">
 						<Outlet />
-						{context?.docFooter && <DocFooter {...context.docFooter} />}
+						{docFooter && <DocFooter {...docFooter} />}
 					</div>
 				</main>
-				{context?.toc && context.toc.length > 0 && (
+				{toc && toc.length > 0 && (
 					<aside className="toc-aside">
-						<TableOfContents items={context.toc} />
+						<TableOfContents items={toc} />
 					</aside>
 				)}
 			</div>
