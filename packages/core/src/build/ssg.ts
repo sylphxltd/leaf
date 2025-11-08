@@ -457,10 +457,19 @@ async function generatePageHTML(
 		})
 		.join("");
 
+	// Critical CSS for instant layout rendering (prevent FOUC)
+	const criticalCSS = `<style>
+		/* Critical layout styles - inline for instant render */
+		.layout{display:flex;flex-direction:column;min-height:100vh}
+		.header{position:fixed;top:0;left:0;right:0;height:60px;z-index:100;background:var(--bg-color,#fff);border-bottom:1px solid var(--border-color,#e2e8f0)}
+		.header-container{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1440px;margin:0 auto;padding:0 24px}
+		.layout-content{display:flex;margin-top:60px;max-width:1440px;width:100%;margin-left:auto;margin-right:auto}
+		.sidebar{position:fixed;top:60px;left:0;bottom:0;width:280px;overflow-y:auto;border-right:1px solid var(--border-color,#e2e8f0);background:var(--bg-color,#fff);z-index:50}
+		.main-content{flex:1;margin-left:280px;padding:32px 48px;max-width:calc(100% - 280px)}
+		@media(max-width:768px){.sidebar{transform:translateX(-100%);transition:transform 0.3s}.main-content{margin-left:0;max-width:100%;padding:24px}}
+	</style>`;
+
 	// Inject the rendered content, TOC, and scripts into the template
-	// Replace <div id="root"></div> with pre-rendered content
-	// NOTE: This is a partial SSR - only renders markdown content
-	// Header, Sidebar, and other UI components will be hydrated by React on the client
 	let html = template.replace(
 		'<div id="root"></div>',
 		`<div id="root">
@@ -502,6 +511,9 @@ async function generatePageHTML(
 			</div>
 		</div>${tocScript}${codeCopyScript}${codeGroupsScript}${mermaidScript}${lastUpdatedScript}`,
 	);
+
+	// Inject critical CSS into <head>
+	html = html.replace("</head>", `${criticalCSS}</head>`);
 
 	// Ensure directory exists
 	await mkdir(dirname(htmlPath), { recursive: true });
