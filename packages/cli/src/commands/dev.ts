@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 import { createLeafPlugin, loadConfig, routesPlugin } from "@sylphx/leaf";
 import { createServer } from "vite";
+import { readFile, writeFile } from "node:fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,11 +12,20 @@ export async function dev(root: string = process.cwd()): Promise<void> {
 	const config = await loadConfig(root);
 	const docsDir = resolve(root, config.docsDir || "docs");
 
-	// Path to built-in HTML template
-	const templatePath = resolve(
+	// Paths to built-in templates
+	const builtInHtmlPath = resolve(
 		__dirname,
 		"../../../core/templates/index.html"
 	);
+	const builtInClientPath = resolve(
+		__dirname,
+		"../../../core/templates/client.tsx"
+	);
+
+	// Copy client template to project root so Vite can process it
+	const tempClientPath = resolve(root, ".leaf-client.tsx");
+	const clientTemplate = await readFile(builtInClientPath, "utf-8");
+	await writeFile(tempClientPath, clientTemplate, "utf-8");
 
 	const server = await createServer({
 		root,
@@ -30,8 +40,7 @@ export async function dev(root: string = process.cwd()): Promise<void> {
 							// Serve built-in HTML template for all requests
 							if (req.url === "/" || req.url === "/index.html") {
 								try {
-									const { readFile } = await import("node:fs/promises");
-									const html = await readFile(templatePath, "utf-8");
+									const html = await readFile(builtInHtmlPath, "utf-8");
 									const transformed = await server.transformIndexHtml(
 										req.url,
 										html

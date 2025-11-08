@@ -21,7 +21,8 @@ export function virtualModulesPlugin(config: LeafConfig): Plugin {
 				return resolvedConfigId;
 			}
 			if (id === clientModuleId) {
-				return resolvedClientId;
+				// Add .tsx extension so Vite knows to process it as JSX
+				return resolvedClientId + ".tsx";
 			}
 			return null;
 		},
@@ -32,11 +33,14 @@ export function virtualModulesPlugin(config: LeafConfig): Plugin {
 			}
 
 			// Provide client entry as a virtual module
-			if (id === resolvedClientId) {
+			if (id === resolvedClientId + ".tsx") {
 				// Go up from dist/src/plugins to packages/core, then to templates
 				const templatePath = resolve(__dirname, "../../../templates/client.tsx");
 				const clientCode = await readFile(templatePath, "utf-8");
-				return clientCode;
+				return {
+					code: clientCode,
+					map: null,
+				};
 			}
 
 			return null;

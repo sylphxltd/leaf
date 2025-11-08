@@ -19,18 +19,25 @@ export async function build(root: string = process.cwd()): Promise<void> {
 
 	console.log("Building client bundle...");
 
-	// Path to built-in HTML template
-	const builtInTemplatePath = resolve(
+	// Paths to built-in templates
+	const builtInHtmlPath = resolve(
 		__dirname,
 		"../../../core/templates/index.html"
 	);
+	const builtInClientPath = resolve(
+		__dirname,
+		"../../../core/templates/client.tsx"
+	);
 
-	// Read built-in template
-	const builtInTemplate = await readFile(builtInTemplatePath, "utf-8");
+	// Read built-in templates
+	const builtInHtml = await readFile(builtInHtmlPath, "utf-8");
+	const builtInClient = await readFile(builtInClientPath, "utf-8");
 
-	// Write to a temporary location for Vite to process
+	// Write to temporary locations for Vite to process
 	const tempHtmlPath = resolve(root, ".leaf-temp-index.html");
-	await writeFile(tempHtmlPath, builtInTemplate, "utf-8");
+	const tempClientPath = resolve(root, ".leaf-client.tsx");
+	await writeFile(tempHtmlPath, builtInHtml, "utf-8");
+	await writeFile(tempClientPath, builtInClient, "utf-8");
 
 	try {
 		// Build the client-side bundle
@@ -42,7 +49,12 @@ export async function build(root: string = process.cwd()): Promise<void> {
 				emptyOutDir: true,
 				rollupOptions: {
 					input: {
-						main: tempHtmlPath,
+						index: tempHtmlPath,
+					},
+					output: {
+						entryFileNames: "assets/[name]-[hash].js",
+						chunkFileNames: "assets/[name]-[hash].js",
+						assetFileNames: "assets/[name]-[hash].[ext]",
 					},
 				},
 			},
@@ -50,9 +62,14 @@ export async function build(root: string = process.cwd()): Promise<void> {
 
 		console.log("✓ Client bundle built");
 
+		// Rename generated HTML from temp name to index.html
+		const { rename: renameFile } = await import("node:fs/promises");
+		const tempHtmlOutput = resolve(outDir, ".leaf-temp-index.html");
+		const finalHtmlPath = resolve(outDir, "index.html");
+		await renameFile(tempHtmlOutput, finalHtmlPath);
+
 		// Read the generated HTML template
-		const templatePath = resolve(outDir, "index.html");
-		const template = await readFile(templatePath, "utf-8");
+		const template = await readFile(finalHtmlPath, "utf-8");
 
 		// Generate static HTML for all routes
 		await generateStaticSite({
@@ -64,10 +81,11 @@ export async function build(root: string = process.cwd()): Promise<void> {
 
 		console.log("\n✓ Build completed successfully!");
 	} finally {
-		// Clean up temporary file
+		// Clean up temporary files
 		try {
 			const { unlink } = await import("node:fs/promises");
 			await unlink(tempHtmlPath);
+			await unlink(tempClientPath);
 		} catch {
 			// Ignore errors
 		}
