@@ -40,6 +40,10 @@ export interface SSGOptions {
 export async function generateStaticSite(options: SSGOptions): Promise<void> {
 	const { root, outDir, template } = options;
 
+	// Load configuration
+	const { loadConfig } = await import("../config/index.js");
+	const config = await loadConfig(root);
+
 	// Get all routes
 	const routes = await generateRoutes(root);
 
@@ -47,7 +51,7 @@ export async function generateStaticSite(options: SSGOptions): Promise<void> {
 
 	// Generate HTML for each route
 	for (const route of routes) {
-		await generatePageHTML(route, outDir, template);
+		await generatePageHTML(route, outDir, template, config);
 	}
 
 	console.log(`✓ Generated ${routes.length} static pages`);
@@ -60,6 +64,7 @@ async function generatePageHTML(
 	route: Route,
 	outDir: string,
 	template: string,
+	config: any,
 ): Promise<void> {
 	// Convert route path to file path
 	const htmlPath = routeToHtmlPath(route.path, outDir);
@@ -342,6 +347,64 @@ async function generatePageHTML(
 		</script>
 	`;
 
+	// Generate Sidebar HTML from config
+	function generateSidebarHTML(items: any[], level = 0): string {
+		if (!items || items.length === 0) return "";
+
+		return items
+			.map((item) => {
+				const hasChildren = item.items && item.items.length > 0;
+				const paddingLeft = level * 1 + 0.75;
+
+				if (!hasChildren && item.link) {
+					// Simple link
+					const isActive = item.link === route.path;
+					return `<a href="${item.link}" class="sidebar-link${isActive ? " active" : ""}" style="padding-left: ${paddingLeft}rem">${item.text}</a>`;
+				}
+
+				if (hasChildren) {
+					// Group with children
+					const hasActiveChild = item.items.some(
+						(child: any) => child.link === route.path
+					);
+					const childrenHTML = generateSidebarHTML(item.items, level + 1);
+
+					if (item.link) {
+						// Group with link
+						const isActive = item.link === route.path;
+						return `<div class="sidebar-group">
+							<div class="sidebar-group-header">
+								<a href="${item.link}" class="sidebar-link${isActive ? " active" : ""}" style="padding-left: ${paddingLeft}rem">${item.text}</a>
+								<button class="sidebar-group-toggle" aria-label="Expand group">
+									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(0deg); transition: transform 0.2s;">
+										<polyline points="6 9 12 15 18 9" />
+									</svg>
+								</button>
+							</div>
+							<div class="sidebar-group-items expanded">${childrenHTML}</div>
+						</div>`;
+					} else {
+						// Group without link (label only)
+						return `<div class="sidebar-group">
+							<button class="sidebar-group-label" style="padding-left: ${paddingLeft}rem">
+								<span>${item.text}</span>
+								<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(0deg); transition: transform 0.2s;">
+									<polyline points="6 9 12 15 18 9" />
+								</svg>
+							</button>
+							<div class="sidebar-group-items expanded">${childrenHTML}</div>
+						</div>`;
+					}
+				}
+
+				return "";
+			})
+			.join("");
+	}
+
+	const sidebarItems = config.theme?.sidebar || [];
+	const sidebarHTML = generateSidebarHTML(sidebarItems);
+
 	// Last updated script
 	const lastUpdatedScript =
 		lastModifiedText
@@ -386,6 +449,14 @@ async function generatePageHTML(
 	`
 		: "";
 
+	// Generate Nav HTML from config
+	const navHTML = (config.theme?.nav || [])
+		.map((item: any) => {
+			const isExternal = item.link.startsWith("http");
+			return `<a href="${item.link}" class="nav-link"${isExternal ? ' target="_blank" rel="noopener noreferrer"' : ""}>${item.text}</a>`;
+		})
+		.join("");
+
 	// Inject the rendered content, TOC, and scripts into the template
 	// Replace <div id="root"></div> with pre-rendered content
 	// NOTE: This is a partial SSR - only renders markdown content
@@ -396,8 +467,8 @@ async function generatePageHTML(
 			<div class="layout">
 				<header class="header">
 					<div class="header-container">
-						<a href="/" class="site-title">ReactPress</a>
-						<nav class="nav"></nav>
+						<a href="/" class="site-title">${config.title || "ReactPress"}</a>
+						<nav class="nav">${navHTML}</nav>
 						<button class="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
 							<span class="sidebar-toggle-icon">
 								<span class="line"></span>
@@ -418,7 +489,7 @@ async function generatePageHTML(
 				</button>
 				<div class="layout-content">
 					<aside class="sidebar">
-						<nav class="sidebar-nav"></nav>
+						<nav class="sidebar-nav">${sidebarHTML}</nav>
 					</aside>
 					<main class="main-content">
 						<div class="doc-content">

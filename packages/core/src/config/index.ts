@@ -2,15 +2,16 @@ import { resolve } from "node:path";
 import type { LeafConfig } from "../types.js";
 
 export async function loadConfig(root: string): Promise<LeafConfig> {
-	const configPath = resolve(root, "reactpress.config.ts");
+	const configPath = resolve(root, "leaf.config.ts");
 
 	try {
 		const config = await import(configPath);
 		return config.default || config;
 	} catch (error) {
+		console.error("[loadConfig] Failed to load config:", error);
 		// Return default config if not found
 		return {
-			title: "ReactPress",
+			title: "Leaf",
 			description: "A React-based documentation framework",
 			base: "/",
 		};
