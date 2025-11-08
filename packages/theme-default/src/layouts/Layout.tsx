@@ -37,7 +37,7 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 	}, [sidebarOpen]);
 
 	return (
-		<div className="flex min-h-screen flex-col">
+		<div className="flex min-h-screen flex-col bg-background">
 			<Header
 				title={config?.title}
 				nav={config?.theme?.nav}
@@ -52,19 +52,23 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 					onClose={() => setSidebarOpen(false)}
 				/>
 
-				<div className="flex flex-1 flex-col lg:ml-64">
-					<div className="flex flex-1 gap-12 px-6 md:px-8 lg:px-12">
-						<main className="flex-1 max-w-4xl mx-auto w-full">
-							<article className="py-12 md:py-16">
+				<div className="flex flex-1 flex-col lg:ml-72">
+					<div className="container mx-auto flex flex-1 gap-8 px-4 sm:px-6 md:px-8 lg:gap-12 xl:gap-16">
+						<main className="flex-1 min-w-0 py-8 md:py-12 lg:py-16">
+							<article className="mx-auto w-full max-w-3xl">
 								<div className="prose">
 									<Outlet />
 								</div>
-								{docFooter && <DocFooter {...docFooter} />}
+								{docFooter && (
+									<div className="mt-16 pt-8 border-t border-border/40">
+										<DocFooter {...docFooter} />
+									</div>
+								)}
 							</article>
 						</main>
 
 						{toc && toc.length > 0 && (
-							<aside className="hidden xl:block">
+							<aside className="hidden xl:block shrink-0">
 								<TableOfContents items={toc} />
 							</aside>
 						)}
