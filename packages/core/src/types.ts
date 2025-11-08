@@ -24,6 +24,24 @@ export interface ThemeConfig {
 	logo?: string;
 	/** Social links */
 	socialLinks?: SocialLink[];
+	/** Edit link configuration */
+	editLink?: EditLinkConfig;
+	/** Show last updated timestamp */
+	lastUpdated?: boolean | LastUpdatedConfig;
+}
+
+export interface EditLinkConfig {
+	/** URL pattern with :path placeholder */
+	pattern: string;
+	/** Link text (default: "Edit this page") */
+	text?: string;
+}
+
+export interface LastUpdatedConfig {
+	/** Custom text (default: "Last updated") */
+	text?: string;
+	/** Date formatting options */
+	formatOptions?: Intl.DateTimeFormatOptions;
 }
 
 export interface NavItem {

@@ -61,10 +61,6 @@ if (typeof window !== 'undefined') {
 // Export runtime TOC (preloaded from SSG, or build-time fallback)
 export const toc = runtimeToc;
 
-export const docFooter = preloadedLastModified ? {
-  lastUpdated: preloadedLastModified
-} : undefined;
-
 export default function MarkdownContent() {
   return React.createElement('div', {
     className: 'markdown-content',

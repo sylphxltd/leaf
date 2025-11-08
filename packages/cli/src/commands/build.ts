@@ -48,7 +48,7 @@ export async function build(root: string = process.cwd()): Promise<void> {
 		// Build the client-side bundle
 		await viteBuild({
 			root,
-			plugins: [routesPlugin(docsDir), ...createLeafPlugin(config)],
+			plugins: [routesPlugin(docsDir, config), ...createLeafPlugin(config)],
 			build: {
 				outDir,
 				emptyOutDir: true,

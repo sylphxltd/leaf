@@ -1,9 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, relative } from "node:path";
 import type { Plugin } from "vite";
 import fg from "fast-glob";
 import matter from "gray-matter";
+import type { LeafConfig, SidebarConfig } from "../types.js";
+import { getPrevNext } from "../utils/navigation.js";
 
 export interface RouteData {
 	path: string;
@@ -13,7 +15,23 @@ export interface RouteData {
 	frontmatter: Record<string, unknown>;
 }
 
-export function routesPlugin(docsDir: string): Plugin {
+export interface DocFooterData {
+	prev?: {
+		text: string;
+		link: string;
+	};
+	next?: {
+		text: string;
+		link: string;
+	};
+	editLink?: {
+		pattern: string;
+		text?: string;
+	};
+	lastUpdated?: boolean;
+}
+
+export function routesPlugin(docsDir: string, config?: LeafConfig): Plugin {
 	const VIRTUAL_MODULE_ID = "virtual:leaf/routes";
 	const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`;
 
@@ -53,12 +71,49 @@ export function routesPlugin(docsDir: string): Plugin {
 			});
 		}
 
+		// Get sidebar from config (handle both array and object formats)
+		const sidebar: any[] = config?.theme?.sidebar
+			? Array.isArray(config.theme.sidebar)
+				? config.theme.sidebar
+				: []
+			: [];
+
+		// Generate docFooter for each route
+		const docFooters = routes.map((route) => {
+			const docFooter: DocFooterData = {};
+
+			// Calculate prev/next navigation from sidebar
+			const { prev, next } = getPrevNext(route.path, sidebar);
+			if (prev) docFooter.prev = prev;
+			if (next) docFooter.next = next;
+
+			// Add edit link if configured
+			if (config?.theme?.editLink) {
+				const relativePath = relative(docsDir, route.filePath);
+				const editUrl = config.theme.editLink.pattern.replace(
+					":path",
+					relativePath,
+				);
+				docFooter.editLink = {
+					pattern: editUrl,
+					text: config.theme.editLink.text,
+				};
+			}
+
+			// Add lastUpdated flag if configured
+			if (config?.theme?.lastUpdated) {
+				docFooter.lastUpdated = true;
+			}
+
+			return docFooter;
+		});
+
 		// Generate module code with dynamic imports
-		// Import both default and named exports (toc, docFooter)
+		// Import default and toc exports (docFooter now generated here)
 		const imports = routes
 			.map(
 				(route, index) =>
-					`import Route${index}, { toc as toc${index}, docFooter as docFooter${index} } from "${route.filePath.replace(/\\/g, "/")}";`,
+					`import Route${index}, { toc as toc${index} } from "${route.filePath.replace(/\\/g, "/")}";`,
 			)
 			.join("\n");
 
@@ -68,7 +123,7 @@ export function routesPlugin(docsDir: string): Plugin {
     path: "${route.path}",
     component: Route${index},
     toc: toc${index},
-    docFooter: docFooter${index},
+    docFooter: ${JSON.stringify(docFooters[index])},
     data: ${JSON.stringify({
 			title: route.title,
 			description: route.description,

@@ -5,6 +5,11 @@ export default defineConfig({
 	description:
 		"A modern Preact-based documentation framework with VitePress parity",
 	theme: {
+		editLink: {
+			pattern: "https://github.com/sylphxltd/leaf/edit/main/docs/docs/:path",
+			text: "Edit this page on GitHub",
+		},
+		lastUpdated: true,
 		nav: [
 			{ text: "Guide", link: "/guide" },
 			{ text: "API", link: "/api" },

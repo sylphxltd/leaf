@@ -129,6 +129,7 @@ interface ThemeConfig {
   socialLinks?: SocialLink[];
   footer?: FooterConfig;
   editLink?: EditLinkConfig;
+  lastUpdated?: boolean | LastUpdatedConfig;
 }
 ```
 
@@ -314,6 +315,50 @@ export default defineConfig({
 ```
 
 The `:path` placeholder is replaced with the page's file path.
+
+### theme.lastUpdated
+
+- **Type:** `boolean | LastUpdatedConfig`
+- **Default:** `false`
+
+Display last updated timestamp for each page based on Git history.
+
+```typescript
+interface LastUpdatedConfig {
+  text?: string;
+  formatOptions?: Intl.DateTimeFormatOptions;
+}
+```
+
+**Example (simple):**
+
+```typescript
+export default defineConfig({
+  theme: {
+    lastUpdated: true
+  }
+});
+```
+
+**Example (with custom options):**
+
+```typescript
+export default defineConfig({
+  theme: {
+    lastUpdated: {
+      text: "Last modified",
+      formatOptions: {
+        dateStyle: "full",
+        timeStyle: "short"
+      }
+    }
+  }
+});
+```
+
+::: tip
+The lastUpdated timestamp is extracted from Git commit history. Make sure your repository has commit history for accurate timestamps.
+:::
 
 ## MarkdownConfig
 

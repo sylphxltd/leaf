@@ -34,7 +34,7 @@ export async function dev(root: string = process.cwd()): Promise<void> {
 	const server = await createServer({
 		root,
 		plugins: [
-			routesPlugin(docsDir),
+			routesPlugin(docsDir, config),
 			...createLeafPlugin(config),
 			{
 				name: "leaf:dev-html",
