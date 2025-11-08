@@ -102,16 +102,7 @@ async function generatePageHTML(
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	`;
 
-	// Inject SEO meta and preload data into template
-	let html = template;
-
-	// Replace title tag
-	html = html.replace(/<title>.*?<\/title>/, `<title>${pageTitle}</title>`);
-
-	// Inject SEO meta tags before </head>
-	html = html.replace("</head>", `${seoMeta}</head>`);
-
-	// Inject preload data for React (TOC, last modified, etc)
+	// Prepare preload data for React (TOC, last modified, etc)
 	const preloadData = {
 		toc,
 		lastModified: lastModifiedText,
@@ -122,7 +113,23 @@ async function generatePageHTML(
 		<script id="__LEAF_PRELOAD__" type="application/json">${JSON.stringify(preloadData)}</script>
 	`;
 
-	html = html.replace("</head>", `${preloadScript}</head>`);
+	// Inject all head content in a single pass to avoid multiple replacements
+	// This ensures proper ordering and prevents replacement conflicts
+	const headInjection = `
+		<!-- SEO Meta Tags -->
+		${seoMeta}
+
+		<!-- Preload Data -->
+		${preloadScript}
+	</head>`;
+
+	let html = template;
+
+	// Replace title tag
+	html = html.replace(/<title>.*?<\/title>/, `<title>${pageTitle}</title>`);
+
+	// Inject all head content before </head> in a single replacement
+	html = html.replace("</head>", headInjection);
 
 	// React will handle ALL rendering - we just keep empty root
 	// This prevents hydration mismatches
