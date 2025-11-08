@@ -69,16 +69,16 @@ graph LR
 - Built-in bundler and test runner
 - Native TypeScript support
 
-### 3. Ultra Lightweight
+### 3. Small Bundle Size
 
-Leaf uses **Sylphx tools** for minimal bundle size:
+Leaf uses **Preact** and **Sylphx tools** for minimal framework overhead:
 
-| Package | Size | Purpose |
-|---------|------|---------|
+| Package | Size (gzip) | Purpose |
+|---------|-------------|---------|
+| **Preact** | 4.85KB | React-compatible UI library |
 | **Zen** | 1.45KB | State management |
-| **Silk** | 500B | CSS-in-TS |
-| **Craft** | ~2KB | Data manipulation |
-| **Total** | ~4KB | vs. Vue 3 (~50KB) |
+| **Silk** | 500B | CSS-in-TS styling |
+| **Total** | **~7KB** | Compare: React (~45KB), Vue 3 (~33KB) |
 
 ### 4. TypeScript First
 
@@ -101,7 +101,7 @@ export default defineConfig({
 ### 5. Better DX (Developer Experience)
 
 ::: tip Hot Module Replacement
-Leaf has instant HMR powered by Vite. Changes appear in milliseconds.
+Fast HMR powered by Vite. Changes reflect in <100ms.
 :::
 
 ::: tip Zero Configuration
@@ -154,7 +154,7 @@ Both frameworks produce similar bundle sizes:
 
 ### First Load
 
-Both achieve instant first load through SSG:
+Both achieve fast first load through SSG:
 - HTML pre-rendered at build time
 - No JavaScript needed for initial view
 - Progressive hydration
@@ -163,8 +163,8 @@ Both achieve instant first load through SSG:
 
 This documentation site is built with Leaf! You're experiencing:
 
-- ⚡ Instant page loads (SSG)
-- 🔍 Fast local search (Cmd/Ctrl+K)
+- ⚡ Fast page loads via SSG
+- 🔍 <50ms local search (Cmd/Ctrl+K)
 - 🎨 Beautiful dark mode
 - 📱 Mobile responsive
 - 🧮 Math equations: $E = mc^2$
@@ -184,10 +184,10 @@ See [Migration Guide](/guide/migration) for details.
 ## Conclusion
 
 Leaf gives you:
-- 🚀 VitePress speed and features
+- 🚀 VitePress-compatible markdown
 - ⚛️ React ecosystem power
-- 🪶 Ultra-lightweight runtime
+- 🪶 Small runtime (~7KB framework overhead)
 - 💪 Type-safe configuration
-- ⚡ Bun performance
+- ⚡ Fast builds with Bun or Node.js
 
 Ready to try it? [Get started](/getting-started) now!

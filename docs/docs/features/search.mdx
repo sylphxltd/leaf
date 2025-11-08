@@ -9,13 +9,13 @@ Leaf includes a powerful, fast, and lightweight full-text search system built in
 
 ## Features
 
-- **⚡ Lightning Fast** - Search results appear instantly as you type
+- **⚡ Fast Response** - <50ms search response on typical hardware
 - **🔍 Full-Text** - Searches through all content, not just titles
 - **🎯 Relevance Ranking** - Most relevant results appear first
 - **⌨️ Keyboard Navigation** - Navigate results with arrow keys
-- **📱 Mobile Friendly** - Works perfectly on all devices
-- **🌙 Theme Aware** - Automatically matches your site theme
-- **💾 Offline Support** - Search works even without internet
+- **📱 Mobile Friendly** - Works on all devices
+- **🌙 Theme Aware** - Matches your site theme
+- **💾 Offline Support** - Search works offline after initial page load
 
 ## Using Search
 
@@ -27,7 +27,7 @@ Alternatively, click the search icon in the navigation bar.
 
 ### Searching
 
-Simply start typing your query. Results appear instantly:
+Start typing your query. Results appear as you type:
 
 1. **Title matches** - Pages with matching titles appear first
 2. **Content matches** - Pages with matching content follow
@@ -351,18 +351,20 @@ export default defineConfig({
 });
 ```
 
-## Comparison
+## Comparison with Hosted Solutions
 
-Leaf search vs alternatives:
+Leaf uses local client-side search. Hosted solutions offer different tradeoffs:
 
-| Feature | Leaf | Algolia | Typesense |
-|---------|-----------|---------|-----------|
-| **Cost** | Free | $1/month | $0.03/hr |
-| **Setup** | Zero config | API keys | Server setup |
-| **Privacy** | 100% local | Tracked | Self-hosted |
-| **Speed** | <10ms | ~50ms | ~20ms |
-| **Offline** | ✅ Yes | ❌ No | ❌ No |
-| **Search Quality** | Good | Excellent | Excellent |
+| Feature | Leaf (Local) | Algolia | Typesense |
+|---------|--------------|---------|-----------|
+| **Infrastructure** | No server needed | Hosted API | Cloud or self-hosted |
+| **Cost** | $0 (client-side) | Free tier, then $0.50/1k requests | Cloud: $0.03/hr, Self-host: $0 |
+| **Setup** | Zero config | API key + integration | Server setup or cloud account |
+| **Privacy** | 100% client-side | Data sent to Algolia | Self-hosted option available |
+| **Offline Support** | ✅ Yes | ❌ No | ❌ No (needs server) |
+| **Search Features** | Fuzzy, full-text | Advanced (typo tolerance, facets) | Advanced (filtering, faceting) |
+
+**Key Difference:** Leaf is client-side (no infrastructure), while Algolia/Typesense are server-side (more features, requires hosting).
 
 ## Best Practices
 

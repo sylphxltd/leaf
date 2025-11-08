@@ -358,12 +358,12 @@ The price is \$50.
 
 ## Performance
 
-KaTeX is extremely fast:
+Math rendering is optimized for production:
 
-- **Renders on page load** - No flash of unstyled content
-- **No JavaScript dependencies** - Pure CSS after render
-- **Small bundle size** - Only ~150KB gzipped
-- **Server-side rendering** - Pre-rendered during build
+- **Pre-rendered at build time** - HTML/CSS generated during SSG
+- **No runtime JavaScript** - Math is already rendered in HTML
+- **KaTeX library** - ~77KB gzip (only used during build, not shipped to browser)
+- **Fast page loads** - No client-side math processing needed
 
 ## Configuration
 
