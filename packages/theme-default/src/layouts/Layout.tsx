@@ -52,9 +52,9 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 					onClose={() => setSidebarOpen(false)}
 				/>
 
-				{/* VitePress-style layout: fixed sidebar + centered content container */}
+				{/* VitePress-style layout: full width content */}
 				<div className="lg:pl-64">
-					<div className="mx-auto px-6 py-8" style={{ maxWidth: '1440px' }}>
+					<div className="px-6 py-8">
 						<div className="flex gap-8 xl:gap-12">
 							{/* Main content - fixed width for stability */}
 							<main className="flex-1 min-w-0" style={{ maxWidth: toc && toc.length > 0 ? 'calc(100% - 16rem)' : '100%' }}>

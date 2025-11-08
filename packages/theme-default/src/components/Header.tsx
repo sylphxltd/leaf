@@ -19,7 +19,7 @@ export function Header({
 
 	return (
 		<header className="fixed top-0 left-0 right-0 z-50 h-16 border-b border-border/40 bg-background/80 backdrop-blur-xl backdrop-saturate-150 supports-[backdrop-filter]:bg-background/60">
-			<div className="mx-auto flex h-full items-center px-4 lg:px-8" style={{ maxWidth: '90rem' }}>
+			<div className="flex h-full items-center px-4 lg:px-8">
 				{/* Mobile Menu Button */}
 				<button
 					onClick={onMenuClick}
