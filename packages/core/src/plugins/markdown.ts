@@ -98,10 +98,11 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			const component = `
 import React from 'react';
 
-export const toc = ${JSON.stringify(toc)};
+// Build-time TOC as fallback
+const buildTimeToc = ${JSON.stringify(toc)};
 
-// Try to read preloaded data from SSG
-let preloadedToc = [];
+// Try to read preloaded data from SSG (preferred)
+let runtimeToc = buildTimeToc;
 let preloadedLastModified = null;
 
 if (typeof window !== 'undefined') {
@@ -109,13 +110,18 @@ if (typeof window !== 'undefined') {
   if (preloadScript) {
     try {
       const preloadData = JSON.parse(preloadScript.textContent || '{}');
-      preloadedToc = preloadData.toc || [];
+      if (preloadData.toc && preloadData.toc.length > 0) {
+        runtimeToc = preloadData.toc;
+      }
       preloadedLastModified = preloadData.lastModified;
     } catch (e) {
-      // Ignore preload errors
+      // Ignore preload errors, use build-time TOC
     }
   }
 }
+
+// Export runtime TOC (preloaded from SSG, or build-time fallback)
+export const toc = runtimeToc;
 
 export const docFooter = preloadedLastModified ? {
   lastUpdated: preloadedLastModified
