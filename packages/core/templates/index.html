@@ -28,37 +28,62 @@
 			function initMermaid() {
 				const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
 				mermaid.initialize({
-					startOnLoad: true,
+					startOnLoad: false, // We'll manually trigger rendering
 					theme: theme,
 					securityLevel: 'loose',
 					fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
 				});
 			}
 
+			// Render all mermaid diagrams
+			async function renderMermaid() {
+				const elements = document.querySelectorAll('.mermaid:not([data-processed])');
+				if (elements.length > 0) {
+					try {
+						await mermaid.run({
+							nodes: elements,
+						});
+					} catch (e) {
+						console.error('Mermaid rendering error:', e);
+					}
+				}
+			}
+
 			// Initialize on load
 			initMermaid();
 
+			// Wait for React to render, then render mermaid diagrams
+			setTimeout(() => renderMermaid(), 100);
+
 			// Re-initialize when theme changes
-			const observer = new MutationObserver((mutations) => {
+			const themeObserver = new MutationObserver((mutations) => {
 				mutations.forEach((mutation) => {
 					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
 						initMermaid();
-						mermaid.run();
+						// Re-render all diagrams with new theme
+						document.querySelectorAll('.mermaid[data-processed]').forEach(el => {
+							el.removeAttribute('data-processed');
+						});
+						renderMermaid();
 					}
 				});
 			});
 
-			observer.observe(document.documentElement, { attributes: true });
+			themeObserver.observe(document.documentElement, { attributes: true });
 
-			// Re-render mermaid diagrams when navigating
-			let lastUrl = location.href;
-			new MutationObserver(() => {
-				const url = location.href;
-				if (url !== lastUrl) {
-					lastUrl = url;
-					setTimeout(() => mermaid.run(), 50);
+			// Re-render mermaid diagrams when navigating (SPA)
+			const rootObserver = new MutationObserver(() => {
+				renderMermaid();
+			});
+
+			// Wait for root element to exist
+			const checkRoot = setInterval(() => {
+				const root = document.getElementById('root');
+				if (root) {
+					clearInterval(checkRoot);
+					rootObserver.observe(root, { subtree: true, childList: true });
 				}
-			}).observe(document.getElementById('root'), { subtree: true, childList: true });
+			}, 100);
 		</script>
 	</body>
 </html>

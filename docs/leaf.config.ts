@@ -8,7 +8,8 @@ export default defineConfig({
 		nav: [
 			{ text: "Guide", link: "/guide" },
 			{ text: "API", link: "/api" },
-			{ text: "Examples", link: "/examples" },
+			{ text: "Showcase", link: "/showcase" },
+			{ text: "FAQ", link: "/faq" },
 			{
 				text: "GitHub",
 				link: "https://github.com/sylphxltd/leaf",
@@ -30,6 +31,9 @@ export default defineConfig({
 					{ text: "Configuration", link: "/guide/configuration" },
 					{ text: "Markdown", link: "/guide/markdown" },
 					{ text: "Theming", link: "/guide/theming" },
+					{ text: "Deployment", link: "/guide/deployment" },
+					{ text: "Migration from VitePress", link: "/guide/migration" },
+					{ text: "Advanced Features", link: "/guide/advanced" },
 				],
 			},
 			{
@@ -47,6 +51,14 @@ export default defineConfig({
 					{ text: "Config", link: "/api/config" },
 					{ text: "Markdown Plugins", link: "/api/markdown-plugins" },
 					{ text: "Theming API", link: "/api/theming" },
+				],
+			},
+			{
+				text: "Resources",
+				items: [
+					{ text: "Showcase", link: "/showcase" },
+					{ text: "FAQ", link: "/faq" },
+					{ text: "Examples", link: "/examples" },
 				],
 			},
 		],

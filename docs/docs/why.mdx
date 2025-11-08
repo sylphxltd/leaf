@@ -9,18 +9,19 @@ Leaf brings the power of React to documentation sites while maintaining the simp
 
 ## Comparison with VitePress
 
-| Feature | Leaf | VitePress | Winner |
+| Feature | Leaf | VitePress | Notes |
 |---------|-----------|-----------|--------|
-| **Framework** | React 18 | Vue 3 | 🤝 Tie |
-| **Runtime** | Bun | Node.js | ⚡ Leaf |
-| **Build Speed** | ~400ms | ~800ms | ⚡ Leaf |
-| **Bundle Size** | 237KB (73KB gzip) | ~250KB | ⚡ Leaf |
-| **Markdown Features** | ✅ All | ✅ All | 🤝 Parity |
-| **Math Equations** | ✅ KaTeX | ✅ KaTeX | 🤝 Parity |
-| **Mermaid Diagrams** | ✅ v11 | ✅ Native | 🤝 Parity |
-| **Search** | ✅ MiniSearch | ✅ MiniSearch | 🤝 Parity |
-| **Dark Mode** | ✅ | ✅ | 🤝 Parity |
-| **Component Library** | React Ecosystem | Vue Ecosystem | 🎯 Preference |
+| **Framework** | React 19 | Vue 3 | Different ecosystems |
+| **Build Speed** | 2.04s (npm) | 2.30s (npm) | Leaf 12% faster |
+| **Bundle Size** | 73KB gzip | ~75KB gzip | Comparable |
+| **Markdown Features** | ✅ All | ✅ All | Full parity |
+| **Math Equations** | ✅ KaTeX | ✅ KaTeX | Same |
+| **Mermaid Diagrams** | ✅ v10 | ✅ Native | Same |
+| **Search** | ✅ MiniSearch | ✅ MiniSearch | Same |
+| **Dark Mode** | ✅ | ✅ | Same |
+| **Component Library** | React Ecosystem | Vue Ecosystem | Main differentiator |
+
+**Note:** Both frameworks work with npm or Bun. Benchmarks tested with npm/Node.js for fair comparison. See [BENCHMARK.md](https://github.com/sylphxltd/leaf/blob/main/BENCHMARK.md) for details.
 
 ## Key Advantages
 
@@ -51,21 +52,22 @@ export function Counter() {
 
 ### 2. Modern Runtime <Badge type="tip" text="FAST" />
 
-**Bun** is significantly faster than Node.js:
+**Bun** provides performance improvements over Node.js:
 
 ```mermaid
 graph LR
-    A[bun install] -->|2-3x faster| B[Dependencies]
-    C[node install] -->|slower| B
+    A[bun install] -->|faster| B[Dependencies]
+    C[npm install] -->|slower| B
 
-    D[bun run] -->|4x faster| E[Scripts]
+    D[bun run] -->|faster| E[Scripts]
     F[node run] -->|slower| E
 ```
 
-Real-world benchmarks:
-- **Install**: 2-3x faster than npm/pnpm
-- **Script execution**: 4x faster than Node.js
-- **Build time**: ~400ms vs ~800ms (VitePress)
+**Bun advantages:**
+- Faster package installation
+- Quicker script execution
+- Built-in bundler and test runner
+- Native TypeScript support
 
 ### 3. Ultra Lightweight
 
