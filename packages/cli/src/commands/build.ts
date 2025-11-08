@@ -4,8 +4,8 @@ import {
 	loadConfig,
 	routesPlugin,
 } from "@sylphx/leaf";
-import { readFile, writeFile } from "node:fs/promises";
-import { resolve, dirname } from "node:path";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { build as viteBuild } from "vite";
 
@@ -33,9 +33,14 @@ export async function build(root: string = process.cwd()): Promise<void> {
 	const builtInHtml = await readFile(builtInHtmlPath, "utf-8");
 	const builtInClient = await readFile(builtInClientPath, "utf-8");
 
+	// Create .leaf temp directory in project root for build artifacts
+	// This keeps temp files organized and easy to gitignore
+	const leafTempDir = join(root, ".leaf");
+	await mkdir(leafTempDir, { recursive: true });
+
 	// Write to temporary locations for Vite to process
-	const tempHtmlPath = resolve(root, ".leaf-temp-index.html");
-	const tempClientPath = resolve(root, ".leaf-client.tsx");
+	const tempHtmlPath = join(leafTempDir, "index.html");
+	const tempClientPath = join(leafTempDir, "client.tsx");
 	await writeFile(tempHtmlPath, builtInHtml, "utf-8");
 	await writeFile(tempClientPath, builtInClient, "utf-8");
 
@@ -62,11 +67,16 @@ export async function build(root: string = process.cwd()): Promise<void> {
 
 		console.log("✓ Client bundle built");
 
-		// Rename generated HTML from temp name to index.html
-		const { rename: renameFile } = await import("node:fs/promises");
-		const tempHtmlOutput = resolve(outDir, ".leaf-temp-index.html");
-		const finalHtmlPath = resolve(outDir, "index.html");
-		await renameFile(tempHtmlOutput, finalHtmlPath);
+		// Vite preserves input directory structure, so it outputs to dist/.leaf/index.html
+		// Move it to dist/index.html for proper site structure
+		const { rename: renameFile, rm } = await import("node:fs/promises");
+		const generatedHtmlPath = join(outDir, ".leaf", "index.html");
+		const finalHtmlPath = join(outDir, "index.html");
+		await renameFile(generatedHtmlPath, finalHtmlPath);
+
+		// Clean up empty .leaf directory in dist
+		const distLeafDir = join(outDir, ".leaf");
+		await rm(distLeafDir, { recursive: true, force: true });
 
 		// Read the generated HTML template
 		const template = await readFile(finalHtmlPath, "utf-8");
@@ -81,13 +91,12 @@ export async function build(root: string = process.cwd()): Promise<void> {
 
 		console.log("\n✓ Build completed successfully!");
 	} finally {
-		// Clean up temporary files
+		// Clean up .leaf temp directory
 		try {
-			const { unlink } = await import("node:fs/promises");
-			await unlink(tempHtmlPath);
-			await unlink(tempClientPath);
+			const { rm } = await import("node:fs/promises");
+			await rm(leafTempDir, { recursive: true, force: true });
 		} catch {
-			// Ignore errors
+			// Ignore cleanup errors
 		}
 	}
 }

@@ -1,9 +1,9 @@
-import { resolve } from "node:path";
+import { resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { dirname } from "node:path";
 import { createLeafPlugin, loadConfig, routesPlugin } from "@sylphx/leaf";
 import { createServer } from "vite";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,8 +22,12 @@ export async function dev(root: string = process.cwd()): Promise<void> {
 		"../../../core/templates/client.tsx"
 	);
 
-	// Copy client template to project root so Vite can process it
-	const tempClientPath = resolve(root, ".leaf-client.tsx");
+	// Create .leaf temp directory for dev artifacts
+	const leafTempDir = join(root, ".leaf");
+	await mkdir(leafTempDir, { recursive: true });
+
+	// Copy client template to .leaf directory so Vite can process it
+	const tempClientPath = join(leafTempDir, "client.tsx");
 	const clientTemplate = await readFile(builtInClientPath, "utf-8");
 	await writeFile(tempClientPath, clientTemplate, "utf-8");
 

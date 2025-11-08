@@ -7,8 +7,7 @@ dist
 *.tgz
 
 # Leaf temporary files
-.leaf-temp-*
-.leaf-client.tsx
+.leaf/
 
 # code coverage
 coverage
