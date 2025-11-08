@@ -16,6 +16,8 @@
       "version": "1.0.0",
       "dependencies": {
         "@sylphx/leaf-theme-default": "workspace:*",
+        "@sylphx/zen": "^1.2.1",
+        "@sylphx/zen-router": "^1.0.2",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-router-dom": "^7.9.5",
@@ -114,13 +116,13 @@
         "@radix-ui/react-separator": "^1.1.8",
         "@sylphx/silk": "^2.0.2",
         "@sylphx/zen": "^1.2.1",
+        "@sylphx/zen-router": "^1.0.2",
         "autoprefixer": "^10.4.21",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "katex": "^0.16.25",
         "minisearch": "^7.2.0",
         "postcss": "^8.5.6",
-        "react-router-dom": "^7.9.5",
         "tailwind-merge": "^3.3.1",
         "tailwindcss": "^3.4.18",
       },
@@ -532,6 +534,8 @@
     "@sylphx/silk": ["@sylphx/silk@2.0.2", "", {}, "sha512-5sBzsMhlrT6H47Iuos0+NrK8jAC5OTcJ9t6jYrO6jGdH4B6QZ2Y86LBsjQfO/88QHwb9EAl0lNOlnxzcc9jGyw=="],
 
     "@sylphx/zen": ["@sylphx/zen@1.2.1", "", {}, "sha512-rk3rOFpd5g/KZ9jtL0sWCnE5Oa7m04txqG4rTwLtQ8dgGbi3nIeTThe+Oabje978pwqP1kaDJAnaLwF7XQsznw=="],
+
+    "@sylphx/zen-router": ["@sylphx/zen-router@1.0.2", "", { "dependencies": { "@sylphx/zen": "^1.2.1" } }, "sha512-EntCFQMxbya+vYg1WQobYShpRFTAjbdNq2QAJtL/UrR4UdobAitWqToUbqjDuLZWHASQI8w9NESlFcUanbG3yQ=="],
 
     "@tybys/wasm-util": ["@tybys/wasm-util@0.10.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg=="],
 

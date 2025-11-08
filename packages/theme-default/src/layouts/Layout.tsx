@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Outlet, useMatches, useLocation } from "react-router-dom";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { TableOfContents, type TocItem } from "../components/TableOfContents";
@@ -9,25 +8,27 @@ import { cn } from "../lib/utils";
 
 interface LayoutProps {
 	config?: any;
+	currentRoute?: {
+		path: string;
+		toc: TocItem[];
+		docFooter: DocFooterProps;
+	} | null;
+	children: React.ReactNode;
 }
 
-export function Layout({ config }: LayoutProps): JSX.Element {
-	const matches = useMatches();
-	const location = useLocation();
+export function Layout({ config, currentRoute, children }: LayoutProps): JSX.Element {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [searchOpen, setSearchOpen] = useState(false);
 
-	const currentMatch = matches[matches.length - 1];
-	const handle = (currentMatch?.handle as any) || {};
-	const toc = handle.toc || [];
-	const docFooter = handle.docFooter;
+	const toc = currentRoute?.toc || [];
+	const docFooter = currentRoute?.docFooter;
 
 	const hasSidebar = config?.theme?.sidebar && config.theme.sidebar.length > 0;
 	const hasToc = toc && toc.length > 0;
 
 	useEffect(() => {
 		setSidebarOpen(false);
-	}, [location.pathname]);
+	}, [currentRoute?.path]);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -74,7 +75,7 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 									!hasSidebar && !hasToc && "max-w-4xl"
 								)} style={{ maxWidth: hasToc ? '48rem' : undefined }}>
 									<div className="prose prose-slate dark:prose-invert max-w-none">
-										<Outlet />
+										{children}
 									</div>
 									{docFooter && (
 										<div className="mt-16 pt-8 border-t border-border/40">

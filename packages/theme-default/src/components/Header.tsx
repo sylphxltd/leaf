@@ -1,5 +1,6 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "./Link";
+import { useLocation } from "../hooks/useRouter";
 import { Icon } from "@iconify/react";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "../lib/utils";

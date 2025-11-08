@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../hooks/useRouter";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Icon } from "@iconify/react";
 import MiniSearch from "minisearch";
