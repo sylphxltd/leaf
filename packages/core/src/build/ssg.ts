@@ -388,7 +388,7 @@ async function generatePageHTML(
 
 	// Inject the rendered content, TOC, and scripts into the template
 	// Replace <div id="root"></div> with pre-rendered content
-	const html = template.replace(
+	let html = template.replace(
 		'<div id="root"></div>',
 		`<div id="root">
 			<div class="layout-content">
@@ -400,7 +400,7 @@ async function generatePageHTML(
 				</main>
 				${tocHtml}
 			</div>
-		</div>${tocScript}${codeCopyScript}${codeGroupsScript}${mermaidScript}`,
+		</div>${tocScript}${codeCopyScript}${codeGroupsScript}${mermaidScript}${lastUpdatedScript}`,
 	);
 
 	// Ensure directory exists

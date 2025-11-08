@@ -15,12 +15,17 @@ export const toggleTheme = (): void => {
 	const newTheme = current === "light" ? "dark" : "light";
 	set(themeStore, newTheme);
 	document.documentElement.setAttribute("data-theme", newTheme);
+	// Persist theme preference to localStorage
+	if (typeof window !== "undefined") {
+		localStorage.setItem("leaf-theme", newTheme);
+	}
 };
 
-// Initialize theme
+// Initialize theme from localStorage or system preference
 if (typeof window !== "undefined") {
+	const stored = localStorage.getItem("leaf-theme") as Theme | null;
 	const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-	const initial = prefersDark ? "dark" : "light";
+	const initial = stored || (prefersDark ? "dark" : "light");
 	set(themeStore, initial);
 	document.documentElement.setAttribute("data-theme", initial);
 }
