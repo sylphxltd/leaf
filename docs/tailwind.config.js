@@ -1,8 +1,24 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: [
-		"./content/**/*.md",
+		"./docs/**/*.md",
 		"./node_modules/@sylphx/leaf-theme-default/dist/**/*.js",
+	],
+	safelist: [
+		{
+			pattern: /^prose(-.*)?$/,
+		},
+		{
+			pattern: /^custom-block(-.*)?$/,
+		},
+		{
+			pattern: /^code-(block|lang|copy|group)(-.*)?$/,
+		},
+		'badge',
+		'badge-tip',
+		'badge-warning',
+		'badge-danger',
+		'badge-info',
 	],
 	darkMode: ["class", '[data-theme="dark"]'],
 	theme: {
