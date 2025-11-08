@@ -28,6 +28,12 @@ export const rehypeExternalLinks: Plugin<[], Root> = () => {
 				node.properties.target = "_blank";
 				node.properties.rel = "noopener noreferrer";
 
+				// Add non-breaking space before icon to prevent wrapping
+				node.children.push({
+					type: "text",
+					value: "\u00A0", // Non-breaking space (&nbsp;)
+				} as any);
+
 				// Add external link icon as SVG
 				node.children.push({
 					type: "element",
