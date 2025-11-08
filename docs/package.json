@@ -4,9 +4,9 @@
 	"type": "module",
 	"private": true,
 	"scripts": {
-		"dev": "leaf dev",
-		"build": "leaf build",
-		"preview": "leaf preview"
+		"dev": "bun ../packages/cli/dist/cli.js dev",
+		"build": "bun ../packages/cli/dist/cli.js build",
+		"preview": "bun ../packages/cli/dist/cli.js preview"
 	},
 	"dependencies": {
 		"@sylphx/leaf-theme-default": "workspace:*",
