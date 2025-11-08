@@ -167,7 +167,26 @@ Add to `package.json`:
 }
 ```
 
-### 6. Create Your First Page
+### 6. Setup `.gitignore`
+
+Create `.gitignore` to exclude build artifacts:
+
+```gitignore
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Leaf temporary files
+.leaf/
+
+# Environment files
+.env
+.env.local
+```
+
+### 7. Create Your First Page
 
 Create `docs/index.mdx`:
 

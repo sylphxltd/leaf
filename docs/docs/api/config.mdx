@@ -321,19 +321,25 @@ Markdown processing configuration:
 
 ```typescript
 interface MarkdownConfig {
-  remarkPlugins?: Plugin[];
-  rehypePlugins?: Plugin[];
+  remarkPlugins?: RemarkPlugin[];
+  rehypePlugins?: RehypePlugin[];
   highlight?: HighlightConfig;
   math?: MathConfig;
   mermaid?: MermaidConfig;
 }
+
+// Plugin types
+type RemarkPlugin = UnifiedPlugin | [UnifiedPlugin, ...any[]];
+type RehypePlugin = UnifiedPlugin | [UnifiedPlugin, ...any[]];
 ```
 
 ### markdown.remarkPlugins
 
-- **Type:** `Plugin[]`
+- **Type:** `RemarkPlugin[]`
 
-Custom [remark](https://github.com/remarkjs/remark) plugins.
+Custom [remark](https://github.com/remarkjs/remark) plugins to process markdown AST.
+
+**Simple usage:**
 
 ```typescript
 import remarkMath from "remark-math";
@@ -345,11 +351,34 @@ export default defineConfig({
 });
 ```
 
+**With options:**
+
+```typescript
+import { remarkCustomPlugin } from "./plugins";
+
+export default defineConfig({
+  markdown: {
+    remarkPlugins: [
+      [remarkCustomPlugin, { option1: true, option2: "value" }]
+    ]
+  }
+});
+```
+
+::: tip Type Safety
+Leaf exports `RemarkPlugin` type for better TypeScript inference:
+```typescript
+import type { RemarkPlugin } from "@sylphx/leaf";
+```
+:::
+
 ### markdown.rehypePlugins
 
-- **Type:** `Plugin[]`
+- **Type:** `RehypePlugin[]`
 
-Custom [rehype](https://github.com/rehypejs/rehype) plugins.
+Custom [rehype](https://github.com/rehypejs/rehype) plugins to process HTML AST.
+
+**Simple usage:**
 
 ```typescript
 import rehypeKatex from "rehype-katex";
@@ -360,6 +389,27 @@ export default defineConfig({
   }
 });
 ```
+
+**With options:**
+
+```typescript
+import { rehypeCustomPlugin } from "./plugins";
+
+export default defineConfig({
+  markdown: {
+    rehypePlugins: [
+      [rehypeCustomPlugin, { className: "custom-class" }]
+    ]
+  }
+});
+```
+
+::: tip Type Safety
+Leaf exports `RehypePlugin` type for better TypeScript inference:
+```typescript
+import type { RehypePlugin } from "@sylphx/leaf";
+```
+:::
 
 ### markdown.highlight
 

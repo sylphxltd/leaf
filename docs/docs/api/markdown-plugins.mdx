@@ -22,7 +22,82 @@ Markdown → remark plugins → HTML → rehype plugins → Final HTML
 
 ## Plugin Types
 
-### Remark Plugins
+Leaf exports TypeScript types for better plugin development:
+
+```typescript
+import type {
+  RemarkPlugin,
+  RehypePlugin,
+  TocItem,
+  LeafPluginConfig
+} from "@sylphx/leaf";
+```
+
+### RemarkPlugin
+
+Type for remark plugins that process markdown AST.
+
+```typescript
+type RemarkPlugin = UnifiedPlugin | [UnifiedPlugin, ...any[]];
+```
+
+**Usage:**
+
+```typescript
+import type { RemarkPlugin } from "@sylphx/leaf";
+
+// Simple plugin
+const myPlugin: RemarkPlugin = () => (tree) => {
+  // Transform tree
+};
+
+// Plugin with options
+const myPluginWithOptions: RemarkPlugin = [myPlugin, { enabled: true }];
+```
+
+### RehypePlugin
+
+Type for rehype plugins that process HTML AST.
+
+```typescript
+type RehypePlugin = UnifiedPlugin | [UnifiedPlugin, ...any[]];
+```
+
+**Usage:**
+
+```typescript
+import type { RehypePlugin } from "@sylphx/leaf";
+
+// Simple plugin
+const myRehypePlugin: RehypePlugin = () => (tree) => {
+  // Transform tree
+};
+```
+
+### TocItem
+
+Type for table of contents items extracted during markdown processing.
+
+```typescript
+interface TocItem {
+  text: string;   // Heading text
+  id: string;     // Generated ID (slug)
+  level: number;  // Heading level (2-3)
+}
+```
+
+### LeafPluginConfig
+
+Configuration interface for custom plugin systems.
+
+```typescript
+interface LeafPluginConfig {
+  remarkPlugins?: RemarkPlugin[];
+  rehypePlugins?: RehypePlugin[];
+}
+```
+
+## Remark Plugins
 
 Process markdown AST before conversion to HTML.
 
@@ -32,7 +107,7 @@ Process markdown AST before conversion to HTML.
 - Extract metadata
 - Modify content structure
 
-### Rehype Plugins
+## Rehype Plugins
 
 Process HTML AST after markdown conversion.
 
