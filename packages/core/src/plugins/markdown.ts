@@ -8,6 +8,7 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
+import matter from "gray-matter";
 import type { Plugin } from "vite";
 import type { LeafConfig } from "../types.js";
 import type { Root } from "mdast";
@@ -38,7 +39,10 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			}
 
 			// Read the markdown file
-			const code = await readFile(id, "utf-8");
+			const rawCode = await readFile(id, "utf-8");
+
+			// Parse frontmatter and extract content
+			const { content: code } = matter(rawCode);
 
 			// Extract TOC
 			const toc: TocItem[] = [];
