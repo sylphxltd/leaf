@@ -48,16 +48,14 @@ export interface SocialLink {
 export interface MarkdownConfig {
 	/** Enable line numbers in code blocks */
 	lineNumbers?: boolean;
-	/** Custom rehype plugins */
-	rehypePlugins?: RemarkRehypePlugin[];
-	/** Custom remark plugins */
-	remarkPlugins?: RemarkRehypePlugin[];
+	/** Custom rehype plugins to process HTML */
+	rehypePlugins?: RehypePlugin[];
+	/** Custom remark plugins to process markdown */
+	remarkPlugins?: RemarkPlugin[];
 }
 
-// Type-safe plugin definition
-export type RemarkRehypePlugin =
-	| [any, ...any[]]
-	| any;
+// Re-export plugin types from plugins module
+export type { RemarkPlugin, RehypePlugin } from "./plugins/index.js";
 
 export interface PageData {
 	/** Page title from frontmatter */
