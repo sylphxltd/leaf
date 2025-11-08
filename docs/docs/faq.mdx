@@ -11,11 +11,11 @@ Common questions about Leaf documentation framework.
 
 ### What is Leaf?
 
-Leaf is a modern React-based documentation framework that achieves 100% feature parity with VitePress. It uses Bun for faster builds, TypeScript for type safety, and the React ecosystem for maximum flexibility.
+Leaf is a modern documentation framework built with Preact (React-compatible) that provides VitePress-compatible markdown syntax and features. It uses TypeScript for type safety and gives you access to the full React ecosystem.
 
 ### How is Leaf different from VitePress?
 
-Leaf uses **React** instead of Vue, **Bun** instead of Node.js, and **Sylphx tools** (Zen, Silk) instead of Vue's runtime. Otherwise, it maintains the same markdown syntax, features, and developer experience as VitePress.
+Leaf uses **Preact** (React-compatible) instead of Vue, **Sylphx tools** (Zen, Silk) for state and styling, and supports both **Bun and Node.js** runtimes. It maintains VitePress-compatible markdown syntax while giving you access to the React ecosystem.
 
 ### Is Leaf production-ready?
 
@@ -36,24 +36,31 @@ Yes, Leaf is open source and free for both commercial and non-commercial use.
 
 ### Do I need Bun?
 
-Yes, Leaf requires Bun runtime for optimal performance. Install it with:
+**No**, Bun is optional but recommended. Leaf works with both Bun and Node.js 18+:
 
 ```bash
+# Option 1: Install Bun (recommended for ~7% faster builds)
 curl -fsSL https://bun.sh/install | bash
+
+# Option 2: Use Node.js 18+ (works fine)
+node --version  # Should be 18+
 ```
 
 ::: tip Why Bun?
-Bun provides faster package installation and script execution compared to Node.js.
+Bun provides faster package installation (~2-3x) and build execution (~7% faster) compared to Node.js.
 :::
 
-### Can I use npm or pnpm instead of Bun?
+### Can I use npm or pnpm for package management?
 
-While Leaf is built for Bun, you can use npm/pnpm for installation. However, build times will be slower:
+Yes! You can use any package manager:
 
 ```bash
-npm install  # Works, but slower
-bun install  # Recommended
+npm install   # Node.js + npm
+pnpm install  # Node.js + pnpm
+bun install   # Bun (fastest)
 ```
+
+All work correctly. Bun is fastest for installation but any will work for builds.
 
 ### How do I start a new project?
 
@@ -495,11 +502,15 @@ We're building it! Join us on GitHub Discussions to connect with other Leaf user
 
 ### When is v1.0?
 
-We're targeting v1.0 for Q2 2024 once:
-- All core features are stable
-- CLI tool is released
-- Documentation is complete
-- Community feedback is addressed
+**Current Status:** v0.1.0 in active development
+
+Targeting v1.0 stable release once:
+- ✅ All core features are stable (done)
+- 🚧 CLI tool (`create-leaf`) is released (in progress)
+- ✅ Documentation is complete (done)
+- 🔄 Community feedback is addressed (ongoing)
+
+Follow progress on [GitHub](https://github.com/sylphxltd/leaf/milestones).
 
 ## Still have questions?
 
