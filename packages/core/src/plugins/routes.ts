@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import type { Plugin } from "vite";
 import fg from "fast-glob";
@@ -16,11 +17,17 @@ export function routesPlugin(docsDir: string): Plugin {
 	const VIRTUAL_MODULE_ID = "virtual:leaf/routes";
 	const RESOLVED_VIRTUAL_MODULE_ID = `\0${VIRTUAL_MODULE_ID}`;
 
+	// Track known markdown files for smart HMR
+	let knownFiles = new Set<string>();
+
 	async function generateRoutesModule(): Promise<string> {
 		const files = await fg("**/*.{md,mdx}", {
 			cwd: docsDir,
 			ignore: ["node_modules", "**/node_modules"],
 		});
+
+		// Update known files for HMR detection
+		knownFiles = new Set(files.map((f) => resolve(docsDir, f)));
 
 		const routes: RouteData[] = [];
 
@@ -92,8 +99,17 @@ ${routesList}
 			}
 		},
 		async handleHotUpdate({ file, server }) {
-			// Reload routes when markdown files change
-			if (file.startsWith(docsDir) && /\.(md|mdx)$/.test(file)) {
+			// Only handle markdown files in docs directory
+			if (!file.startsWith(docsDir) || !/\.(md|mdx)$/.test(file)) {
+				return;
+			}
+
+			// Check if this is a new or deleted file (route structure change)
+			const wasKnown = knownFiles.has(file);
+			const exists = existsSync(file);
+
+			// New file added or existing file deleted → full reload
+			if ((!wasKnown && exists) || (wasKnown && !exists)) {
 				const module = server.moduleGraph.getModuleById(
 					RESOLVED_VIRTUAL_MODULE_ID,
 				);
@@ -103,7 +119,12 @@ ${routesList}
 						type: "full-reload",
 					});
 				}
+				return;
 			}
+
+			// Content-only change → let Vite's default HMR handle it
+			// The markdown module will be hot-updated automatically
+			// No need for full reload or manual intervention
 		},
 	};
 }
