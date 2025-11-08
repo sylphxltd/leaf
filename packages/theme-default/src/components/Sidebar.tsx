@@ -1,4 +1,5 @@
 // ASSUMPTION: JSX automatic runtime via Preact preset
+import { useState } from "preact/hooks";
 import { Link } from "./Link";
 import { useLocation } from "../hooks/useRouter";
 import * as Collapsible from "@radix-ui/react-collapsible";
@@ -37,7 +38,7 @@ function SidebarGroup({
 				child.items?.some((grandchild) => grandchild.link === location.pathname),
 		);
 
-	const [open, setOpen] = React.useState(!item.collapsed || hasActiveChild);
+	const [open, setOpen] = useState(!item.collapsed || hasActiveChild);
 
 	if (!hasItems && item.link) {
 		return (

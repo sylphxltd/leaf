@@ -1,4 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
+import type { ComponentChildren } from "preact";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { TableOfContents, type TocItem } from "../components/TableOfContents";
@@ -13,7 +14,7 @@ interface LayoutProps {
 		toc: TocItem[];
 		docFooter: DocFooterProps;
 	} | null;
-	children: React.ReactNode;
+	children: ComponentChildren;
 }
 
 export function Layout({ config, currentRoute, children }: LayoutProps): JSX.Element {
