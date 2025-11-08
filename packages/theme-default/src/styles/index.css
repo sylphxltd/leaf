@@ -176,7 +176,7 @@
 	}
 
 	.prose pre {
-		@apply my-5 overflow-x-auto rounded-xl border border-border/50 bg-muted/30 p-5;
+		@apply my-5 overflow-x-auto rounded-xl border border-border bg-muted p-5;
 		box-shadow: var(--shadow-md);
 	}
 
