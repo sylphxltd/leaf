@@ -3,6 +3,7 @@ export default {
 	content: [
 		"./docs/**/*.md",
 		"./node_modules/@sylphx/leaf-theme-default/dist/**/*.js",
+		"../packages/theme-default/src/**/*.{ts,tsx}",
 	],
 	safelist: [
 		{
