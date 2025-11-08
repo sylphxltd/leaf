@@ -17,7 +17,7 @@ export function createLeafPlugin(config: LeafConfig): Plugin[] {
 					},
 					esbuild: {
 						jsx: "automatic",
-						jsxDev: !isProduction,
+						jsxDev: false,
 						jsxImportSource: "react",
 					},
 					resolve: {
@@ -26,7 +26,10 @@ export function createLeafPlugin(config: LeafConfig): Plugin[] {
 					optimizeDeps: {
 						esbuildOptions: {
 							jsx: "automatic",
-							jsxDev: !isProduction,
+							jsxDev: false,
+							define: {
+								"process.env.NODE_ENV": JSON.stringify(mode),
+							},
 						},
 					},
 				};
