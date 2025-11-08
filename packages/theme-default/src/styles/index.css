@@ -375,18 +375,17 @@
 		@apply opacity-100 relative top-0 right-0;
 	}
 
-	/* Header anchors */
+	/* Header anchors - only h1 like VitePress, hidden and no layout impact */
+	.prose h1 {
+		@apply relative;
+	}
+
 	.header-anchor {
-		@apply float-left -ml-6 pr-2 text-foreground opacity-0 no-underline transition-opacity;
+		@apply absolute -left-6 text-foreground opacity-0 no-underline transition-opacity;
 		font-weight: 600;
 	}
 
-	.prose h1:hover .header-anchor,
-	.prose h2:hover .header-anchor,
-	.prose h3:hover .header-anchor,
-	.prose h4:hover .header-anchor,
-	.prose h5:hover .header-anchor,
-	.prose h6:hover .header-anchor {
+	.prose h1:hover .header-anchor {
 		@apply opacity-100;
 	}
 

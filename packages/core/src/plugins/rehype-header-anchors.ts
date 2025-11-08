@@ -9,8 +9,8 @@ import { visit } from "unist-util-visit";
 export const rehypeHeaderAnchors: Plugin<[], Root> = () => {
 	return (tree) => {
 		visit(tree, "element", (node: Element) => {
-			// Only process h1-h6 tags
-			if (!/^h[1-6]$/.test(node.tagName)) return;
+			// Only process h1 tags (VitePress style)
+			if (node.tagName !== "h1") return;
 
 			// Skip if no id (rehype-slug should have added it)
 			if (!node.properties?.id) return;
