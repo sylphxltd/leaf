@@ -226,6 +226,19 @@ code {
 	flex-direction: column;
 	gap: 0.25rem;
 	margin-top: 0.25rem;
+	overflow: hidden;
+	transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+}
+
+.sidebar-group-items.collapsed {
+	max-height: 0;
+	opacity: 0;
+	margin-top: 0;
+}
+
+.sidebar-group-items.expanded {
+	max-height: 2000px; /* Large enough to accommodate any content */
+	opacity: 1;
 }
 
 /* Mobile Sidebar */

@@ -22,7 +22,6 @@ function SidebarGroup({
 	level?: number;
 }): JSX.Element {
 	const location = useLocation();
-	const [collapsed, setCollapsed] = useState(item.collapsed ?? false);
 	const hasItems = item.items && item.items.length > 0;
 
 	const isActive = item.link && location.pathname === item.link;
@@ -34,7 +33,9 @@ function SidebarGroup({
 				child.items?.some((grandchild) => grandchild.link === location.pathname),
 		);
 
-	const shouldExpand = hasActiveChild;
+	// Start collapsed to avoid SSR/client mismatch flash
+	// Will auto-expand via useEffect if needed
+	const [collapsed, setCollapsed] = React.useState(item.collapsed ?? true);
 
 	React.useEffect(() => {
 		if (shouldExpand && collapsed) {
@@ -119,13 +120,11 @@ function SidebarGroup({
 					</button>
 				)}
 
-				{!collapsed && (
-					<div className="sidebar-group-items">
-						{item.items.map((child, idx) => (
-							<SidebarGroup key={child.link || idx} item={child} level={level + 1} />
-						))}
-					</div>
-				)}
+				<div className={`sidebar-group-items ${collapsed ? "collapsed" : "expanded"}`}>
+					{item.items.map((child, idx) => (
+						<SidebarGroup key={child.link || idx} item={child} level={level + 1} />
+					))}
+				</div>
 			</div>
 		);
 	}
