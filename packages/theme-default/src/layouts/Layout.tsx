@@ -53,27 +53,25 @@ export function Layout({ config }: LayoutProps): JSX.Element {
 				/>
 
 				<div className="lg:pl-64">
-					<div className="mx-auto max-w-8xl">
-						<div className="flex gap-6 px-4 py-8 md:gap-8 md:px-6 lg:gap-12 lg:px-8">
-							<main className="flex-1 min-w-0">
-								<article className="mx-auto" style={{ maxWidth: '48rem' }}>
-									<div className="prose prose-slate dark:prose-invert max-w-none">
-										<Outlet />
+					<div className="flex px-8 py-8 gap-8 lg:gap-10 xl:gap-12">
+						<main className="flex-1 min-w-0">
+							<article className="mx-auto" style={{ maxWidth: '48rem' }}>
+								<div className="prose prose-slate dark:prose-invert max-w-none">
+									<Outlet />
+								</div>
+								{docFooter && (
+									<div className="mt-16 pt-8 border-t border-border/40">
+										<DocFooter {...docFooter} />
 									</div>
-									{docFooter && (
-										<div className="mt-16 pt-8 border-t border-border/40">
-											<DocFooter {...docFooter} />
-										</div>
-									)}
-								</article>
-							</main>
+								)}
+							</article>
+						</main>
 
-							{toc && toc.length > 0 && (
-								<aside className="hidden xl:block w-64 flex-shrink-0">
-									<TableOfContents items={toc} />
-								</aside>
-							)}
-						</div>
+						{toc && toc.length > 0 && (
+							<aside className="hidden xl:block w-64 flex-shrink-0">
+								<TableOfContents items={toc} />
+							</aside>
+						)}
 					</div>
 				</div>
 			</div>
