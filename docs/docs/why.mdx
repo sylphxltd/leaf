@@ -21,11 +21,11 @@ Leaf brings the power of React to documentation sites while maintaining the simp
 | **Dark Mode** | ✅ | ✅ | Same |
 | **Component Library** | React Ecosystem | Vue Ecosystem | Main differentiator |
 
-**Note:** Both frameworks work with npm or Bun. Benchmarks tested with npm/Node.js for fair comparison. See [BENCHMARK.md](https://github.com/sylphxltd/leaf/blob/main/BENCHMARK.md) for details.
+**Note:** Benchmarks tested with npm/Node.js on M1 MacBook Pro, 16GB RAM, using a 22-page documentation site. See [BENCHMARK.md](https://github.com/sylphxltd/leaf/blob/main/BENCHMARK.md) for full methodology.
 
 ## Key Advantages
 
-### 1. React Ecosystem <Badge type="tip" text="HUGE" />
+### 1. React Ecosystem
 
 Access to the entire React ecosystem:
 
@@ -50,24 +50,13 @@ export function Counter() {
 }
 ```
 
-### 2. Modern Runtime <Badge type="tip" text="FAST" />
+### 2. Modern Runtime
 
-**Bun** provides performance improvements over Node.js:
+**Bun or Node.js** - Use either runtime:
 
-```mermaid
-graph LR
-    A[bun install] -->|faster| B[Dependencies]
-    C[npm install] -->|slower| B
-
-    D[bun run] -->|faster| E[Scripts]
-    F[node run] -->|slower| E
-```
-
-**Bun advantages:**
-- Faster package installation
-- Quicker script execution
-- Built-in bundler and test runner
-- Native TypeScript support
+- **Bun**: Faster package installation and built-in TypeScript support
+- **Node.js 18+**: Stable and widely supported
+- Both work equally well for production builds
 
 ### 3. Small Bundle Size
 

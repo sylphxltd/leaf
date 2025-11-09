@@ -22,6 +22,143 @@ The default theme includes:
 - **Smooth animations** - Polished UI transitions
 - **Accessible** - WCAG 2.1 AA compliant
 
+## Hero Page Layout
+
+Create stunning landing pages with the hero layout, perfect for homepages and marketing pages.
+
+### Basic Hero Page
+
+Add `layout: home` to your frontmatter:
+
+```markdown
+---
+title: My Awesome Project
+layout: home
+
+hero:
+  name: Project Name
+  text: Modern Documentation Framework
+  tagline: Built for developers who want the best.
+  actions:
+    - text: Get Started
+      link: /guide
+      theme: brand
+    - text: View on GitHub
+      link: https://github.com/username/repo
+      theme: alt
+---
+```
+
+### Hero Configuration
+
+The hero section supports:
+
+**name** (optional)
+Badge text displayed above the main heading.
+
+**text** (required)
+Main heading text with gradient styling.
+
+**tagline** (optional)
+Subtitle text displayed below the main heading.
+
+**actions** (optional)
+Array of action buttons.
+
+**image** (optional)
+Hero image displayed on the right side (like VitePress). Perfect for showcasing screenshots, product mockups, or diagrams.
+
+```yaml
+hero:
+  image:
+    src: /hero.png
+    alt: Product screenshot
+```
+
+The hero uses a responsive 2-column grid layout:
+- **Desktop**: Image appears on the right side
+- **Mobile**: Image appears below the hero content
+
+### Features Grid
+
+Add a features grid below the hero:
+
+```yaml
+features:
+  - icon: lucide:zap
+    title: Fast
+    details: Lightning-fast build times with Vite and Preact.
+  - icon: lucide:shield
+    title: Type-Safe
+    details: Full TypeScript support out of the box.
+  - icon: lucide:rocket
+    title: Modern
+    details: Latest web technologies and best practices.
+```
+
+**Feature Options:**
+
+- `icon` - Iconify icon name (e.g., `lucide:star`, `mdi:rocket`)
+- `title` - Feature heading
+- `details` - Feature description
+- `link` (optional) - Make the feature card clickable
+
+### Complete Example
+
+```markdown
+---
+title: My Project
+layout: home
+
+hero:
+  name: Beta v0.1
+  text: Build Amazing Docs
+  tagline: Fast, modern, and developer-friendly documentation framework.
+  image:
+    src: /hero-image.png
+    alt: Dashboard screenshot
+  actions:
+    - text: Quick Start
+      link: /getting-started
+      theme: brand
+    - text: Learn More
+      link: /guide
+      theme: alt
+
+features:
+  - icon: lucide:zap
+    title: ⚡ Fast Development
+    details: Sub-100ms HMR with Vite. Build in seconds.
+  - icon: lucide:package
+    title: 📦 Batteries Included
+    details: TypeScript, MDX, search, dark mode—all built-in.
+  - icon: lucide:heart
+    title: 💙 Developer Experience
+    details: Hot reload, type safety, and great documentation.
+---
+
+## Additional Content
+
+You can add regular markdown content below the hero and features.
+This content appears after the features grid.
+```
+
+### Styling Hero Pages
+
+Customize hero styling with CSS variables:
+
+```css
+:root {
+  /* Hero gradient colors */
+  --hero-gradient-from: #3b82f6;
+  --hero-gradient-to: #8b5cf6;
+
+  /* Feature card styles */
+  --feature-border: var(--color-border);
+  --feature-bg-hover: var(--color-bg-elevated);
+}
+```
+
 ## Dark Mode
 
 Dark mode is automatically enabled. Users can toggle between light and dark themes using the theme switcher in the header.

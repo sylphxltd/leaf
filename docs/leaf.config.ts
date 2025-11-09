@@ -17,13 +17,13 @@ export default defineConfig({
 			{ text: "FAQ", link: "/faq" },
 		],
 		socialLinks: [
+			{ icon: "npm", link: "https://www.npmjs.com/package/@sylphx/leaf" },
 			{ icon: "github", link: "https://github.com/sylphxltd/leaf" },
 		],
 		sidebar: [
 			{
 				text: "Introduction",
 				items: [
-					{ text: "What is Leaf?", link: "/" },
 					{ text: "Why Leaf?", link: "/why" },
 					{ text: "Getting Started", link: "/getting-started" },
 				],

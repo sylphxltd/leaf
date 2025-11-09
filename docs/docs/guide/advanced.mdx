@@ -88,7 +88,9 @@ export function CodePlayground({ initialCode, title }: Props) {
 
   const runCode = () => {
     try {
-      // Safe eval for demo purposes
+      // ⚠️ WARNING: eval() is unsafe with user input
+      // This example is for demonstration only
+      // In production, use a sandboxed runtime or iframe
       const result = eval(code)
       setOutput(String(result))
     } catch (e) {
