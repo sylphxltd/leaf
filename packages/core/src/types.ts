@@ -7,6 +7,8 @@ export interface LeafConfig {
 	description?: string;
 	/** Base URL */
 	base?: string;
+	/** Head tags for SEO */
+	head?: HeadTag[];
 	/** Theme configuration */
 	theme?: ThemeConfig;
 	/** Markdown configuration */
@@ -14,6 +16,12 @@ export interface LeafConfig {
 	/** Vite configuration */
 	vite?: ViteUserConfig;
 }
+
+export type HeadTag = [
+	string, // tag name
+	Record<string, any>, // attributes
+	string? // children (optional)
+];
 
 export interface ThemeConfig {
 	/** Navigation items */

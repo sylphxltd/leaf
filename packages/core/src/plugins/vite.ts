@@ -2,6 +2,7 @@ import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { markdownPlugin } from "./markdown.js";
 import { virtualModulesPlugin } from "./virtual-modules.js";
+import { assetsPlugin } from "./assets.js";
 import type { LeafConfig } from "../types.js";
 
 export function createLeafPlugin(config: LeafConfig): Plugin[] {
@@ -29,6 +30,7 @@ export function createLeafPlugin(config: LeafConfig): Plugin[] {
 				};
 			},
 		},
+		assetsPlugin(config),
 		virtualModulesPlugin(config),
 		markdownPlugin(config),
 		preact(),

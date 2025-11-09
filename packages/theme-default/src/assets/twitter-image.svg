@@ -1,0 +1,65 @@
+<svg width="800" height="418" viewBox="0 0 800 418" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="418" fill="url(#gradient)"/>
+
+  <!-- Grid pattern -->
+  <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+    <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  </pattern>
+  <rect width="800" height="418" fill="url(#grid)"/>
+
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#15803D"/>
+      <stop offset="100%" stop-color="#065F46"/>
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ECFCCB"/>
+      <stop offset="100%" stop-color="#BEF264"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Main content -->
+  <g transform="translate(60, 100)">
+    <!-- Logo/Icon area -->
+    <circle cx="40" cy="40" r="25" fill="rgba(255,255,255,0.1)"/>
+    <text x="40" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="bold" text-anchor="middle" fill="url(#textGradient)">🍃</text>
+
+    <!-- Title -->
+    <text x="85" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="bold" fill="white">
+      Leaf
+    </text>
+
+    <!-- Subtitle -->
+    <text x="85" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="rgba(255,255,255,0.8)">
+      Modern Documentation Framework
+    </text>
+
+    <!-- Features -->
+    <g transform="translate(0, 90)">
+      <rect x="0" y="0" width="200" height="40" rx="6" fill="rgba(255,255,255,0.1)"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">⚡ 100% VitePress Parity</text>
+    </g>
+
+    <g transform="translate(210, 90)">
+      <rect x="0" y="0" width="180" height="40" rx="6" fill="rgba(255,255,255,0.1)"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">🚀 Preact Powered</text>
+    </g>
+
+    <g transform="translate(400, 90)">
+      <rect x="0" y="0" width="200" height="40" rx="6" fill="rgba(255,255,255,0.1)"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="white">📦 Lightning Fast</text>
+    </g>
+
+    <!-- Bottom text -->
+    <text x="0" y="180" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="rgba(255,255,255,0.7)">
+      Build beautiful docs with zero configuration
+    </text>
+  </g>
+
+  <!-- URL -->
+  <text x="800" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" text-anchor="end" fill="rgba(255,255,255,0.6)">
+    leaf.sylphx.com
+  </text>
+</svg>
