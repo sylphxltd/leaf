@@ -57,6 +57,11 @@ export function createMarkdownProcessor(
 						.map((child: any) => child.value)
 						.join("");
 
+					// Skip headings with no text (e.g., only contain links)
+					if (!text || text.trim() === "") {
+						return;
+					}
+
 					// Generate ID from text (same logic as rehype-slug)
 					const id = text
 						.toLowerCase()
@@ -88,7 +93,7 @@ export function createMarkdownProcessor(
 		.use(...(config.markdown?.remarkPlugins || []))
 		.use(remarkRehype, { allowDangerousHtml: true })
 		.use(rehypeSlug)
-		.use(rehypeHeaderAnchors)
+		// .use(rehypeHeaderAnchors) // Disabled header anchors
 		.use(rehypeKatex)
 		.use(rehypeMermaid)
 		.use(rehypeHighlight)

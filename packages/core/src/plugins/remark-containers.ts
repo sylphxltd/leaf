@@ -153,7 +153,7 @@ export const remarkContainers: Plugin<[], Root> = () => {
 						continue;
 					}
 
-					// Check for opening marker (split across paragraphs case)
+					// Check for opening marker (split across nodes case)
 					// Match either "::: type" alone or "::: type title\n..." with content
 					const openMatch = text.match(/^:::\s*(\w+)(?:\s+([^\n]+))?/);
 
@@ -213,9 +213,10 @@ export const remarkContainers: Plugin<[], Root> = () => {
 							}
 						}
 
-						// Look for closing in subsequent paragraphs
+						// Look for closing in subsequent nodes (can be ANY node type now, not just paragraph)
 						while (endIndex < tree.children.length) {
 							const child = tree.children[endIndex];
+							// Check if this is a closing marker paragraph
 							if (
 								child.type === "paragraph" &&
 								child.children.length === 1 &&
@@ -229,7 +230,7 @@ export const remarkContainers: Plugin<[], Root> = () => {
 						}
 
 						if (foundClosing) {
-							// Extract content between markers
+							// Extract ALL content between markers (including code blocks, lists, etc.)
 							const content = tree.children.slice(i + 1, endIndex);
 
 							// Add first paragraph content if exists

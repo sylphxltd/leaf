@@ -177,52 +177,38 @@ export function Search({ open: controlledOpen, onOpenChange }: SearchProps = {})
 				role="dialog"
 				aria-modal="true"
 				aria-label="Search documentation"
-				className={`fixed left-1/2 top-1/2 z-50 w-full max-w-5xl -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
+				className={`fixed left-1/2 top-1/2 z-50 w-full max-w-[85vw] lg:max-w-3xl -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
 					isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
 				}`}
 			>
-				<div className="mx-6 overflow-hidden rounded-3xl border border-border/60 bg-background/98 backdrop-blur-2xl shadow-2xl">
-					{/* Search Input - Much Larger */}
-					<div className="relative flex items-center border-b border-border/60 px-8 py-6">
-						<div
-							className="mr-5 flex h-14 w-14 shrink-0 items-center justify-center rounded-xl text-white shadow-lg"
-							style={{
-								background:
-									"linear-gradient(135deg, hsl(var(--primary-gradient-start)), hsl(var(--primary-gradient-end)))",
-							}}
-						>
-							<Icon icon="lucide:search" className="h-7 w-7" />
-						</div>
+				<div className="mx-6 overflow-hidden rounded-2xl border border-border bg-background/95 backdrop-blur-2xl shadow-2xl">
+					{/* Search Input */}
+					<div className="relative flex items-center border-b border-border px-6 py-5">
+						<Icon icon="lucide:search" className="mr-4 h-6 w-6 text-primary shrink-0" />
 						<input
 							type="text"
 							placeholder="Search documentation..."
 							value={query}
 							onChange={(e) => setQuery(e.target.value)}
-							className="flex-1 bg-transparent text-xl font-medium placeholder:text-muted-foreground focus:outline-none"
+							className="flex-1 bg-transparent text-xl font-semibold text-foreground placeholder:text-muted-foreground focus:outline-none"
 							autoFocus
 							aria-label="Search documentation"
 						/>
-						<kbd className="hidden sm:inline-flex h-8 select-none items-center gap-1.5 rounded-lg border border-border/60 bg-muted/60 px-3 font-mono text-sm font-medium transition-all hover:border-border hover:bg-muted">
+						<kbd className="hidden sm:inline-flex h-8 select-none items-center gap-1.5 rounded-lg border border-border bg-muted/60 px-3 font-mono text-xs font-semibold text-muted-foreground">
 							ESC
 						</kbd>
 					</div>
 
-					{/* Empty State - Larger */}
+					{/* Empty State */}
 					{query && results.length === 0 ? (
-						<div className="py-32 px-8 text-center">
-							<div
-								className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-3xl bg-muted/50"
-								style={{
-									background:
-										"linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--muted) / 0.5) 100%)",
-								}}
-							>
-								<Icon icon="lucide:search-x" className="h-12 w-12 text-muted-foreground/60" />
+						<div className="py-20 px-8 text-center">
+							<div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-muted/50">
+								<Icon icon="lucide:search-x" className="h-10 w-10 text-muted-foreground" />
 							</div>
-							<p className="text-lg font-semibold text-muted-foreground">
+							<p className="text-lg font-semibold text-foreground mb-2">
 								No results for "{query}"
 							</p>
-							<p className="mt-3 text-sm text-muted-foreground/70">
+							<p className="text-sm text-muted-foreground">
 								Try different keywords or check the spelling
 							</p>
 						</div>
@@ -234,32 +220,24 @@ export function Search({ open: controlledOpen, onOpenChange }: SearchProps = {})
 									onClick={() => handleSelectResult(result)}
 									onMouseEnter={() => setSelectedIndex(idx)}
 									className={cn(
-										"group w-full rounded-2xl p-6 text-left transition-all duration-200 cursor-pointer",
+										"group w-full rounded-xl p-5 text-left transition-all duration-200 cursor-pointer",
 										idx === selectedIndex
-											? "bg-primary/10 shadow-md ring-2 ring-primary/20"
-											: "hover:bg-accent/60 active:scale-[0.99]"
+											? "bg-primary/10 shadow-sm ring-2 ring-primary/20"
+											: "hover:bg-muted/60 active:scale-[0.99]"
 									)}
 								>
-									<div className="flex items-center gap-4 mb-3">
+									<div className="flex items-center gap-4 mb-2">
 										<div
 											className={cn(
-												"flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200 shadow-sm",
-												idx === selectedIndex ? "text-white scale-110" : "text-primary"
+												"flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200",
+												idx === selectedIndex ? "bg-primary text-white" : "bg-muted text-muted-foreground"
 											)}
-											style={
-												idx === selectedIndex
-													? {
-															background:
-																"linear-gradient(135deg, hsl(var(--primary-gradient-start)), hsl(var(--primary-gradient-end)))",
-													  }
-													: { background: "hsl(var(--muted))" }
-											}
 										>
 											<Icon icon="lucide:file-text" className="h-5 w-5" />
 										</div>
 										<div
 											className={cn(
-												"font-bold text-lg transition-colors",
+												"font-semibold text-lg transition-colors flex-1",
 												idx === selectedIndex ? "text-primary" : "text-foreground"
 											)}
 										>
@@ -267,7 +245,7 @@ export function Search({ open: controlledOpen, onOpenChange }: SearchProps = {})
 										</div>
 									</div>
 									{result.text && (
-										<p className="text-base text-muted-foreground line-clamp-2 pl-14 leading-relaxed">
+										<p className="text-sm text-muted-foreground line-clamp-2 pl-14 leading-relaxed">
 											{result.text.slice(0, 150)}
 											{result.text.length > 150 ? "..." : ""}
 										</p>
@@ -276,24 +254,24 @@ export function Search({ open: controlledOpen, onOpenChange }: SearchProps = {})
 							))}
 						</div>
 					) : (
-						<div className="border-t border-border/60 bg-muted/30 px-8 py-5 backdrop-blur-sm">
+						<div className="border-t border-border bg-muted/30 px-6 py-5">
 							<div className="flex items-center justify-between text-sm font-medium text-muted-foreground">
-								<div className="flex items-center gap-8">
-									<div className="flex items-center gap-3">
-										<kbd className="inline-flex h-7 select-none items-center gap-1 rounded-md border border-border/60 bg-background/60 px-2.5 font-mono text-xs font-semibold">
+								<div className="flex items-center gap-6">
+									<div className="flex items-center gap-2.5">
+										<kbd className="inline-flex h-8 select-none items-center gap-1 rounded-lg border border-border bg-muted/60 px-3 font-mono text-xs font-semibold text-muted-foreground">
 											↑↓
 										</kbd>
 										<span>Navigate</span>
 									</div>
-									<div className="flex items-center gap-3">
-										<kbd className="inline-flex h-7 select-none items-center gap-1 rounded-md border border-border/60 bg-background/60 px-2.5 font-mono text-xs font-semibold">
+									<div className="flex items-center gap-2.5">
+										<kbd className="inline-flex h-8 select-none items-center gap-1 rounded-lg border border-border bg-muted/60 px-3 font-mono text-xs font-semibold text-muted-foreground">
 											↵
 										</kbd>
 										<span>Select</span>
 									</div>
 								</div>
-								<div className="flex items-center gap-3">
-									<kbd className="inline-flex h-7 select-none items-center gap-1 rounded-md border border-border/60 bg-background/60 px-2.5 font-mono text-xs font-semibold">
+								<div className="flex items-center gap-2.5">
+									<kbd className="inline-flex h-8 select-none items-center gap-1 rounded-lg border border-border bg-muted/60 px-3 font-mono text-xs font-semibold text-muted-foreground">
 										ESC
 									</kbd>
 									<span>Close</span>

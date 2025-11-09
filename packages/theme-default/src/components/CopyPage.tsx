@@ -1,4 +1,5 @@
 import { useState, useEffect } from "preact/hooks";
+import { Button } from "./Button";
 import "iconify-icon";
 
 interface CopyPageProps {
@@ -86,17 +87,21 @@ export function CopyPage({ title }: CopyPageProps): JSX.Element {
 	};
 
 	return (
-		<button
+		<Button
 			onClick={handleCopy}
-			className="code-copy-btn"
-			title="Copy page content"
+			variant="default"
+			className="text-xs font-medium"
 			aria-label="Copy page content"
 		>
 			<iconify-icon
-				icon={copied ? "ph:check" : "ph:copy"}
-				width="18"
-				height="18"
+				icon={copied ? "ph:check-bold" : "ph:copy-bold"}
+				width="14"
+				height="14"
+				class={`transition-colors duration-200 ${copied ? 'text-success' : ''}`}
 			/>
-		</button>
+			<span className="hidden lg:inline">
+				{copied ? "Copied!" : "Copy"}
+			</span>
+		</Button>
 	);
 }

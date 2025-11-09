@@ -45,10 +45,10 @@ function SidebarGroup({
 			<Link
 				to={item.link}
 				className={cn(
-					"block rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+					"block rounded-lg px-3 py-2.5 text-sm font-semibold transition-all",
 					isActive
-						? "bg-muted text-foreground"
-						: "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+						? "bg-primary/10 text-primary shadow-sm border border-primary/20"
+						: "text-muted-foreground hover:bg-muted hover:text-foreground hover:shadow-sm"
 				)}
 				style={{ paddingLeft: `${level * 1 + 0.75}rem` }}
 			>
@@ -59,11 +59,11 @@ function SidebarGroup({
 
 	if (hasItems) {
 		return (
-			<Collapsible.Root open={open} onOpenChange={setOpen} className="space-y-0.5">
+			<Collapsible.Root open={open} onOpenChange={setOpen} className="space-y-1">
 				<Collapsible.Trigger
 					className={cn(
-						"flex w-full items-center justify-between rounded-md px-3 py-1.5 text-sm font-semibold transition-colors",
-						"text-foreground hover:bg-muted/50"
+						"flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-bold transition-all",
+						"text-foreground hover:bg-muted/60 hover:shadow-sm"
 					)}
 					style={{ paddingLeft: `${level * 1 + 0.75}rem` }}
 					aria-expanded={open}
@@ -72,12 +72,12 @@ function SidebarGroup({
 					<Icon
 						icon="lucide:chevron-right"
 						className={cn(
-							"h-3.5 w-3.5 transition-transform duration-200 text-muted-foreground",
-							open && "rotate-90"
+							"h-4 w-4 transition-all duration-200 text-muted-foreground",
+							open && "rotate-90 text-primary"
 						)}
 					/>
 				</Collapsible.Trigger>
-				<Collapsible.Content className="space-y-0.5 pt-1">
+				<Collapsible.Content className="space-y-1 pt-1">
 					{item.items.map((child, idx) => (
 						<SidebarGroup key={child.link || idx} item={child} level={level + 1} />
 					))}

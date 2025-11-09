@@ -38,6 +38,13 @@
 			async function renderMermaid() {
 				const elements = document.querySelectorAll('.mermaid:not([data-processed])');
 				if (elements.length > 0) {
+					// Store original source before rendering
+					elements.forEach(el => {
+						if (!el.hasAttribute('data-mermaid-src')) {
+							el.setAttribute('data-mermaid-src', el.textContent.trim());
+						}
+					});
+
 					try {
 						await mermaid.run({
 							nodes: elements,
@@ -59,9 +66,15 @@
 				mutations.forEach((mutation) => {
 					if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {
 						initMermaid();
-						// Re-render all diagrams with new theme
+						// Restore original source and re-render all diagrams with new theme
 						document.querySelectorAll('.mermaid[data-processed]').forEach(el => {
-							el.removeAttribute('data-processed');
+							const originalSrc = el.getAttribute('data-mermaid-src');
+							if (originalSrc) {
+								// Clear the element and restore original mermaid code
+								el.innerHTML = '';
+								el.textContent = originalSrc;
+								el.removeAttribute('data-processed');
+							}
 						});
 						renderMermaid();
 					}

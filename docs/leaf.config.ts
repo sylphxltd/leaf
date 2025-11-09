@@ -15,10 +15,9 @@ export default defineConfig({
 			{ text: "API", link: "/api" },
 			{ text: "Showcase", link: "/showcase" },
 			{ text: "FAQ", link: "/faq" },
-			{
-				text: "GitHub",
-				link: "https://github.com/sylphxltd/leaf",
-			},
+		],
+		socialLinks: [
+			{ icon: "github", link: "https://github.com/sylphxltd/leaf" },
 		],
 		sidebar: [
 			{
