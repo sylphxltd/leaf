@@ -1,6 +1,6 @@
 {
 	"name": "@sylphx/leaf-cli",
-	"version": "0.2.0",
+	"version": "0.1.1",
 	"type": "module",
 	"description": "🚀 Command-line interface for Leaf documentation framework",
 	"bin": {
