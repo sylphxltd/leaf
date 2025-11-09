@@ -1,6 +1,7 @@
 {
 	"name": "@sylphx/leaf-theme-default",
 	"version": "0.1.0",
+	"description": "🎨 Default theme for Leaf documentation framework with responsive design, dark mode, and search",
 	"main": "./dist/src/index.js",
 	"dependencies": {
 		"@iconify/react": "^6.0.2",
@@ -37,7 +38,32 @@
 		},
 		"./style.css": "./dist/style.css"
 	},
-	"files": ["dist"],
+	"files": ["dist", "README.md", "LICENSE"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sylphxltd/leaf.git",
+		"directory": "packages/theme-default"
+	},
+	"homepage": "https://github.com/sylphxltd/leaf#readme",
+	"bugs": {
+		"url": "https://github.com/sylphxltd/leaf/issues"
+	},
+	"keywords": [
+		"theme",
+		"documentation",
+		"preact",
+		"tailwindcss",
+		"dark-mode",
+		"responsive",
+		"leaf",
+		"documentation-theme",
+		"vitepress-theme"
+	],
+	"author": {
+		"name": "Sylphx",
+		"url": "https://github.com/sylphxltd"
+	},
+	"license": "MIT",
 	"scripts": {
 		"build": "NODE_ENV=production bunup 'src/**/*.{ts,tsx}' && npx tailwindcss -i src/styles/index.css -o dist/style.css --minify && node ../../scripts/fix-exports.js",
 		"dev": "bunup 'src/**/*.{ts,tsx}' --watch",

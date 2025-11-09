@@ -1,7 +1,8 @@
 {
 	"name": "@sylphx/leaf",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"type": "module",
+	"description": "🚀 Modern documentation framework with VitePress parity. Built with Preact, Vite, and Bun for lightning-fast performance.",
 	"main": "./dist/src/index.js",
 	"types": "./dist/src/index.d.ts",
 	"exports": {
@@ -14,7 +15,40 @@
 			"types": "./dist/src/plugins/routes.d.ts"
 		}
 	},
-	"files": ["dist", "templates"],
+	"files": [
+		"dist",
+		"templates",
+		"README.md",
+		"LICENSE"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sylphxltd/leaf.git",
+		"directory": "packages/core"
+	},
+	"homepage": "https://github.com/sylphxltd/leaf#readme",
+	"bugs": {
+		"url": "https://github.com/sylphxltd/leaf/issues"
+	},
+	"keywords": [
+		"documentation",
+		"docs",
+		"markdown",
+		"preact",
+		"vite",
+		"static-site-generator",
+		"ssg",
+		"vitepress-alternative",
+		"documentation-framework",
+		"mdx",
+		"markdown-processing",
+		"documentation-site"
+	],
+	"author": {
+		"name": "Sylphx",
+		"url": "https://github.com/sylphxltd"
+	},
+	"license": "MIT",
 	"scripts": {
 		"build": "bunup 'src/**/*.ts' && node ../../scripts/fix-exports.js",
 		"dev": "bunup 'src/**/*.ts' --watch"

@@ -2,6 +2,7 @@
 	"name": "@sylphx/leaf-cli",
 	"version": "0.1.0",
 	"type": "module",
+	"description": "🚀 Command-line interface for Leaf documentation framework",
 	"bin": {
 		"leaf": "./dist/cli.js"
 	},
@@ -10,7 +11,33 @@
 		"./commands/dev.js": "./dist/commands/dev.js",
 		"./commands/preview.js": "./dist/commands/preview.js"
 	},
-	"files": ["dist"],
+	"files": ["dist", "README.md", "LICENSE"],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sylphxltd/leaf.git",
+		"directory": "packages/cli"
+	},
+	"homepage": "https://github.com/sylphxltd/leaf#readme",
+	"bugs": {
+		"url": "https://github.com/sylphxltd/leaf/issues"
+	},
+	"keywords": [
+		"cli",
+		"documentation",
+		"docs",
+		"vite",
+		"preact",
+		"documentation-generator",
+		"static-site-generator",
+		"ssg",
+		"leaf",
+		"vitepress-alternative"
+	],
+	"author": {
+		"name": "Sylphx",
+		"url": "https://github.com/sylphxltd"
+	},
+	"license": "MIT",
 	"scripts": {
 		"build": "bunup 'src/**/*.ts' && chmod +x dist/cli.js && node ../../scripts/fix-exports.js",
 		"dev": "bunup 'src/**/*.ts' --watch"
