@@ -40,7 +40,7 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			);
 
 			const componentImports = hasComponents
-				? `import parse from 'html-react-parser';\nimport { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\n`
+				? `import { parse, ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\n`
 				: "";
 
 			// Generate component mapping and props

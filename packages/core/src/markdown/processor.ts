@@ -1,5 +1,6 @@
 import rehypeHighlight from "rehype-highlight";
 import rehypeKatex from "rehype-katex";
+import rehypeRaw from "rehype-raw";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -15,12 +16,12 @@ import { remarkContainers } from "../plugins/remark-containers.js";
 import { remarkCodeGroups } from "../plugins/remark-code-groups.js";
 import { remarkCodeMeta } from "../plugins/remark-code-meta.js";
 import { remarkBadge } from "../plugins/remark-badge.js";
+import { remarkComponents } from "../plugins/remark-components.js";
 import { rehypeLineHighlight } from "../plugins/rehype-line-highlight.js";
 import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
 import { rehypeMermaid } from "../plugins/rehype-mermaid.js";
 import { rehypeCopyCode } from "../plugins/rehype-copy-code.js";
 import { rehypeHeaderAnchors } from "../plugins/rehype-header-anchors.js";
-import { rehypeComponents } from "../plugins/rehype-components.js";
 
 export interface TocItem {
 	text: string;
@@ -88,11 +89,16 @@ export function createMarkdownProcessor(
 		.use(remarkCodeGroups)
 		.use(remarkContainers)
 		.use(remarkCodeMeta)
+		// IMPORTANT: Detect components BEFORE remarkRehype to catch them before HTML normalization
+		.use(remarkComponents)
 		// Only add TOC extraction if requested
 		.use(shouldExtractToc ? extractTocPlugin : () => {})
 		// Add custom remark plugins from config
 		.use(...(config.markdown?.remarkPlugins || []))
 		.use(remarkRehype, { allowDangerousHtml: true })
+		// IMPORTANT: rehype-raw must come immediately after remarkRehype
+		// to parse raw HTML strings into proper HAST nodes before other rehype plugins
+		.use(rehypeRaw)
 		.use(rehypeSlug)
 		.use(rehypeHeaderAnchors)
 		.use(rehypeKatex)
@@ -101,7 +107,6 @@ export function createMarkdownProcessor(
 		.use(rehypeLineHighlight)
 		.use(rehypeCopyCode)
 		.use(rehypeExternalLinks)
-		.use(rehypeComponents)
 		// Add custom rehype plugins from config
 		.use(...(config.markdown?.rehypePlugins || []))
 		.use(rehypeStringify, { allowDangerousHtml: true });

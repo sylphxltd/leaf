@@ -25,7 +25,7 @@ export function createLeafPlugin(config: LeafConfig): Plugin[] {
 						},
 					},
 					optimizeDeps: {
-						include: ["preact/compat", "preact/hooks"],
+						include: ["preact/compat", "preact/hooks", "html-react-parser"],
 					},
 				};
 			},
