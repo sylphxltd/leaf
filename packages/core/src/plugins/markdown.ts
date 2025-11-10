@@ -3,6 +3,7 @@ import matter from "gray-matter";
 import type { Plugin } from "vite";
 import type { LeafConfig } from "../types.js";
 import { createMarkdownProcessor } from "../markdown/processor.js";
+import type { ComponentPlaceholder } from "./rehype-components.js";
 
 export function markdownPlugin(config: LeafConfig): Plugin {
 	return {
@@ -30,12 +31,53 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			const vfile = await processor.process(code);
 			const html = String(vfile);
 			const toc = getToc();
+			const components = (vfile.data.components as ComponentPlaceholder[]) || [];
+
+			// Generate component imports if any components were detected
+			const hasComponents = components.length > 0;
+			const uniqueComponents = Array.from(
+				new Set(components.map((c) => c.name)),
+			);
+
+			const componentImports = hasComponents
+				? `import parse from 'html-react-parser';\nimport { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\n`
+				: "";
+
+			// Generate component mapping and props
+			const componentMapping = hasComponents
+				? `\nconst __LEAF_COMPONENTS__ = {\n${components.map((c) => `  '${c.id}': ${c.name}`).join(",\n")}\n};\n\nconst __LEAF_COMPONENT_PROPS__ = {\n${components.map((c) => `  '${c.id}': ${JSON.stringify(c.props)}`).join(",\n")}\n};\n`
+				: "";
+
+			// Generate replace function for html-react-parser
+			const replaceFunction = hasComponents
+				? `
+  const options = {
+    replace: (domNode) => {
+      if (domNode.type === 'tag' && domNode.attribs && domNode.attribs['data-leaf-component']) {
+        const id = domNode.attribs['data-leaf-component'];
+        const Component = __LEAF_COMPONENTS__[id];
+        const props = __LEAF_COMPONENT_PROPS__[id];
+        if (Component) {
+          return React.createElement(Component, props);
+        }
+      }
+    }
+  };
+
+  return React.createElement('div', {
+    className: 'markdown-content'
+  }, parse(${JSON.stringify(html)}, options));`
+				: `
+  return React.createElement('div', {
+    className: 'markdown-content',
+    dangerouslySetInnerHTML: { __html: ${JSON.stringify(html)} }
+  });`;
 
 			// Generate React component that renders the HTML and exports TOC
 			// Use React.createElement to avoid JSX parsing issues
 			const component = `
 import React from 'react';
-
+${componentImports}
 // Build-time TOC as fallback
 const buildTimeToc = ${JSON.stringify(toc)};
 
@@ -60,12 +102,8 @@ if (typeof window !== 'undefined') {
 
 // Export runtime TOC (preloaded from SSG, or build-time fallback)
 export const toc = runtimeToc;
-
-export default function MarkdownContent() {
-  return React.createElement('div', {
-    className: 'markdown-content',
-    dangerouslySetInnerHTML: { __html: ${JSON.stringify(html)} }
-  });
+${componentMapping}
+export default function MarkdownContent() {${replaceFunction}
 }
 `;
 

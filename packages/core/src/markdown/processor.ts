@@ -20,6 +20,7 @@ import { rehypeExternalLinks } from "../plugins/rehype-external-links.js";
 import { rehypeMermaid } from "../plugins/rehype-mermaid.js";
 import { rehypeCopyCode } from "../plugins/rehype-copy-code.js";
 import { rehypeHeaderAnchors } from "../plugins/rehype-header-anchors.js";
+import { rehypeComponents } from "../plugins/rehype-components.js";
 
 export interface TocItem {
 	text: string;
@@ -100,6 +101,7 @@ export function createMarkdownProcessor(
 		.use(rehypeLineHighlight)
 		.use(rehypeCopyCode)
 		.use(rehypeExternalLinks)
+		.use(rehypeComponents)
 		// Add custom rehype plugins from config
 		.use(...(config.markdown?.rehypePlugins || []))
 		.use(rehypeStringify, { allowDangerousHtml: true });

@@ -52,3 +52,7 @@ npm run dev
 Visit [http://localhost:5173](http://localhost:5173) 🎉
 
 **[→ Full Installation Guide](/getting-started)**
+
+## 📚 Learn More
+
+<Cards cards='[{"icon":"📖","title":"Why Leaf?","description":"Discover why Leaf is the best documentation framework for React developers","link":"/why"},{"icon":"🚀","title":"Getting Started","description":"Learn how to create your first Leaf documentation site in minutes","link":"/getting-started"}]' columns="2" />
