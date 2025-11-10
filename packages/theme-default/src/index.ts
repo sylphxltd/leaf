@@ -14,6 +14,8 @@ export { Hero } from "./components/Hero";
 export type { HeroProps, HeroAction } from "./components/Hero";
 export { Features } from "./components/Features";
 export type { FeaturesProps, Feature } from "./components/Features";
+export { Cards } from "./components/Cards";
+export type { CardsProps, Card } from "./components/Cards";
 export { useStore } from "./hooks/useStore";
 export { themeStore, toggleTheme } from "./store/theme";
 export { initCopyCode } from "./lib/copy-code";

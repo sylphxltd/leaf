@@ -18,22 +18,22 @@ hero:
 
 features:
   - icon: lucide:zap
-    title: ⚡ Fast Builds
+    title: Fast Builds
     details: Built with Preact 10.x for minimal bundle size. 12% faster builds than VitePress with sub-100ms HMR.
   - icon: lucide:package
-    title: 📦 React Ecosystem
+    title: React Ecosystem
     details: Use any React library - Material-UI, Recharts, React Query, Framer Motion. Full ecosystem compatibility.
   - icon: lucide:code-2
-    title: 💻 TypeScript First
+    title: TypeScript First
     details: Full autocomplete and type safety. Catch errors before build with type-checked configuration.
   - icon: lucide:layout-template
-    title: 🎨 Production Ready
+    title: Production Ready
     details: Accessible and responsive theme out of the box. Lighthouse scores 98+ performance, 100 accessibility.
   - icon: lucide:search
-    title: 🔍 Powerful Search
+    title: Powerful Search
     details: Local fuzzy search with <50ms response. Full-text indexing with keyboard navigation (⌘K).
   - icon: lucide:sparkles
-    title: ✨ VitePress Parity
+    title: VitePress Parity
     details: All VitePress features included - custom containers, code highlighting, math equations, diagrams.
 ---
 
@@ -57,18 +57,31 @@ Visit [http://localhost:5173](http://localhost:5173) 🎉
 
 ## 💡 Learn More
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+import { Cards } from '@sylphx/leaf-theme-default';
 
-### [📖 Why Leaf?](/why)
-Discover what makes Leaf different and when to use it over alternatives.
-
-### [📚 Guide](/guide)
-Learn about configuration, theming, markdown features, and deployment.
-
-### [🎨 Features](/features/code-highlighting)
-Explore code highlighting, math equations, diagrams, and more.
-
-### [🔧 API Reference](/api)
-Detailed configuration options and theming API documentation.
-
-</div>
+<Cards cards={[
+  {
+    icon: '📖',
+    title: 'Why Leaf?',
+    description: 'Discover what makes Leaf different and when to use it over alternatives.',
+    link: '/why'
+  },
+  {
+    icon: '📚',
+    title: 'Guide',
+    description: 'Learn about configuration, theming, markdown features, and deployment.',
+    link: '/guide'
+  },
+  {
+    icon: '🎨',
+    title: 'Features',
+    description: 'Explore code highlighting, math equations, diagrams, and more.',
+    link: '/features/code-highlighting'
+  },
+  {
+    icon: '🔧',
+    title: 'API Reference',
+    description: 'Detailed configuration options and theming API documentation.',
+    link: '/api'
+  }
+]} columns={2} />
