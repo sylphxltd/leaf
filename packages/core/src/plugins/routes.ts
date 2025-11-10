@@ -39,7 +39,7 @@ export function routesPlugin(docsDir: string, config?: LeafConfig): Plugin {
 	let knownFiles = new Set<string>();
 
 	async function generateRoutesModule(): Promise<string> {
-		const files = await fg("**/*.{md,mdx}", {
+		const files = await fg("**/*.md", {
 			cwd: docsDir,
 			ignore: ["node_modules", "**/node_modules"],
 		});
@@ -155,7 +155,7 @@ ${routesList}
 		},
 		async handleHotUpdate({ file, server }) {
 			// Only handle markdown files in docs directory
-			if (!file.startsWith(docsDir) || !/\.(md|mdx)$/.test(file)) {
+			if (!file.startsWith(docsDir) || !/\.md$/.test(file)) {
 				return;
 			}
 

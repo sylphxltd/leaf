@@ -10,8 +10,8 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 		enforce: "pre",
 
 		async load(id: string) {
-			// Only process .md and .mdx files
-			if (!id.endsWith(".md") && !id.endsWith(".mdx")) {
+			// Only process .md files
+			if (!id.endsWith(".md")) {
 				return null;
 			}
 
