@@ -24,6 +24,10 @@ export type HeadTag = [
 ];
 
 export interface ThemeConfig {
+	/** Theme name or package */
+	name?: string;
+	/** Theme-specific configuration */
+	config?: Record<string, any>;
 	/** Navigation items */
 	nav?: NavItem[];
 	/** Sidebar configuration */

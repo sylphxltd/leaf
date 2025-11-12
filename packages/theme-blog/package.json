@@ -1,14 +1,15 @@
 {
-	"name": "@sylphx/leaf-theme-default",
+	"name": "@sylphx/leaf-theme-blog",
 	"version": "1.0.0",
-	"description": "🎨 Default theme for Leaf documentation framework with responsive design, dark mode, and search",
+	"description": "📝 Blog theme for Leaf documentation framework with modern design, article-focused layout",
 	"main": "./dist/src/index.js",
 	"dependencies": {
 		"@iconify/react": "^6.0.2",
-		"@radix-ui/react-collapsible": "^1.1.12",
+		"@radix-ui/react-avatar": "^1.1.6",
 		"@radix-ui/react-dialog": "^1.1.15",
 		"@radix-ui/react-dropdown-menu": "^2.1.16",
 		"@radix-ui/react-separator": "^1.1.8",
+		"@sylphx/leaf-theme-default": "workspace:*",
 		"@sylphx/silk": "^2.0.2",
 		"@sylphx/zen": "^1.2.1",
 		"@sylphx/zen-router": "^1.0.2",
@@ -25,7 +26,6 @@
 		"tailwindcss": "^3.4.18"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.29.7",
 		"@preact/preset-vite": "^2.10.2",
 		"@types/react": "^19.2.2",
 		"@types/react-dom": "^19.2.2",
@@ -47,21 +47,17 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/sylphxltd/leaf.git",
-		"directory": "packages/theme-default"
-	},
-	"homepage": "https://github.com/sylphxltd/leaf#readme",
-	"bugs": {
-		"url": "https://github.com/sylphxltd/leaf/issues"
+		"directory": "packages/theme-blog"
 	},
 	"keywords": [
 		"theme",
+		"blog",
 		"documentation",
 		"preact",
 		"tailwindcss",
-		"dark-mode",
 		"responsive",
 		"leaf",
-		"documentation-theme",
+		"blog-theme",
 		"vitepress-theme"
 	],
 	"author": {
@@ -72,7 +68,7 @@
 	"scripts": {
 		"build": "NODE_ENV=production bunup 'src/**/*.{ts,tsx}' && npx tailwindcss -i src/styles/index.css -o dist/style.css --minify && node ../../scripts/fix-exports.js",
 		"dev": "bunup 'src/**/*.{ts,tsx}' --watch",
-		"dev:fix": "bunup 'src/**/*.{ts,tsx}' --watch --on-success 'npx tailwindcss -i src/styles/index.css -o dist/style.css && cd ../.. && node scripts/fix-exports.js packages/theme-default/dist'"
+		"dev:fix": "bunup 'src/**/*.{ts,tsx}' --watch --on-success 'npx tailwindcss -i src/styles/index.css -o dist/style.css && cd ../.. && node scripts/fix-exports.js packages/theme-blog/dist'"
 	},
 	"type": "module",
 	"types": "./dist/src/index.d.ts"
