@@ -11,6 +11,7 @@ import { Hero, type HeroProps } from "../components/Hero";
 import { Features, type Feature } from "../components/Features";
 import { cn } from "../lib/utils";
 import { initCopyCode } from "../lib/copy-code";
+import "../styles/theme-variables.css";
 
 interface LayoutProps {
 	config?: any;

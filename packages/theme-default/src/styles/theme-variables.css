@@ -1,0 +1,50 @@
+/* CSS Variables for Theme System */
+:root {
+  --font-family: Inter, system-ui, sans-serif;
+  --font-size: 16px;
+  --line-height: 1.6;
+}
+
+/* Apply CSS variables to the entire document */
+html {
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+}
+
+/* Theme-specific styles */
+.theme-blog {
+  --font-family: Georgia, serif;
+  --font-size: 18px;
+  --line-height: 1.7;
+}
+
+.theme-business {
+  --font-family: Helvetica, Arial, sans-serif;
+  --font-size: 15px;
+  --line-height: 1.5;
+}
+
+.theme-minimal {
+  --font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-size: 16px;
+  --line-height: 1.6;
+}
+
+/* Ensure smooth transitions */
+body {
+  transition: font-family 0.3s ease, font-size 0.3s ease, line-height 0.3s ease;
+}
+
+/* Additional theme-specific visual differences */
+.theme-blog .prose {
+  font-family: Georgia, serif;
+}
+
+.theme-business .prose {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.theme-minimal * {
+  border-radius: 0 !important;
+}

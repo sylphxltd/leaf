@@ -1,11 +1,12 @@
 import { h } from "preact";
 import { useState, useEffect } from "preact/hooks";
+import { Icon } from "@iconify/react";
 
 const themes = [
-  { id: 'default', name: 'Default', description: 'Modern documentation theme', icon: '🎨' },
-  { id: 'blog', name: 'Blog', description: 'Article-focused theme', icon: '📝' },
-  { id: 'business', name: 'Business', description: 'Professional corporate theme', icon: '💼' },
-  { id: 'minimal', name: 'Minimal', description: 'Clean and minimal theme', icon: '🎯' }
+  { id: 'default', name: 'Default', description: 'Modern documentation theme', icon: 'mdi:palette' },
+  { id: 'blog', name: 'Blog', description: 'Article-focused theme', icon: 'mdi:post' },
+  { id: 'business', name: 'Business', description: 'Professional corporate theme', icon: 'mdi:briefcase' },
+  { id: 'minimal', name: 'Minimal', description: 'Clean and minimal theme', icon: 'mdi:bullseye-arrow' }
 ];
 
 export function ThemeSwitcher(): h.JSX.Element {
@@ -64,7 +65,7 @@ export function ThemeSwitcher(): h.JSX.Element {
         className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
         aria-label="Switch theme"
       >
-        <span className="text-lg">{currentTheme.icon}</span>
+        <Icon icon={currentTheme.icon} className="text-lg" />
         <span className="hidden md:inline">{currentTheme.name}</span>
         <svg
           className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
@@ -92,7 +93,7 @@ export function ThemeSwitcher(): h.JSX.Element {
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-lg">{theme.icon}</span>
+                    <Icon icon={theme.icon} className="text-lg" />
                     <div>
                       <div className="font-medium">{theme.name}</div>
                       <div className="text-xs text-gray-500 dark:text-gray-400">{theme.description}</div>
