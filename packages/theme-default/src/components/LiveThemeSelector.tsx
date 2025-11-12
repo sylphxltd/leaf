@@ -1,7 +1,7 @@
 import { h } from "preact";
 import { useState, useEffect } from "preact/hooks";
 
-export default function LiveThemeSelector() {
+export default function LiveThemeSelector(): h.JSX.Element {
   const [selectedTheme, setSelectedTheme] = useState('default');
   const [isTransitioning, setIsTransitioning] = useState(false);
 

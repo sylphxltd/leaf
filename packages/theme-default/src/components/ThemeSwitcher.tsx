@@ -8,7 +8,7 @@ const themes = [
   { id: 'minimal', name: 'Minimal', description: 'Clean and minimal theme', icon: '🎯' }
 ];
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher(): h.JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const [currentThemeId, setCurrentThemeId] = useState('default');
 

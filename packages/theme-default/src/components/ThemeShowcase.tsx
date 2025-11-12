@@ -49,7 +49,7 @@ const app = createApp({
 `
 };
 
-export function ThemeShowcase() {
+export function ThemeShowcase(): h.JSX.Element {
   const [selectedTheme, setSelectedTheme] = useState('default');
   const currentTheme = themes.find(t => t.id === selectedTheme) || themes[0];
 
