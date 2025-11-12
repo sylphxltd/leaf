@@ -8,7 +8,7 @@ const themes = [
   { id: 'minimal', name: 'Minimal', description: 'Clean and minimal theme', icon: '🎯' }
 ];
 
-export default function ThemeSwitcher() {
+export function ThemeSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentThemeId, setCurrentThemeId] = useState('default');
 

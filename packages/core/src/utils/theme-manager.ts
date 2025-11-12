@@ -21,7 +21,7 @@ export class ThemeManager {
     return ThemeManager.instance;
   }
 
-  registerTheme(theme: Theme) {
+  registerTheme(theme: Theme): void {
     this.themes.set(theme.id, theme);
   }
 
@@ -33,7 +33,7 @@ export class ThemeManager {
     return Array.from(this.themes.values());
   }
 
-  setCurrentTheme(themeId: string) {
+  setCurrentTheme(themeId: string): void {
     const theme = this.themes.get(themeId);
     if (!theme) {
       throw new Error(`Theme ${themeId} not found`);
@@ -70,7 +70,7 @@ export class ThemeManager {
     localStorage.setItem('leaf-theme', theme.id);
   }
 
-  loadStoredTheme() {
+  loadStoredTheme(): void {
     const stored = localStorage.getItem('leaf-theme');
     if (stored && this.themes.has(stored)) {
       this.setCurrentTheme(stored);
@@ -78,10 +78,10 @@ export class ThemeManager {
   }
 }
 
-export const themeManager = ThemeManager.getInstance();
+export const themeManager: ThemeManager = ThemeManager.getInstance();
 
 // Register default themes
-export function registerDefaultThemes() {
+export function registerDefaultThemes(): void {
   themeManager.registerTheme({
     id: 'default',
     name: 'Default',

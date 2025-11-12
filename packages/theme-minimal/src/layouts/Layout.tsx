@@ -11,7 +11,7 @@ interface LayoutProps {
   showToc?: boolean;
 }
 
-export default function Layout({ children, title, description, sidebar, toc, showSidebar = true, showToc = true }: LayoutProps) {
+export default function Layout({ children, title, description, sidebar, toc, showSidebar = true, showToc = true }: LayoutProps): h.JSX.Element {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <Header

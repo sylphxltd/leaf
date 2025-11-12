@@ -11,7 +11,7 @@ interface BlogCardProps {
   href: string;
 }
 
-export function BlogCard({ title, excerpt, date, readTime, tags, image, author, href }: BlogCardProps) {
+export function BlogCard({ title, excerpt, date, readTime, tags, image, author, href }: BlogCardProps): h.JSX.Element {
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:bg-gray-800">
       {image && (
