@@ -16,15 +16,44 @@ export function ThemeSwitcher(): h.JSX.Element {
     const stored = localStorage.getItem('leaf-theme');
     if (stored) {
       setCurrentThemeId(stored);
+      applyThemeStyles(stored);
     }
   }, []);
+
+  const applyThemeStyles = (themeId: string) => {
+    // Apply theme-specific styles like LiveThemeSelector
+    const body = document.body;
+    body.className = body.className.replace(/theme-\w+/g, '');
+    body.classList.add(`theme-${themeId}`);
+
+    // Apply CSS custom properties based on theme
+    const root = document.documentElement;
+
+    if (themeId === 'blog') {
+      root.style.setProperty('--font-family', 'Georgia, serif');
+      root.style.setProperty('--font-size', '18px');
+      root.style.setProperty('--line-height', '1.7');
+    } else if (themeId === 'business') {
+      root.style.setProperty('--font-family', 'Helvetica, Arial, sans-serif');
+      root.style.setProperty('--font-size', '15px');
+      root.style.setProperty('--line-height', '1.5');
+    } else if (themeId === 'minimal') {
+      root.style.setProperty('--font-family', '-apple-system, BlinkMacSystemFont, sans-serif');
+      root.style.setProperty('--font-size', '16px');
+      root.style.setProperty('--line-height', '1.6');
+    } else {
+      root.style.setProperty('--font-family', 'Inter, system-ui, sans-serif');
+      root.style.setProperty('--font-size', '16px');
+      root.style.setProperty('--line-height', '1.6');
+    }
+  };
 
   const currentTheme = themes.find(t => t.id === currentThemeId) || themes[0];
 
   const handleThemeChange = (themeId: string) => {
     setCurrentThemeId(themeId);
     localStorage.setItem('leaf-theme', themeId);
-    document.documentElement.setAttribute('data-theme', themeId);
+    applyThemeStyles(themeId);
     setIsOpen(false);
   };
 
