@@ -7,6 +7,20 @@ order: 6
 
 Migrate your VitePress documentation to Leaf with minimal effort. Leaf maintains **VitePress markdown syntax compatibility**, so most content works as-is.
 
+<aside class="tip">
+
+**Component Support in Markdown**
+
+Leaf now supports using React components directly in markdown files just like VitePress:
+
+```markdown
+<Cards cards='[...]' columns="2" />
+```
+
+Components automatically receive props (JSON, strings, numbers, or booleans).
+
+</aside>
+
 ## Why Migrate?
 
 - ⚛️ **React Ecosystem** - Access to React components and libraries
@@ -35,7 +49,7 @@ Migrate your VitePress documentation to Leaf with minimal effort. Leaf maintains
 curl -fsSL https://bun.sh/install | bash
 
 # Create new Leaf project
-git clone https://github.com/sylphxltd/leaf.git
+git clone https://github.com/SylphxAI/leaf.git
 cd leaf/examples/docs
 bun install
 ```
@@ -208,15 +222,17 @@ import Counter from '../components/Counter.vue'
 <Counter />
 ```
 
-**Leaf (MDX):**
+**Leaf:**
 
-```mdx
-import { Counter } from '../components/Counter'
-
+```md
 # My Page
 
 <Counter />
 ```
+
+**Key Differences:**
+- VitePress: Need `<script setup>` to import Vue components
+- Leaf: Use React components directly in markdown, no imports needed
 
 ## Feature Mapping
 
@@ -326,7 +342,9 @@ description: Page description
 
 ### 1. Sidebar Configuration
 
-**VitePress** uses object with path keys:
+✅ **Both formats supported!** Leaf now supports both object and array formats:
+
+**VitePress object format (now supported):**
 
 ```ts
 sidebar: {
@@ -335,7 +353,7 @@ sidebar: {
 }
 ```
 
-**Leaf** uses flat array (auto-matches by link):
+**Leaf array format:**
 
 ```ts
 sidebar: [
@@ -343,6 +361,8 @@ sidebar: [
   { text: 'API', items: [{ link: '/api/...' }] }
 ]
 ```
+
+**No changes needed!** Your VitePress sidebar configuration will work as-is.
 
 ### 2. Theme Customization
 

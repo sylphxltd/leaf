@@ -6,6 +6,7 @@ import fg from "fast-glob";
 import matter from "gray-matter";
 import type { LeafConfig, SidebarConfig } from "../types.js";
 import { getPrevNext } from "../utils/navigation.js";
+import type { SidebarItem } from "../utils/navigation.js";
 
 export interface RouteData {
 	path: string;
@@ -29,6 +30,34 @@ export interface DocFooterData {
 		text?: string;
 	};
 	lastUpdated?: boolean;
+}
+
+/**
+ * Get appropriate sidebar for a given path from object format
+ * Matches VitePress behavior: finds the longest matching base path
+ */
+function getSidebarForPath(
+	currentPath: string,
+	sidebarObject: Record<string, SidebarItem[]>,
+): SidebarItem[] {
+	// Sort keys by length (longest first) to match most specific path
+	const sortedKeys = Object.keys(sidebarObject).sort(
+		(a, b) => b.length - a.length,
+	);
+
+	// Find the first matching base path
+	for (const basePath of sortedKeys) {
+		// Normalize base path (remove trailing slash)
+		const normalizedBase = basePath.replace(/\/$/, "");
+
+		// Check if current path starts with this base path
+		if (currentPath === normalizedBase || currentPath.startsWith(normalizedBase + "/")) {
+			return sidebarObject[basePath];
+		}
+	}
+
+	// No match found, return empty array
+	return [];
 }
 
 export function routesPlugin(docsDir: string, config?: LeafConfig): Plugin {
@@ -72,10 +101,10 @@ export function routesPlugin(docsDir: string, config?: LeafConfig): Plugin {
 		}
 
 		// Get sidebar from config (handle both array and object formats)
-		const sidebar: any[] = config?.theme?.sidebar
+		const sidebar: SidebarItem[] = config?.theme?.sidebar
 			? Array.isArray(config.theme.sidebar)
 				? config.theme.sidebar
-				: []
+				: getSidebarForPath(route.path, config.theme.sidebar)
 			: [];
 
 		// Generate docFooter for each route

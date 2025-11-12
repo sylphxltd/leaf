@@ -67,7 +67,7 @@ export interface SidebarItem {
 }
 
 export interface SocialLink {
-	icon: "github" | "twitter" | "discord";
+	icon: "github" | "twitter" | "discord" | "npm" | "youtube" | "facebook" | "instagram" | "linkedin" | "slack";
 	link: string;
 }
 

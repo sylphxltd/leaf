@@ -56,10 +56,10 @@ A typical Leaf project looks like this:
 ```
 my-docs/
 ├── docs/                    # Your markdown files
-│   ├── index.mdx           # Homepage
-│   ├── getting-started.mdx
+│   ├── index.md           # Homepage
+│   ├── getting-started.md
 │   └── guide/
-│       └── installation.mdx
+│       └── installation.md
 ├── leaf.config.ts    # Configuration
 └── package.json
 ```
