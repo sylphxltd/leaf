@@ -40,34 +40,31 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			);
 
 			const componentImports = hasComponents
-				? `import { parse, ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { createComponent as _$createComponent } from 'solid-js/web';\n`
+				? `import { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { createComponent as _$createComponent, onMount } from 'solid-js/web';\n`
 				: `import { createComponent as _$createComponent } from 'solid-js/web';\n`;
 
-			// Generate component mapping and props
-			const componentMapping = hasComponents
-				? `\nconst __LEAF_COMPONENTS__ = {\n${components.map((c) => `  '${c.id}': ${c.name}`).join(",\n")}\n};\n\nconst __LEAF_COMPONENT_PROPS__ = {\n${components.map((c) => `  '${c.id}': ${JSON.stringify(c.props)}`).join(",\n")}\n};\n`
-				: "";
+			// Generate component mapping - not needed anymore, we'll create components directly
+			const componentMapping = "";
 
-			// Generate render function using SolidJS createElement API to avoid JSX parsing issues
+			// Generate render function using SolidJS createElement API and manual component mounting
 			const renderFunction = hasComponents
 				? `
-  const options = {
-    replace: (domNode) => {
-      if (domNode.type === 'tag' && domNode.attribs && domNode.attribs['data-leaf-component']) {
-        const id = domNode.attribs['data-leaf-component'];
-        const Component = __LEAF_COMPONENTS__[id];
-        const props = __LEAF_COMPONENT_PROPS__[id];
-        if (Component) {
-          return Component(props);
-        }
-      }
-    }
-  };
+  let containerRef;
 
-  const parsed = parse(${JSON.stringify(html)}, options);
+  onMount(() => {
+    // Mount components after HTML is rendered
+    ${components.map((c) => `
+    const placeholder_${c.id.replace(/-/g, '_')} = containerRef.querySelector('[data-leaf-component="${c.id}"]');
+    if (placeholder_${c.id.replace(/-/g, '_')}) {
+      const component_${c.id.replace(/-/g, '_')} = _$createComponent(${c.name}, ${JSON.stringify(c.props)});
+      placeholder_${c.id.replace(/-/g, '_')}.replaceWith(component_${c.id.replace(/-/g, '_')});
+    }`).join('')}
+  });
+
   return _$createComponent('div', {
+    ref: (el) => containerRef = el,
     class: 'markdown-content',
-    get children() { return parsed; }
+    innerHTML: ${JSON.stringify(html)}
   });`
 				: `
   return _$createComponent('div', {

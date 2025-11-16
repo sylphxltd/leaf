@@ -22,4 +22,3 @@ export type { CardsProps, Card } from "./components/Cards";
 export { useStore } from "./hooks/useStore";
 export { themeStore, toggleTheme } from "./store/theme";
 export { initCopyCode } from "./lib/copy-code";
-export { default as parse } from "html-react-parser";
