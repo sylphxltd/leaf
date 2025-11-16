@@ -1,7 +1,7 @@
 {
-  "buildCommand": "echo 'Using pre-built files from dist/'",
+  "buildCommand": "bun run build",
   "outputDirectory": "dist",
-  "installCommand": "echo 'No install needed'",
+  "installCommand": "bun install",
   "framework": null,
   "rewrites": [
     {
