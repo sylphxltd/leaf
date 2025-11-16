@@ -40,15 +40,15 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			);
 
 			const componentImports = hasComponents
-				? `import { parse, ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\n`
-				: "";
+				? `import { parse, ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { createComponent as _$createComponent } from 'solid-js/web';\n`
+				: `import { createComponent as _$createComponent } from 'solid-js/web';\n`;
 
 			// Generate component mapping and props
 			const componentMapping = hasComponents
 				? `\nconst __LEAF_COMPONENTS__ = {\n${components.map((c) => `  '${c.id}': ${c.name}`).join(",\n")}\n};\n\nconst __LEAF_COMPONENT_PROPS__ = {\n${components.map((c) => `  '${c.id}': ${JSON.stringify(c.props)}`).join(",\n")}\n};\n`
 				: "";
 
-			// Generate render function for html-react-parser
+			// Generate render function using SolidJS createElement API to avoid JSX parsing issues
 			const renderFunction = hasComponents
 				? `
   const options = {
@@ -64,9 +64,16 @@ export function markdownPlugin(config: LeafConfig): Plugin {
     }
   };
 
-  return <div class="markdown-content">{parse(${JSON.stringify(html)}, options)}</div>;`
+  const parsed = parse(${JSON.stringify(html)}, options);
+  return _$createComponent('div', {
+    class: 'markdown-content',
+    get children() { return parsed; }
+  });`
 				: `
-  return <div class="markdown-content" innerHTML={${JSON.stringify(html)}} />;`;
+  return _$createComponent('div', {
+    class: 'markdown-content',
+    innerHTML: ${JSON.stringify(html)}
+  });`;
 
 			// Generate SolidJS component that renders the HTML and exports TOC
 			const component = `
