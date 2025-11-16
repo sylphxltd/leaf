@@ -10,14 +10,25 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 		name: "leaf:markdown",
 		enforce: "pre",
 
+		resolveId(source: string) {
+			// Transform .md imports to .md.tsx so SolidJS plugin processes them
+			if (source.endsWith(".md")) {
+				return source + ".tsx";
+			}
+			return null;
+		},
+
 		async load(id: string) {
-			// Only process .md files
-			if (!id.endsWith(".md")) {
+			// Only process .md.tsx files (virtual modules created from .md)
+			if (!id.endsWith(".md.tsx")) {
 				return null;
 			}
 
-			// Read the markdown file
-			const rawCode = await readFile(id, "utf-8");
+			// Remove the .tsx extension to get the actual .md file path
+			const mdPath = id.slice(0, -4);
+
+			// Read the markdown file from the original path
+			const rawCode = await readFile(mdPath, "utf-8");
 
 			// Parse frontmatter and extract content
 			const { content: code } = matter(rawCode);
