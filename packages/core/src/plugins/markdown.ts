@@ -40,7 +40,7 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			);
 
 			const componentImports = hasComponents
-				? `import { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { render as _$render } from 'solid-js/web';\nimport { onMount } from 'solid-js';\n`
+				? `import { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { render as _$render, createComponent as _$createComponent } from 'solid-js/web';\nimport { onMount } from 'solid-js';\n`
 				: ``;
 
 			// Generate component mapping - not needed anymore, we'll create components directly
@@ -54,13 +54,12 @@ export function markdownPlugin(config: LeafConfig): Plugin {
   onMount(() => {
     // Mount components after HTML is rendered
     ${components.map((c) => {
-				// Generate individual prop assignments for JSX
-				const propEntries = Object.entries(c.props);
-				const propsCode = propEntries.map(([key, value]) => `${key}={${JSON.stringify(value)}}`).join(' ');
+				// Generate createComponent call with props object
+				const propsObj = JSON.stringify(c.props);
 				return `
     const placeholder_${c.id.replace(/-/g, '_')} = containerRef.querySelector('[data-leaf-component="${c.id}"]');
     if (placeholder_${c.id.replace(/-/g, '_')}) {
-      _$render(() => <${c.name} ${propsCode} />, placeholder_${c.id.replace(/-/g, '_')});
+      _$render(() => _$createComponent(${c.name}, ${propsObj}), placeholder_${c.id.replace(/-/g, '_')});
     }`;
 			}).join('')}
   });
