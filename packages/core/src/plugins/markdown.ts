@@ -67,10 +67,12 @@ export function markdownPlugin(config: LeafConfig): Plugin {
     ${components.map((c) => {
 				const propsJson = JSON.stringify(c.props);
 				const varName = c.id.replace(/-/g, '_');
+				// Create props object for spreading
+				const propsStr = Object.keys(c.props).length > 0 ? ` {...${propsJson}}` : '';
 				return `
     const placeholder_${varName} = containerRef.querySelector('[data-leaf-component="${c.id}"]');
     if (placeholder_${varName}) {
-      render(() => ${c.name}(${propsJson}), placeholder_${varName});
+      render(() => <${c.name}${propsStr} />, placeholder_${varName});
     }`;
 			}).join('')}
   });
