@@ -40,7 +40,7 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 			);
 
 			const componentImports = hasComponents
-				? `import { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { createComponent as _$createComponent, onMount } from 'solid-js/web';\n`
+				? `import { ${uniqueComponents.join(", ")} } from '@sylphx/leaf-theme-default';\nimport { createComponent as _$createComponent } from 'solid-js/web';\nimport { onMount } from 'solid-js';\n`
 				: `import { createComponent as _$createComponent } from 'solid-js/web';\n`;
 
 			// Generate component mapping - not needed anymore, we'll create components directly
