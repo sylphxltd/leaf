@@ -28,7 +28,7 @@ const iconMap = {
 	npm: "simple-icons:npm",
 };
 
-export function Header(props: HeaderProps) {
+export function Header(props: HeaderProps): JSX.Element {
 	const location = useLocation();
 
 	return (

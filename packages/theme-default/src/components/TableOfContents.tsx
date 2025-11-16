@@ -13,7 +13,7 @@ interface TableOfContentsProps {
 	items: TocItem[];
 }
 
-export function TableOfContents(props: TableOfContentsProps) {
+export function TableOfContents(props: TableOfContentsProps): JSX.Element | null {
 	const [activeId, setActiveId] = createSignal<string>("");
 
 	createEffect(() => {

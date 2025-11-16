@@ -7,7 +7,7 @@ interface MobileTocToggleProps {
 	toc: TocItem[];
 }
 
-export function MobileTocToggle(props: MobileTocToggleProps) {
+export function MobileTocToggle(props: MobileTocToggleProps): JSX.Element | null {
 	const [isOpen, setIsOpen] = createSignal(false);
 
 	// Don't render if no TOC items

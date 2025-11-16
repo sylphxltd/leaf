@@ -9,7 +9,7 @@ const themes = [
   { id: 'minimal', name: 'Minimal', description: 'Clean and minimal theme', icon: 'mdi:bullseye-arrow' }
 ];
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher(): JSX.Element {
   const [isOpen, setIsOpen] = createSignal(false);
   const [currentThemeId, setCurrentThemeId] = createSignal('default');
 

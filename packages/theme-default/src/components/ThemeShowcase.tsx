@@ -48,7 +48,7 @@ const app = createApp({
 `
 };
 
-export function ThemeShowcase() {
+export function ThemeShowcase(): JSX.Element {
   const [selectedTheme, setSelectedTheme] = createSignal('default');
   const currentTheme = () => themes.find(t => t.id === selectedTheme()) || themes[0];
 

@@ -19,7 +19,7 @@ export interface DocFooterProps {
 	lastUpdated?: boolean;
 }
 
-export function DocFooter(props: DocFooterProps) {
+export function DocFooter(props: DocFooterProps): JSX.Element {
 	return (
 		<footer class="mt-12 border-t pt-8">
 			<Show when={props.editLink || props.lastUpdated}>

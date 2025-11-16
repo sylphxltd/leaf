@@ -6,7 +6,7 @@ export interface SidebarToggleProps {
 	onClick: () => void;
 }
 
-export function SidebarToggle(props: SidebarToggleProps) {
+export function SidebarToggle(props: SidebarToggleProps): JSX.Element {
 	return (
 		<button
 			class="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors lg:hidden"

@@ -14,7 +14,7 @@ export interface FeaturesProps {
 	features: Feature[];
 }
 
-export function Features(props: FeaturesProps) {
+export function Features(props: FeaturesProps): JSX.Element {
 	if (!props.features || props.features.length === 0) {
 		return <></>;
 	}

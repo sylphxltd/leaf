@@ -22,7 +22,7 @@ export interface HeroProps {
 	};
 }
 
-export function Hero(props: HeroProps) {
+export function Hero(props: HeroProps): JSX.Element {
 	return (
 		<div class="relative">
 			<div class="px-6 py-16 md:px-12 md:py-24 lg:px-20 lg:py-32">

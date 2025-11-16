@@ -27,7 +27,7 @@ interface SearchProps {
 	onOpenChange?: (open: boolean) => void;
 }
 
-export function Search(props: SearchProps = {}) {
+export function Search(props: SearchProps = {}): JSX.Element {
 	const [internalOpen, setInternalOpen] = createSignal(false);
 	const open = () => props.open !== undefined ? props.open : internalOpen();
 	const setOpen = (value: boolean) => {

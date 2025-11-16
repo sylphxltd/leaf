@@ -85,7 +85,7 @@ function SidebarGroup(props: { item: SidebarItem; level?: number }) {
 	return null;
 }
 
-export function Sidebar(props: SidebarProps) {
+export function Sidebar(props: SidebarProps): JSX.Element {
 	return (
 		<>
 			{/* Overlay for mobile */}

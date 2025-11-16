@@ -7,7 +7,7 @@ interface CopyPageProps {
 }
 
 
-export function CopyPage(props: CopyPageProps) {
+export function CopyPage(props: CopyPageProps): JSX.Element {
 	const [copied, setCopied] = createSignal(false);
 
 	createEffect(() => {

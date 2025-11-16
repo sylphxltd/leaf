@@ -14,7 +14,7 @@ export interface CardsProps {
 	columns?: 2 | 3 | 4;
 }
 
-export function Cards(props: CardsProps) {
+export function Cards(props: CardsProps): JSX.Element {
 	if (!props.cards || props.cards.length === 0) {
 		return <></>;
 	}

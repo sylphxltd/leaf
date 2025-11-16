@@ -4,7 +4,7 @@ import { themeStore, toggleTheme } from "../store/theme";
 import { Button } from "./Button";
 
 
-export function ThemeToggle() {
+export function ThemeToggle(): JSX.Element {
 	const theme = useStore(themeStore);
 
 	return (

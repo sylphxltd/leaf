@@ -1,6 +1,6 @@
 import { createSignal, onMount, For, Show } from "solid-js";
 
-export default function LiveThemeSelector() {
+export default function LiveThemeSelector(): JSX.Element {
   const [selectedTheme, setSelectedTheme] = createSignal('default');
   const [isTransitioning, setIsTransitioning] = createSignal(false);
 
