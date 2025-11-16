@@ -48,8 +48,8 @@ export function markdownPlugin(config: LeafConfig): Plugin {
 				? `\nconst __LEAF_COMPONENTS__ = {\n${components.map((c) => `  '${c.id}': ${c.name}`).join(",\n")}\n};\n\nconst __LEAF_COMPONENT_PROPS__ = {\n${components.map((c) => `  '${c.id}': ${JSON.stringify(c.props)}`).join(",\n")}\n};\n`
 				: "";
 
-			// Generate replace function for html-react-parser
-			const replaceFunction = hasComponents
+			// Generate render function for html-react-parser
+			const renderFunction = hasComponents
 				? `
   const options = {
     replace: (domNode) => {
@@ -58,25 +58,18 @@ export function markdownPlugin(config: LeafConfig): Plugin {
         const Component = __LEAF_COMPONENTS__[id];
         const props = __LEAF_COMPONENT_PROPS__[id];
         if (Component) {
-          return React.createElement(Component, props);
+          return Component(props);
         }
       }
     }
   };
 
-  return React.createElement('div', {
-    className: 'markdown-content'
-  }, parse(${JSON.stringify(html)}, options));`
+  return <div class="markdown-content">{parse(${JSON.stringify(html)}, options)}</div>;`
 				: `
-  return React.createElement('div', {
-    className: 'markdown-content',
-    dangerouslySetInnerHTML: { __html: ${JSON.stringify(html)} }
-  });`;
+  return <div class="markdown-content" innerHTML={${JSON.stringify(html)}} />;`;
 
-			// Generate React component that renders the HTML and exports TOC
-			// Use React.createElement to avoid JSX parsing issues
+			// Generate SolidJS component that renders the HTML and exports TOC
 			const component = `
-import React from 'react';
 ${componentImports}
 // Build-time TOC as fallback
 const buildTimeToc = ${JSON.stringify(toc)};
@@ -103,7 +96,7 @@ if (typeof window !== 'undefined') {
 // Export runtime TOC (preloaded from SSG, or build-time fallback)
 export const toc = runtimeToc;
 ${componentMapping}
-export default function MarkdownContent() {${replaceFunction}
+export default function MarkdownContent() {${renderFunction}
 }
 `;
 
